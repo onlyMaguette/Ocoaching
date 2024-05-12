@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "562763579453",
+    "project_id": "monprojet-d545f",
+    "storage_bucket": "monprojet-d545f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:562763579453:android:11cce430f919e41bb16a54",
+        "android_client_info": {
+          "package_name": "com.ocoaching"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQyM-pO0Yuw8RiMI5DvcrO63awZ7XtFUI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
