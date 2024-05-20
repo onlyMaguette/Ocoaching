@@ -57,7 +57,7 @@ class ServiceLocation extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                controller.doctorData?.serviceLocations?[index].hospitalTitle ??
+                controller.doctorData?.serviceLocations?[index].locationTitle ??
                     '',
                 style: const TextStyle(
                     fontSize: 15,
@@ -70,7 +70,7 @@ class ServiceLocation extends StatelessWidget {
               ),
               Text(
                 controller
-                        .doctorData?.serviceLocations?[index].hospitalAddress ??
+                        .doctorData?.serviceLocations?[index].locationAddress ??
                     '',
                 style: const TextStyle(
                   fontSize: 14,

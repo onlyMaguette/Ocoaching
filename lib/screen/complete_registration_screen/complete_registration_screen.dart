@@ -31,14 +31,32 @@ class CompleteRegistrationScreen extends StatelessWidget {
             top: false,
             child: TextButtonCustom(
               onPressed: () {
-                controller
-                    .onSubmitBtnClick(); // Appeler la fonction de soumission existante
-                controller
-                    .redirectToDashboardScreen(); // Redirection vers DashboardScreen
+                // Vérifiez si tous les champs sont remplis avant de soumettre
+                if (controller.isAllFieldsFilled()) {
+                  controller.onSubmitBtnClick();
+                } else {
+                  // Afficher les messages d'erreur sous chaque champ correspondant
+                  if (!controller.isMobileNumberValid()) {
+                    Get.snackbar(S.of(context).mobileNumber,
+                        S.of(context).mobileNumberError);
+                  }
+                  if (!controller.isCountrySelected()) {
+                    Get.snackbar(S.of(context).selectCountry,
+                        S.of(context).countryError);
+                  }
+                  if (!controller.isGenderSelected()) {
+                    Get.snackbar(
+                        S.of(context).selectGender, S.of(context).genderError);
+                  }
+                  if (!controller.isDOBSelected()) {
+                    Get.snackbar(
+                        S.of(context).dateOfBirth, S.of(context).dobError);
+                  }
+                }
               },
               title: S.of(context).submit,
               titleColor: ColorRes.white,
-              backgroundColor: ColorRes.darkSkyBlue.withOpacity(0.2),
+              backgroundColor: ColorRes.crystalBlue,
               bottomSafeArea: false,
             ),
           ),
@@ -70,8 +88,8 @@ class CenterArea extends StatelessWidget {
               ),
               Text(
                 S.of(context).mobileNumber,
-                style: MyTextStyle.montserratRegular(
-                    size: 15, color: ColorRes.battleshipGrey),
+                style:
+                    MyTextStyle.montserratBold(size: 15, color: ColorRes.black),
               ),
               const SizedBox(
                 height: 10,
@@ -116,7 +134,7 @@ class CenterArea extends StatelessWidget {
                       ),
                       cursorColor: ColorRes.battleshipGrey,
                       keyboardAction: TextInputAction.done,
-                      initialValue: PhoneNumber(isoCode: "IN"),
+                      initialValue: PhoneNumber(isoCode: "FR"),
                       formatInput: true,
                       keyboardType:
                           const TextInputType.numberWithOptions(signed: false),
@@ -140,8 +158,8 @@ class CenterArea extends StatelessWidget {
               ),
               Text(
                 S.current.selectCountry,
-                style: MyTextStyle.montserratRegular(
-                    size: 15, color: ColorRes.battleshipGrey),
+                style:
+                    MyTextStyle.montserratBold(size: 15, color: ColorRes.black),
               ),
               const SizedBox(
                 height: 10,
@@ -184,8 +202,8 @@ class CenterArea extends StatelessWidget {
               ),
               Text(
                 S.current.selectGender,
-                style: MyTextStyle.montserratRegular(
-                    size: 15, color: ColorRes.battleshipGrey),
+                style:
+                    MyTextStyle.montserratBold(size: 15, color: ColorRes.black),
               ),
               const SizedBox(
                 height: 10,
@@ -202,8 +220,10 @@ class CenterArea extends StatelessWidget {
               ),
               Text(
                 S.current.dateOfBirth,
-                style: MyTextStyle.montserratRegular(
-                    size: 15, color: ColorRes.battleshipGrey),
+                style: MyTextStyle.montserratBold(
+                  size: 15,
+                  color: ColorRes.black,
+                ),
               ),
               const SizedBox(
                 height: 10,

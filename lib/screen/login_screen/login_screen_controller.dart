@@ -18,14 +18,15 @@ import 'package:patient_flutter/utils/update_res.dart';
 class LoginScreenController extends GetxController {
   Position? userLocation;
 
+  RxBool loginError = false.obs;
+
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController forgotController = TextEditingController();
   bool emailError = false;
   bool passwordError = false;
 
-  String
-  deviceToken = '';
+  String deviceToken = '';
   PrefService prefService = PrefService();
 
   bool isPasswordVisible = true;
@@ -42,14 +43,10 @@ class LoginScreenController extends GetxController {
   void onLoginClick() async {
     emailError = false;
     passwordError = false;
-    if (emailController.text
-        .trim()
-        .isEmpty) {
+    if (emailController.text.trim().isEmpty) {
       emailError = true;
     }
-    if (passwordController.text
-        .trim()
-        .isEmpty) {
+    if (passwordController.text.trim().isEmpty) {
       passwordError = true;
     }
     update();
@@ -58,27 +55,37 @@ class LoginScreenController extends GetxController {
     }
     if (!GetUtils.isEmail(emailController.text.trim())) {
       CustomUi.snackBar(
-          iconData: Icons.email,
-          positive: false,
-          message: S.current.pleaseEnterValidEmail);
+        iconData: Icons.email,
+        positive: false,
+        message: S.current.pleaseEnterValidEmail,
+      );
       return;
     }
 
     UserCredential? user = await signIn(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim());
+      email: emailController.text.trim(),
+      password: passwordController.text.trim(),
+    );
 
-    if (user == null) return;
+    if (user == null) {
+      // Afficher un message d'erreur si les identifiants de connexion sont incorrects
+      CustomUi.snackBar(
+        message: S.current.invalidEmailOrPassword,
+        iconData: Icons.error,
+      );
+      // Mettre à jour l'état pour afficher le message d'erreur
+      loginError.value = true;
+      return;
+    }
     if (user.user?.emailVerified == true) {
       ApiService()
           .registration(
-          identity: emailController.text.trim(),
-          deviceToken: deviceToken,
-          deviceType: Platform.isAndroid ? 1 : 2,
-          loginType: 1,
-          name: 'as')
+              identity: emailController.text.trim(),
+              deviceToken: deviceToken,
+              deviceType: Platform.isAndroid ? 1 : 2,
+              loginType: 1,
+              name: 'as')
           .then((value) async {
-        //Get.back(); // Fermeture du spinner de chargement
         if (value.status == true) {
           PrefService.userId = value.data?.id ?? -1;
           PrefService.identity = value.data?.identity ?? '';
@@ -88,31 +95,35 @@ class LoginScreenController extends GetxController {
           await prefService.saveString(
               key: kRegistrationUser, value: jsonEncode(value.data?.toJson()));
 
-          // Redirection selon le type d'utilisateur
+          // Redirection uniquement si les informations de connexion sont correctes
           if (value.data?.phoneNumber == null ||
               value.data!.phoneNumber!.isEmpty) {
             // Redirection vers la page d'inscription complète
             Get.off(() => const CompleteRegistrationScreen(screenType: 1));
           } else {
-            // Redirection vers le tableau de bord
+            // Redirection vers le tableau de bord avec la position de l'utilisateur
             Get.off(() => DashboardScreen(userLocation: userLocation));
           }
         } else {
           CustomUi.snackBar(
-              message: value.message.toString(), iconData: Icons.login);
+            message: value.message.toString(),
+            iconData: Icons.login,
+          );
+        }
+        // Obtenir la position de l'utilisateur
+        try {
+          userLocation = await Geolocator.getCurrentPosition();
+        } catch (e) {
+          // Gérer les erreurs de géolocalisation ici, si nécessaire
+          print('Erreur lors de : $e');
         }
       });
     } else {
-      //Get.back();
+      // Afficher un message si l'e-mail de l'utilisateur n'est pas vérifié
       CustomUi.snackBar(
-          message: S.current.pleaseVerifiedYourEmail, iconData: Icons.email);
-    }
-    // Obtenir la position de l'utilisateur
-    try {
-      userLocation = await Geolocator.getCurrentPosition();
-    } catch (e) {
-      // Gérer les erreurs de géolocalisation ici, si nécessaire
-      print('Erreur lors de : $e');
+        message: S.current.pleaseVerifiedYourEmail,
+        iconData: Icons.email,
+      );
     }
     // Redirection vers le tableau de bord avec la position de l'utilisateur
     Get.off(() => DashboardScreen(userLocation: userLocation));
@@ -125,7 +136,7 @@ class LoginScreenController extends GetxController {
       return await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
-      Get.back();
+      //Get.back();
       if (e.code == 'user-not-found') {
         CustomUi.snackBar(
             iconData: Icons.email, message: S.current.noUserFoundForThisEmail);
@@ -169,9 +180,8 @@ class LoginScreenController extends GetxController {
   }
 
   void redirectToredirectCompleteRegistrationScreen() {
-    Get.off(() =>
-        CompleteRegistrationScreen(
-            screenType: 0)); // Valeur par défaut pour screenType
+    Get.off(() => CompleteRegistrationScreen(
+        screenType: 0)); // Valeur par défaut pour screenType
   }
 
   void onChangePassword() {

@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:patient_flutter/common/dashboard_top_bar_title.dart';
 import 'package:patient_flutter/generated/l10n.dart';
@@ -9,28 +8,50 @@ import 'package:patient_flutter/screen/appointment_screen/widget/appointments.da
 import 'package:patient_flutter/utils/color_res.dart';
 
 import 'coach.dart';
+/*
+* import 'email_service.dart'; // Import the email service
+  import 'sms_service.dart'; // Import the SMS service
+* */
 
 class AppointmentScreen extends StatelessWidget {
   const AppointmentScreen({Key? key}) : super(key: key);
+
+  // Définir la méthode isAuthenticatedAsCoach dans la classe AppointmentScreen
+  Future<bool> isAuthenticatedAsCoach() async {
+    try {
+      // Récupérer l'utilisateur actuellement authentifié
+      User? user = FirebaseAuth.instance.currentUser;
+
+      if (user != null) {
+        // Accéder au document de l'utilisateur dans Firestore
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .get();
+
+        // Vérifier si le document existe et si le champ "isCoach" est vrai
+        if (userDoc.exists &&
+            userDoc.data() != null &&
+            (userDoc.data() as Map<String, dynamic>)['isCoach'] == true) {
+          return true; // L'utilisateur est authentifié en tant que coach
+        }
+      }
+
+      // L'utilisateur n'est pas authentifié en tant que coach
+      return false;
+    } catch (e) {
+      // Gérer les erreurs éventuelles
+      print('Error checking user coach status: $e');
+      return false; // Retourner false en cas d'erreur
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final controller = AppointmentScreenController();
 
-    // Définir la méthode isAuthenticatedAsCoach dans la classe AppointmentScreen
-    Future<bool> isAuthenticatedAsCoach() async {
-      try {
-        // Récupérer le token Firebase de l'utilisateur
-        final String? deviceToken = await FirebaseMessaging.instance.getToken();
-
-        // Vérifier si le token Firebase est présent
-        return deviceToken != null && deviceToken.isNotEmpty;
-      } catch (e) {
-        // Gérer les erreurs éventuelles
-        print('Error getting Firebase token: $e');
-        return false; // Retourner false en cas d'erreur
-      }
-    }
+    // Définir la variable isCoach en utilisant la fonction isAuthenticatedAsCoach
+    Future<bool> isCoach = isAuthenticatedAsCoach();
 
     Future<Client> getCurrentCoachClient() async {
       try {
@@ -74,19 +95,41 @@ class AppointmentScreen extends StatelessWidget {
 
     void _showClientDossierModal(BuildContext context) async {
       try {
-        // Récupérer le dossier client du coach actuellement authentifié
-        Client client = await getCurrentCoachClient();
+        // Vérifier si l'utilisateur est authentifié et s'il a les autorisations nécessaires
+        if (await isAuthenticatedAsCoach()) {
+          // Récupérer le dossier client du coach actuellement authentifié
+          Client client = await getCurrentCoachClient();
 
-        // Afficher le dossier client du coach actuel
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return CoachDossierScreen(client: client);
-          },
-        );
+          // Afficher le dossier client du coach actuel
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return CoachDossierScreen(client: client);
+            },
+          );
+        } else {
+          // Si l'utilisateur n'est pas authentifié ou n'a pas les autorisations nécessaires, afficher un message d'erreur ou rediriger vers la page de connexion
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text(S.current.error),
+                content: Text(S.current.authenticationError),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Close dialog
+                    },
+                    child: Text(S.current.ok),
+                  ),
+                ],
+              );
+            },
+          );
+        }
       } catch (e) {
-        // Gérer les erreurs éventuelles
         print('Error showing client dossier modal: $e');
+        // Handle error
       }
     }
 
@@ -106,50 +149,122 @@ class AppointmentScreen extends StatelessWidget {
       print('SMS confirmation sent to $phone for $date at $time');
     }
 
+    Future<bool> checkAppointmentConflict(
+        Coach coach, String date, String time) async {
+      try {
+        // Query Firestore to check for existing appointments for the coach at the specified date and time
+        QuerySnapshot appointmentsSnapshot = await FirebaseFirestore.instance
+            .collection('appointments')
+            .where('coachId', isEqualTo: coach.id)
+            .where('date', isEqualTo: date)
+            .where('time', isEqualTo: time)
+            .get();
+
+        // If any appointments found, there is a conflict
+        return appointmentsSnapshot.docs.isNotEmpty;
+      } catch (e) {
+        print('Error checking appointment conflict: $e');
+        return true; // Treat error as a conflict to prevent accidental overlapping appointments
+      }
+    }
+
     // Function to handle booking appointment and sending confirmation
-    void bookAppointment(BuildContext context, Coach selectedCoach) {
-      final appointmentDate =
-          controller.getNextAvailableAppointmentDate().toString();
-      final appointmentTime =
-          controller.getNextAvailableAppointmentTime().toString();
+    void bookAppointment(BuildContext context, Coach selectedCoach) async {
+      final appointmentDate = controller.getNextAvailableAppointmentDate();
+      final appointmentTime = controller.getNextAvailableAppointmentTime();
 
-      // Send confirmation email
-      _sendConfirmationEmail(
-          selectedCoach.email, appointmentDate, appointmentTime);
+      // Convertir les dates de DateTime en String
+      final String formattedDate = appointmentDate.toString();
+      final String formattedTime = appointmentTime.toString();
 
-      // Send confirmation SMS
-      _sendConfirmationSMS(
-          selectedCoach.phone, appointmentDate, appointmentTime);
+      try {
+        // Check if appointment slot is available
+        bool isConflict = await checkAppointmentConflict(
+            selectedCoach, formattedDate, formattedTime);
 
-      // Here you would implement the code to actually book the appointment,
-      // which could involve making API calls or updating database records.
-      // For demonstration purposes, let's just display an alert dialog.
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Book Appointment'),
-            content: Text(
-                'You have successfully booked a 15-minute free appointment with ${selectedCoach.name} on $appointmentDate at $appointmentTime. Confirmation has been sent.'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('OK'),
-              ),
-              // Bouton ou icône pour accéder à l'espace dossier client
-              IconButton(
-                icon: Icon(Icons.folder),
-                onPressed: () {
-                  // Afficher la fenêtre modale du dossier client lorsqu'on clique sur le bouton ou l'icône
-                  _showClientDossierModal(context);
-                },
-              ),
-            ],
+        if (!isConflict) {
+          // Display error message if slot is not available
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text(S.current.error),
+                content: Text(S.current.appointmentSlotNotAvailable),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Close dialog
+                    },
+                    child: Text(S.current.ok),
+                  ),
+                ],
+              );
+            },
           );
-        },
-      );
+          return;
+        }
+
+        // La durée de rendez-vous est fixe à 15 minutes
+        Duration appointmentDuration = controller.getAppointmentDuration();
+        if (appointmentDuration != Duration(minutes: 15)) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text(S.current.error),
+                content: Text(S.current.appointmentDurationExceedsLimit),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(S.current.ok),
+                  ),
+                ],
+              );
+            },
+          );
+          return;
+        }
+
+        // Send confirmation email
+        _sendConfirmationEmail(selectedCoach.email, appointmentDate.toString(),
+            appointmentTime.toString());
+
+        // Send confirmation SMS
+        _sendConfirmationSMS(selectedCoach.phone, appointmentDate.toString(),
+            appointmentTime.toString());
+
+        // Show confirmation dialog
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text(S.current.scheduleSession),
+              content: Text(
+                '${S.current.successfullyScheduled} ${selectedCoach.name} ${S.current.on} ${S.current.date}: $appointmentDate ${S.current.at} ${S.current.time}: $appointmentTime. ${S.current.confirmationSent}',
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(S.current.ok),
+                ),
+                IconButton(
+                  icon: Icon(Icons.folder),
+                  onPressed: () {
+                    _showClientDossierModal(context);
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      } catch (e) {
+        print('Error booking appointment: $e');
+        // Handle error
+      }
     }
 
     return Scaffold(
@@ -171,12 +286,14 @@ class AppointmentScreen extends StatelessWidget {
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text('Select Coach'),
+                      title: Text(S.current.selectCoach),
+                      // Remplace 'Select Coach' par S.current.selectCoach
                       content: SingleChildScrollView(
                         child: Column(
                           children: availableCoaches.map((coach) {
                             return ListTile(
                               title: Text(coach.name),
+                              // coach.name est déjà une variable dynamique et n'a pas besoin de modification
                               onTap: () {
                                 // Fermer la boîte de dialogue
                                 Navigator.pop(context);
@@ -197,15 +314,14 @@ class AppointmentScreen extends StatelessWidget {
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text('No Available Coaches'),
-                      content: Text(
-                          'Sorry, there are currently no coaches available for booking. Please try again later.'),
+                      title: Text(S.of(context).noAvailableCoaches),
+                      content: Text(S.of(context).noCoachesAvailableMessage),
                       actions: [
                         TextButton(
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          child: Text('OK'),
+                          child: Text(S.of(context).ok),
                         ),
                       ],
                     );
@@ -213,14 +329,32 @@ class AppointmentScreen extends StatelessWidget {
                 );
               }
             },
-            child: Text('Book a Free Appointment'),
+            child: Text(S.current.scheduleFreeSession),
           ),
           // Ajoutez un bouton ou une icône pour accéder à l'espace dossier client
-          IconButton(
-            icon: Icon(Icons.folder),
-            onPressed: () {
-              // Afficher la fenêtre modale du dossier client
-              _showClientDossierModal(context);
+          FutureBuilder<bool>(
+            future: isCoach, // isCoach est un Future<bool>
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                // Si la connexion est en attente, afficher un indicateur de chargement
+                return CircularProgressIndicator();
+              } else {
+                if (snapshot.hasError) {
+                  // Si une erreur s'est produite, afficher un message d'erreur
+                  return Text('Error:" ${snapshot.error}');
+                } else {
+                  // Sinon, utiliser la valeur booléenne pour définir la visibilité
+                  return Visibility(
+                    visible: snapshot.data ?? false,
+                    child: IconButton(
+                      icon: Icon(Icons.folder),
+                      onPressed: () {
+                        _showClientDossierModal(context);
+                      },
+                    ),
+                  );
+                }
+              }
             },
           ),
         ],
@@ -236,10 +370,12 @@ class ClientDossierScreen extends StatelessWidget {
     // Add authentication/authorization logic here if needed
     return Scaffold(
       appBar: AppBar(
-        title: Text('Client Dossier'),
+        title: Text(S.current
+            .clientDossier), // Utilisation de la localisation pour le titre de l'AppBar
       ),
       body: Center(
-        child: Text('Client Dossier Screen'),
+        child: Text(S.current
+            .clientDossierScreen), // Utilisation de la localisation pour le texte du corps
       ),
     );
   }
@@ -256,11 +392,11 @@ class ClientDossierDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Client Dossier',
+              S.current.clientDossier,
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10),
-            Text('Client Dossier Details'),
+            Text(S.current.clientDossierDetails),
             // Ajoutez les détails du dossier client ici
             SizedBox(height: 10),
             ElevatedButton(
@@ -268,7 +404,7 @@ class ClientDossierDialog extends StatelessWidget {
                 Navigator.of(context)
                     .pop(); // Fermer la fenêtre modale lorsque le bouton est cliqué
               },
-              child: Text('Close'),
+              child: Text(S.current.close),
             ),
           ],
         ),
@@ -292,7 +428,8 @@ class CoachDossierScreen extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Add a new entry'),
+          title: Text(S.current.addNewEntry),
+          // Modify here
           // Contenu de la boîte de dialogue pour saisir les détails de la nouvelle entrée
           content: SingleChildScrollView(
             child: Column(
@@ -301,7 +438,7 @@ class CoachDossierScreen extends StatelessWidget {
                 // Ajoutez les champs nécessaires pour saisir les détails de la nouvelle entrée, par exemple un champ de texte pour les notes ou les progrès
                 TextField(
                   decoration: InputDecoration(
-                    labelText: 'Add a new entry',
+                    labelText: S.current.newEntryDetails, // Modify here
                   ),
                   // Vous pouvez utiliser un TextEditingController pour récupérer la valeur saisie par l'utilisateur
                 ),
@@ -313,7 +450,7 @@ class CoachDossierScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pop(); // Fermer la boîte de dialogue
               },
-              child: Text('Cancel'),
+              child: Text(S.current.cancel), // Modify here
             ),
             ElevatedButton(
               onPressed: () {
@@ -325,18 +462,21 @@ class CoachDossierScreen extends StatelessWidget {
                   // Ajouter la nouvelle entrée au dossier client
                   client.addNewEntry(nouvelleEntree);
 
+                  // Optionally, save the client data back to Firestore
+                  client.updateClientInFirestore();
+
                   // Fermer la boîte de dialogue
                   Navigator.of(context).pop();
                 } else {
                   // Afficher un message d'erreur si la valeur saisie est vide
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('Please enter a valid entry.'),
+                      content: Text(S.current.validEntryError), // Modify here
                     ),
                   );
                 }
               },
-              child: Text('Add'),
+              child: Text(S.current.add), // Modify here
             ),
           ],
         );
@@ -348,7 +488,8 @@ class CoachDossierScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${client.firstName} ${client.lastName} - Dossier'),
+        title: Text(
+            '${client.firstName} ${client.lastName} - ${S.current.dossier}'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -356,25 +497,25 @@ class CoachDossierScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Objectifs du client:',
+              '${S.current.clientObjectives}:',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 8),
-            Text(client.goals),
+            Text(S.current.clientObjectives),
             SizedBox(height: 16),
             Text(
-              'Progrès récents:',
+              '${S.current.recentProgress}:',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 8),
-            Text(client.recentProgress),
+            Text(S.current.recentProgress),
             SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
                 _ajouterNouvelleEntree(
-                    context); // Appeler la méthode pour ajouter une nouvelle entrée au dossier client
+                    context); // Call the method to add a new entry to the client's dossier
               },
-              child: Text('Ajouter une entrée'),
+              child: Text(S.current.addNewEntry),
             ),
           ],
         ),
@@ -414,18 +555,47 @@ class Client {
   }
 
   // Méthode pour ajouter un nouveau client à Firestore
+  // Méthode pour ajouter un nouveau client à Firestore
   Future<void> addClientToFirestore() async {
     try {
       // Référence à la collection "clients" dans Firestore
       CollectionReference clientsCollection =
           FirebaseFirestore.instance.collection('clients');
 
-      // Ajouter un nouveau document avec un ID généré automatiquement
-      await clientsCollection.add(toMap());
+      // Utiliser l'ID de l'utilisateur actuellement authentifié comme ID du document
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        // Ajouter un nouveau document avec l'ID de l'utilisateur
+        await clientsCollection.doc(user.uid).set(toMap());
+      } else {
+        throw Exception('No user authenticated');
+      }
 
       print('Client added successfully!');
     } catch (e) {
       print('Error adding client: $e');
+    }
+  }
+
+  // Méthode pour mettre à jour les données du client dans Firestore
+  Future<void> updateClientInFirestore() async {
+    try {
+      // Utiliser l'ID de l'utilisateur actuellement authentifié comme ID du document
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        // Référence au document client dans la collection "clients"
+        DocumentReference clientDoc =
+            FirebaseFirestore.instance.collection('clients').doc(user.uid);
+
+        // Mettre à jour le document avec les nouvelles données du client
+        await clientDoc.update(toMap());
+      } else {
+        throw Exception('No user authenticated');
+      }
+
+      print('Client updated successfully!');
+    } catch (e) {
+      print('Error updating client: $e');
     }
   }
 }

@@ -85,7 +85,7 @@ class DoctorProfileCard extends StatelessWidget {
               ),
               Expanded(
                 child: Text(
-                  data?.clinicAddress ?? '',
+                  data?.coachLocation ?? '',
                   style: const TextStyle(
                       fontSize: 14,
                       color: ColorRes.battleshipGrey,

@@ -55,8 +55,8 @@ class ForgotPasswordSheet extends StatelessWidget {
               TextButtonCustom(
                 onPressed: onPressed,
                 title: S.of(context).send,
-                titleColor: ColorRes.darkSkyBlue,
-                backgroundColor: ColorRes.darkSkyBlue.withOpacity(0.2),
+                titleColor: ColorRes.white,
+                backgroundColor: ColorRes.crystalBlue,
               ),
               const SizedBox(
                 height: 20,

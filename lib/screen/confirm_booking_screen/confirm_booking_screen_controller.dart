@@ -95,7 +95,7 @@ class ConfirmBookingScreenController extends GetxController {
       taxes: taxes,
     );
     if ((userData?.wallet ?? 0) >= (payableAmount)) {
-      CustomUi.loader();
+      //CustomUi.loader();
       ApiService.instance
           .addAppointment(
               doctorId: doctorData?.id,

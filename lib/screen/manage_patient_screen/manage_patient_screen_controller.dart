@@ -160,7 +160,7 @@ class ManagePatientScreenController extends GetxController {
   }
 
   void deletePatientApiCall({int? patientID}) {
-    CustomUi.loader();
+    //CustomUi.loader();
     ApiService.instance.deletePatient(patientId: patientID).then((value) {
       Get.back();
       if (value.status == true) {

@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,131 +24,193 @@ class RegistrationScreen extends StatelessWidget {
         children: [
           TopBarArea(title: S.of(context).registration),
           Expanded(
-            child: SingleChildScrollView(
-              child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 15),
-                child: GetBuilder(
-                    init: controller,
-                    builder: (controller) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          // Ajouter le champ pour attester la certification RNCP
-                          CheckboxListTile(
-                            title: Text(
-                              S.of(context).iCertifyThatIHoldACertification,
-                              style: MyTextStyle.montserratRegular(
-                                color: ColorRes.battleshipGrey,
+            child: Scrollbar(
+              child: SingleChildScrollView(
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 15),
+                  child: GetBuilder(
+                      init: controller,
+                      builder: (controller) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            // Ajouter le champ pour attester la certification RNCP
+                            CheckboxListTile(
+                              title: Text(
+                                S.of(context).iAmACoach, // Texte pour l'option
+                                style: MyTextStyle.montserratRegular(
+                                  color: ColorRes.black,
+                                ),
+                              ),
+                              value: controller.isCoach.value,
+                              onChanged: (newValue) {
+                                controller.toggleCoach(newValue ?? false);
+                                // Mettre à jour la visibilité des autres options en fonction de la valeur de la case à cocher "I'm a coach"
+                                if (newValue != null) {
+                                  controller.showCertifyAndAgreeOptions();
+                                  // Mettre à jour le statut de coach de l'utilisateur dans Firestore
+                                  updateUserIsCoach(newValue);
+                                } else {
+                                  controller.hideCertifyAndAgreeOptions();
+                                }
+                              },
+                            ),
+                            Visibility(
+                              visible: controller.isCoach.value,
+                              child: CheckboxListTile(
+                                title: Text(
+                                  S.of(context).iCertifyThatIHoldACertification,
+                                  style: MyTextStyle.montserratRegular(
+                                    color: ColorRes.black,
+                                  ),
+                                ),
+                                value: controller.isCertified ?? false,
+                                onChanged: (newValue) {
+                                  controller
+                                      .toggleCertification(newValue ?? false);
+                                },
                               ),
                             ),
-                            value: controller.isCertified ?? false,
-                            // Ajoutez l'opérateur de coalescence nulle
-                            onChanged: (newValue) {
-                              controller.toggleCertification(newValue ??
-                                  false); // Ajoutez l'opérateur de coalescence nulle
-                            },
-                          ),
-
-                          CheckboxListTile(
-                            title: Text(
-                              S.of(context).iHaveReadAndAgreeToTheOcoachingCode,
-                              style: MyTextStyle.montserratRegular(
-                                color: ColorRes.battleshipGrey,
+                            Visibility(
+                              visible: controller.isCoach.value,
+                              child: CheckboxListTile(
+                                title: Text(
+                                  S
+                                      .of(context)
+                                      .iHaveReadAndAgreeToTheOcoachingCode,
+                                  style: MyTextStyle.montserratRegular(
+                                    color: ColorRes.black,
+                                  ),
+                                ),
+                                value: controller.isCodeApproved ?? false,
+                                onChanged: (newValue) {
+                                  controller
+                                      .toggleCodeApproval(newValue ?? false);
+                                },
                               ),
                             ),
-                            value: controller.isCodeApproved ?? false,
-                            // Ajoutez l'opérateur de coalescence nulle
-                            onChanged: (newValue) {
-                              controller.toggleCodeApproval(newValue ??
-                                  false); // Ajoutez l'opérateur de coalescence nulle
-                            },
-                          ),
 
-                          // Ajouter le champ pour télécharger et scanner le diplôme RNCP
-                          TextButtonCustom(
-                            onPressed: () {
-                              // Ajouter la logique pour télécharger et scanner le diplôme RNCP
-                              controller.uploadRNCPDocument();
-                            },
-                            title: S.of(context).uploadRNCPDocument,
-                            titleColor: ColorRes.darkSkyBlue,
-                            backgroundColor:
-                                ColorRes.darkSkyBlue.withOpacity(0.2),
-                          ),
-                          const SizedBox(
-                            height: 40,
-                          ),
-                          Text(
-                            'Please fill your details and complete registration to start finding coaches, booking coaching sessions, having digital consultations, improving yourself, and living your best life.',
-                            style: MyTextStyle.montserratRegular(
-                                color: ColorRes.battleshipGrey),
-                            textAlign: TextAlign.center,
-                          ),
+                            // Ajouter le champ pour télécharger et scanner le diplôme RNCP
+                            Visibility(
+                              visible: controller.isCoach.value,
+                              child: TextButtonCustom(
+                                onPressed: () {
+                                  // Ajouter la logique pour télécharger et scanner le diplôme RNCP
+                                  controller.uploadRNCPDocument();
+                                },
+                                title: S.of(context).uploadRNCPDocument,
+                                titleColor: ColorRes.darkSkyBlue,
+                                backgroundColor:
+                                    ColorRes.darkSkyBlue.withOpacity(0.2),
+                              ),
+                            ),
 
-                          const SizedBox(
-                            height: 40,
-                          ),
-                          TextWithTextField(
-                            title: S.of(context).fullname,
-                            controller: controller.fullNameController,
-                            isError: controller.fullnameError,
-                            textCapitalization: TextCapitalization.sentences,
-                          ),
-                          TextWithTextField(
-                            title: S.of(context).email,
-                            controller: controller.emailController,
-                            isError: controller.emailError,
-                            keyboardType: TextInputType.emailAddress,
-                          ),
-                          TextWithTextField(
-                              title: S.of(context).password,
-                              controller: controller.passwordController,
-                              isError: controller.passwordError,
+                            const SizedBox(
+                              height: 40,
+                            ),
+                            Text(
+                              S.of(context).please,
+                              style: MyTextStyle.montserratRegular(
+                                  color: ColorRes.battleshipGrey),
+                              textAlign: TextAlign.center,
+                            ),
+
+                            const SizedBox(
+                              height: 40,
+                            ),
+                            TextWithTextField(
+                              title: S.of(context).fullname,
+                              controller: controller.fullNameController,
+                              isError: controller.fullnameError,
+                              textCapitalization: TextCapitalization.sentences,
+                            ),
+                            TextWithTextField(
+                              title: S.of(context).email,
+                              controller: controller.emailController,
+                              isError: controller.emailError,
+                              keyboardType: TextInputType.emailAddress,
+                            ),
+                            TextWithTextField(
+                                title: S.of(context).password,
+                                controller: controller.passwordController,
+                                isError: controller.passwordError,
+                                keyboardType: TextInputType.visiblePassword,
+                                onChangedPasswordVisibility:
+                                    controller.onChangePassword,
+                                isSuffixVisible: true,
+                                obSecure: controller.isPasswordVisible,
+                                passwordVisible: controller.isPasswordVisible),
+                            TextWithTextField(
+                              title: S.of(context).retypePassword,
+                              controller: controller.reTypePasswordController,
+                              isError: controller.reTypePasswordError,
                               keyboardType: TextInputType.visiblePassword,
                               onChangedPasswordVisibility:
-                                  controller.onChangePassword,
+                                  controller.onChangedReTypePassword,
                               isSuffixVisible: true,
-                              obSecure: controller.isPasswordVisible,
-                              passwordVisible: controller.isPasswordVisible),
-                          TextWithTextField(
-                            title: S.of(context).retypePassword,
-                            controller: controller.reTypePasswordController,
-                            isError: controller.reTypePasswordError,
-                            keyboardType: TextInputType.visiblePassword,
-                            onChangedPasswordVisibility:
-                                controller.onChangedReTypePassword,
-                            isSuffixVisible: true,
-                            obSecure: controller.isReTypePasswordVisible,
-                            passwordVisible: controller.isReTypePasswordVisible,
-                          ),
-                          const SizedBox(
-                            height: 40,
-                          ),
-                          TextButtonCustom(
-                              onPressed: controller.onRegisterClick,
-                              title: S.of(context).register,
-                              titleColor: ColorRes.darkSkyBlue,
-                              backgroundColor:
-                                  ColorRes.darkSkyBlue.withOpacity(0.2)),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          const PolicyText(),
-                          SizedBox(
-                            height: AppBar().preferredSize.height / 3,
-                          )
-                        ],
-                      );
-                    }),
+                              obSecure: controller.isReTypePasswordVisible,
+                              passwordVisible:
+                                  controller.isReTypePasswordVisible,
+                            ),
+                            const SizedBox(
+                              height: 40,
+                            ),
+                            TextButtonCustom(
+                                onPressed: controller.onRegisterClick,
+                                title: S.of(context).register,
+                                titleColor: ColorRes.white,
+                                backgroundColor: ColorRes.crystalBlue),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            const PolicyText(),
+                            SizedBox(
+                              height: AppBar().preferredSize.height / 3,
+                            )
+                          ],
+                        );
+                      }),
+                ),
               ),
             ),
           ),
         ],
       ),
     );
+  }
+}
+
+void updateUserIsCoach(bool isCoach) async {
+  try {
+    // Récupérer l'utilisateur actuellement authentifié
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      // Accéder au document de l'utilisateur dans Firestore
+      DocumentReference userDoc =
+          FirebaseFirestore.instance.collection('users').doc(user.uid);
+
+      // Vérifier si le document existe
+      var docSnapshot = await userDoc.get();
+
+      if (docSnapshot.exists) {
+        // Le document existe, mettre à jour le champ "isCoach"
+        await userDoc.update({'isCoach': isCoach});
+      } else {
+        // Le document n'existe pas, le créer avec l'ID utilisateur et les données initiales
+        await userDoc.set({'isCoach': isCoach});
+      }
+
+      print('User coach status updated successfully!');
+    } else {
+      print('No user authenticated');
+    }
+  } catch (e) {
+    print('Error updating user coach status: $e');
+    // Gérer l'erreur
   }
 }
 
@@ -160,6 +224,7 @@ class TextWithTextField extends StatelessWidget {
   final bool isSuffixVisible;
   final bool passwordVisible;
   final VoidCallback? onChangedPasswordVisibility;
+  final TextStyle? titleStyle; // Ajout d'un style pour le titre
 
   const TextWithTextField({
     super.key,
@@ -172,6 +237,7 @@ class TextWithTextField extends StatelessWidget {
     this.isSuffixVisible = false,
     this.passwordVisible = false,
     this.onChangedPasswordVisibility,
+    this.titleStyle, // Ajout d'un style pour le titre
   });
 
   @override
@@ -186,8 +252,10 @@ class TextWithTextField extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: 7),
           child: Text(
             title,
-            style: MyTextStyle.montserratRegular(
-                color: ColorRes.battleshipGrey, size: 16),
+            style: titleStyle ??
+                TextStyle(
+                    fontWeight: FontWeight
+                        .bold), // Utilisation du style fourni ou du style par défaut
           ),
         ),
         Container(

@@ -43,8 +43,8 @@ class SplashScreen extends StatelessWidget {
             ),
             Text(
               S.current.findDoctorsBookAppointmentEtc,
-              style: MyTextStyle.montserratLight(
-                  color: ColorRes.charcoalGrey, size: 15),
+              style:
+                  MyTextStyle.montserratLight(color: ColorRes.black, size: 15),
             ),
             const Spacer(),
             SizedBox(
@@ -53,7 +53,16 @@ class SplashScreen extends StatelessWidget {
                 onPressed: () {
                   controller.redirectToAuthScreen();
                 },
-                child: Text('Go to Auth Screen'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: ColorRes.crystalBlue,
+                ),
+                child: Text(
+                  S.current.goToAuthentificationScrenn,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold, // Mettre le texte en gras
+                  ),
+                ),
               ),
             ),
             const Spacer(),

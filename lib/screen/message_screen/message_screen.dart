@@ -17,19 +17,33 @@ class MessageScreen extends StatelessWidget {
         const SizedBox(height: 3),
         GetBuilder(
           init: controller,
-          builder: (c) => Expanded(
-            child: ListView.builder(
-              itemCount: controller.userList.length,
-              padding: EdgeInsets.zero,
-              itemBuilder: (context, index) {
-                return MessageCard(
-                  conversation: controller.userList[index],
-                  userData: controller.userData,
-                  onLongPress: controller.onLongPress,
-                );
-              },
-            ),
-          ),
+          builder: (c) {
+            // Vérifier si la liste des messages est vide
+            if (controller.userList.isEmpty) {
+              return Expanded(
+                child: Center(
+                  child: Text(
+                    S.current.noMessage,
+                    style: TextStyle(fontSize: 16, color: Colors.black54),
+                  ),
+                ),
+              );
+            } else {
+              return Expanded(
+                child: ListView.builder(
+                  itemCount: controller.userList.length,
+                  padding: EdgeInsets.zero,
+                  itemBuilder: (context, index) {
+                    return MessageCard(
+                      conversation: controller.userList[index],
+                      userData: controller.userData,
+                      onLongPress: controller.onLongPress,
+                    );
+                  },
+                ),
+              );
+            }
+          },
         )
       ],
     );

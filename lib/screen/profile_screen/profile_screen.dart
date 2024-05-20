@@ -32,220 +32,228 @@ class ProfileScreen extends StatelessWidget {
     return Column(
       children: [
         GetBuilder(
-            init: controller,
-            builder: (context) {
-              return DashboardTopBarTitle(title: S.current.profile);
-            }),
+          init: controller,
+          builder: (context) {
+            return DashboardTopBarTitle(title: S.current.profile);
+          },
+        ),
         Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(15),
-                  color: ColorRes.whiteSmoke,
-                  child: GetBuilder(
-                    id: kProfileUpdate,
-                    init: controller,
-                    builder: (context) {
-                      return Row(
-                        children: [
-                          ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: controller.userData?.profileImage != null
-                                  ? CachedNetworkImage(
-                                      imageUrl:
-                                          '${ConstRes.itemBaseURL}${controller.userData?.profileImage}',
-                                      height: 100,
-                                      width: 100,
-                                      fit: BoxFit.cover,
-                                      errorWidget:
-                                          (context, error, stackTrace) {
-                                        return CustomUi.userPlaceHolder(
-                                            gender:
-                                                controller.userData?.gender ??
-                                                    0,
-                                            height: 100);
-                                      },
-                                    )
-                                  : CustomUi.userPlaceHolder(
-                                      gender: controller.userData?.gender ?? 0,
-                                      height: 100)),
-                          const SizedBox(
-                            width: 15,
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  controller.userData?.fullname ??
-                                      S.current.unKnown,
-                                  style: MyTextStyle.montserratExtraBold(
-                                    size: 19,
-                                    color: ColorRes.davyGrey,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  controller.userData?.identity ?? '',
-                                  style: MyTextStyle.montserratLight(
-                                    size: 15,
-                                    color: ColorRes.davyGrey,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                InkWell(
-                                  onTap: controller.onEditProfileNavigate,
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20, vertical: 10),
-                                    decoration: BoxDecoration(
-                                        color: ColorRes.battleshipGrey
-                                            .withOpacity(0.1),
-                                        borderRadius:
-                                            BorderRadius.circular(30)),
-                                    child: Text(
-                                      S.current.editDetails,
-                                      style: MyTextStyle.montserratMedium(
-                                          size: 13, color: ColorRes.tuftsBlue),
+          child: Scrollbar(
+            // Ajout de Scrollbar ici
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(15),
+                    color: ColorRes.whiteSmoke,
+                    child: GetBuilder(
+                      id: kProfileUpdate,
+                      init: controller,
+                      builder: (context) {
+                        return Row(
+                          children: [
+                            ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: controller.userData?.profileImage != null
+                                    ? CachedNetworkImage(
+                                        imageUrl:
+                                            '${ConstRes.itemBaseURL}${controller.userData?.profileImage}',
+                                        height: 100,
+                                        width: 100,
+                                        fit: BoxFit.cover,
+                                        errorWidget:
+                                            (context, error, stackTrace) {
+                                          return CustomUi.userPlaceHolder(
+                                              gender:
+                                                  controller.userData?.gender ??
+                                                      0,
+                                              height: 100);
+                                        },
+                                      )
+                                    : CustomUi.userPlaceHolder(
+                                        gender:
+                                            controller.userData?.gender ?? 0,
+                                        height: 100)),
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    controller.userData?.fullname ??
+                                        S.current.unKnown,
+                                    style: MyTextStyle.montserratExtraBold(
+                                      size: 19,
+                                      color: ColorRes.davyGrey,
                                     ),
                                   ),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    controller.userData?.identity ?? '',
+                                    style: MyTextStyle.montserratLight(
+                                      size: 15,
+                                      color: ColorRes.davyGrey,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 15,
+                                  ),
+                                  InkWell(
+                                    onTap: controller.onEditProfileNavigate,
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 10),
+                                      decoration: BoxDecoration(
+                                          color: ColorRes.battleshipGrey
+                                              .withOpacity(0.1),
+                                          borderRadius:
+                                              BorderRadius.circular(30)),
+                                      child: Text(
+                                        S.current.editDetails,
+                                        style: MyTextStyle.montserratMedium(
+                                            size: 13,
+                                            color: ColorRes.tuftsBlue),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  GetBuilder(
+                    id: kNotificationUpdate,
+                    init: controller,
+                    builder: (controller) {
+                      return SwitchCard(
+                        title: S.current.pushNotification,
+                        title2: S.current.keepItOnIfYou,
+                        alignment: controller.isNotification
+                            ? Alignment.centerRight
+                            : Alignment.centerLeft,
+                        enable: controller.isNotification,
+                        onTap: controller.onNotificationTap,
+                        onNotificationTap: () {
+                          Get.to(
+                            () => const NotificationScreen(),
+                          );
+                        },
                       );
                     },
                   ),
-                ),
-                const SizedBox(height: 5),
-                GetBuilder(
-                  id: kNotificationUpdate,
-                  init: controller,
-                  builder: (controller) {
-                    return SwitchCard(
-                      title: S.current.pushNotification,
-                      title2: S.current.keepItOnIfYou,
-                      alignment: controller.isNotification
-                          ? Alignment.centerRight
-                          : Alignment.centerLeft,
-                      enable: controller.isNotification,
-                      onTap: controller.onNotificationTap,
-                      onNotificationTap: () {
-                        Get.to(
-                          () => const NotificationScreen(),
+                  GetBuilder(
+                      init: controller,
+                      builder: (context) {
+                        return Column(
+                          children: [
+                            ProfileCard(
+                              title: S.current.savedDoctors,
+                              onTap: () {
+                                Get.to(() => const SavedDoctorScreen());
+                              },
+                            ),
+                            ProfileCard(
+                              title: S.current.wallet,
+                              onTap: () {
+                                Get.to(() => const WalletScreen());
+                              },
+                            ),
+                            ProfileCard(
+                              title: S.current.withdrawRequests,
+                              onTap: () {
+                                Get.to(() => const WithdrawHistoryScreen());
+                              },
+                            ),
+                            ProfileCard(
+                              title: S.current.appointments,
+                              onTap: () {
+                                Get.to(
+                                  () => const AppointmentsProfileScreen(),
+                                );
+                              },
+                            ),
+                            ProfileCard(
+                              title: S.current.managePatients,
+                              onTap: () {
+                                Get.to(() => const ManagePatientScreen());
+                              },
+                            ),
+                            ProfileCard(
+                              title: S.current.prescriptions,
+                              onTap: () {
+                                Get.to(() => const PrescriptionScreen());
+                              },
+                            ),
+                            ProfileCard(
+                              title: S.current.languages.capitalize ?? '',
+                              onTap: () {
+                                Get.to(() => const LanguagesScreen());
+                              },
+                            ),
+                            ProfileCard(
+                              title: S.current.termsOfUse,
+                              onTap: () async {
+                                CommonFun.loadUrl(url: ConstRes.termsOfUse);
+                              },
+                            ),
+                            ProfileCard(
+                              title: S.current.privacyPolicy,
+                              onTap: () async {
+                                CommonFun.loadUrl(url: ConstRes.privacyPolicy);
+                              },
+                            ),
+                            ProfileCard(
+                              title: S.current.helpAndFAQ,
+                              onTap: () {
+                                Get.to(() => const HelpAndFaqScreen());
+                              },
+                            ),
+                            ProfileCard(
+                              title: S.current.logout,
+                              cardColor: ColorRes.mangoOrange.withOpacity(0.15),
+                              textColor: ColorRes.mangoOrange,
+                              onTap: () {
+                                Get.bottomSheet(
+                                    DeleteAccountSheet(
+                                      onDeleteContinueTap:
+                                          controller.onLogoutTap,
+                                      title: S.current.logout,
+                                      description:
+                                          S.current.doYouReallyWantToLogoutEtc,
+                                    ),
+                                    isScrollControlled: true);
+                              },
+                            ),
+                            ProfileCard(
+                              title: S.current.deleteMyAccount,
+                              cardColor: ColorRes.bittersweet.withOpacity(0.15),
+                              textColor: ColorRes.bittersweet,
+                              onTap: () {
+                                Get.bottomSheet(
+                                    DeleteAccountSheet(
+                                      onDeleteContinueTap:
+                                          controller.onDeleteContinueTap,
+                                      title: S.current.deleteMyAccount,
+                                      description:
+                                          S.current.doYouReallyWantToEtc,
+                                    ),
+                                    isScrollControlled: true);
+                              },
+                            ),
+                          ],
                         );
-                      },
-                    );
-                  },
-                ),
-                GetBuilder(
-                    init: controller,
-                    builder: (context) {
-                      return Column(
-                        children: [
-                          ProfileCard(
-                            title: S.current.savedDoctors,
-                            onTap: () {
-                              Get.to(() => const SavedDoctorScreen());
-                            },
-                          ),
-                          ProfileCard(
-                            title: S.current.wallet,
-                            onTap: () {
-                              Get.to(() => const WalletScreen());
-                            },
-                          ),
-                          ProfileCard(
-                            title: S.current.withdrawRequests,
-                            onTap: () {
-                              Get.to(() => const WithdrawHistoryScreen());
-                            },
-                          ),
-                          ProfileCard(
-                            title: S.current.appointments,
-                            onTap: () {
-                              Get.to(
-                                () => const AppointmentsProfileScreen(),
-                              );
-                            },
-                          ),
-                          ProfileCard(
-                            title: S.current.managePatients,
-                            onTap: () {
-                              Get.to(() => const ManagePatientScreen());
-                            },
-                          ),
-                          ProfileCard(
-                            title: S.current.prescriptions,
-                            onTap: () {
-                              Get.to(() => const PrescriptionScreen());
-                            },
-                          ),
-                          ProfileCard(
-                            title: S.current.languages.capitalize ?? '',
-                            onTap: () {
-                              Get.to(() => const LanguagesScreen());
-                            },
-                          ),
-                          ProfileCard(
-                            title: S.current.termsOfUse,
-                            onTap: () async {
-                              CommonFun.loadUrl(url: ConstRes.termsOfUse);
-                            },
-                          ),
-                          ProfileCard(
-                            title: S.current.privacyPolicy,
-                            onTap: () async {
-                              CommonFun.loadUrl(url: ConstRes.privacyPolicy);
-                            },
-                          ),
-                          ProfileCard(
-                            title: S.current.helpAndFAQ,
-                            onTap: () {
-                              Get.to(() => const HelpAndFaqScreen());
-                            },
-                          ),
-                          ProfileCard(
-                            title: S.current.logout,
-                            cardColor: ColorRes.mangoOrange.withOpacity(0.15),
-                            textColor: ColorRes.mangoOrange,
-                            onTap: () {
-                              Get.bottomSheet(
-                                  DeleteAccountSheet(
-                                    onDeleteContinueTap: controller.onLogoutTap,
-                                    title: S.current.logout,
-                                    description:
-                                        S.current.doYouReallyWantToLogoutEtc,
-                                  ),
-                                  isScrollControlled: true);
-                            },
-                          ),
-                          ProfileCard(
-                            title: S.current.deleteMyAccount,
-                            cardColor: ColorRes.bittersweet.withOpacity(0.15),
-                            textColor: ColorRes.bittersweet,
-                            onTap: () {
-                              Get.bottomSheet(
-                                  DeleteAccountSheet(
-                                    onDeleteContinueTap:
-                                        controller.onDeleteContinueTap,
-                                    title: S.current.deleteMyAccount,
-                                    description: S.current.doYouReallyWantToEtc,
-                                  ),
-                                  isScrollControlled: true);
-                            },
-                          ),
-                        ],
-                      );
-                    }),
-                const SizedBox(height: 10)
-              ],
+                      }),
+                  const SizedBox(height: 10)
+                ],
+              ),
             ),
           ),
         )

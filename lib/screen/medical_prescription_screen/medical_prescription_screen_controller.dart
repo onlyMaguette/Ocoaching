@@ -5,7 +5,6 @@ import 'dart:ui';
 import 'package:get/get.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:patient_flutter/common/custom_ui.dart';
 import 'package:patient_flutter/generated/l10n.dart';
 import 'package:patient_flutter/model/appointment/fetch_appointment.dart';
 import 'package:patient_flutter/model/custom/categories.dart';
@@ -34,7 +33,7 @@ class MedicalPrescriptionScreenController extends GetxController {
   }
 
   void createPdf() async {
-    CustomUi.loader();
+    //CustomUi.loader();
 
     ///Creates a new PDF document
     PdfDocument document = PdfDocument();

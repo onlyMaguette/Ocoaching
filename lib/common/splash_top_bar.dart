@@ -12,7 +12,7 @@ class SplashTopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: Get.height / 1.6,
+      height: Get.height / 1.9,
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [

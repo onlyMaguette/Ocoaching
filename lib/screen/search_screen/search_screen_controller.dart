@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:patient_flutter/generated/l10n.dart';
 import 'package:patient_flutter/model/doctor/fetch_doctor.dart';
@@ -8,16 +9,7 @@ import 'package:patient_flutter/screen/search_screen/widget/filter_sheet.dart';
 import 'package:patient_flutter/services/api_service.dart';
 
 class SearchScreenController extends GetxController {
-  // Utilisez simplement String au lieu de RxString
-  String selectedCoachingType =
-      ''; // pour stocker le type de coaching sélectionné
-
-  // Modifiez le type de la fonction pour accepter String? au lieu de String
-  void onCoachingTypeSelected(String? value) {
-    selectedCoachingType =
-        value ?? ''; // Mettre à jour le type de coaching sélectionné
-    // Vous pouvez ajouter ici la logique de filtrage des résultats en fonction du type de coaching sélectionné
-  }
+  String selectedCoachingType = '';
 
   int? selectedSortBy;
   int? selectedGender;
@@ -37,12 +29,35 @@ class SearchScreenController extends GetxController {
   ScrollController scrollController = ScrollController();
   int start = 0;
 
+  Position? userLocation;
+
   @override
   void onInit() {
     fetchHomePageDataApiCall();
+    getCurrentLocation();
     searchApiCall();
     scrollToFetchData();
     super.onInit();
+  }
+
+  void getCurrentLocation() async {
+    try {
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      userLocation = position;
+      searchApiCall();
+    } catch (e) {
+      print('Erreur lors de la récupération de la position: $e');
+    }
+  }
+
+  void onCoachingTypeSelected(String selectedType) {
+    // Mettre à jour la sélection du type de coaching
+    selectedCoachingType = selectedType;
+
+    // Appeler update ou refresh pour reconstruire l'interface utilisateur avec les nouvelles données
+    update();
+    //refresh(); //si nécessaire
   }
 
   void onSortByTap(int index) {

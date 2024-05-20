@@ -106,7 +106,7 @@ class AppointmentDetailScreenController extends GetxController {
     Get.dialog(ConfirmationDialog(
       onPositiveBtn: () {
         Get.back();
-        CustomUi.loader();
+        //CustomUi.loader();
         ApiService.instance
             .cancelAppointment(appointmentId: data?.id, userId: data?.userId)
             .then((value) {

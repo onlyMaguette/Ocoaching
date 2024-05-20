@@ -53,8 +53,21 @@ class AddMedicine {
   int? mealTime;
   String? notes;
 
-  AddMedicine(
-      {this.title, this.quantity, this.dosage, this.mealTime, this.notes});
+  // Nouvelles propriétés
+  String? name;
+  String? schedule;
+  String? description;
+
+  AddMedicine({
+    this.title,
+    this.quantity,
+    this.dosage,
+    this.mealTime,
+    this.notes,
+    this.name, // Ajout de la propriété name
+    this.schedule,
+    this.description,
+  });
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -63,6 +76,10 @@ class AddMedicine {
     map['dosage'] = dosage;
     map['mealTime'] = mealTime;
     map['notes'] = notes;
+    // Ajout des nouvelles propriétés
+    map['name'] = name;
+    map['schedule'] = schedule;
+    map['description'] = description;
     return map;
   }
 
@@ -72,5 +89,9 @@ class AddMedicine {
     dosage = json['dosage'];
     mealTime = json['mealTime'];
     notes = json['notes'];
+    // Récupération des nouvelles propriétés
+    name = json['name'];
+    schedule = json['schedule'];
+    description = json['description'];
   }
 }

@@ -168,7 +168,7 @@ class SelectDateTimeScreenController extends GetxController {
           iconData: CupertinoIcons.time_solid);
       return;
     }
-    CustomUi.loader();
+    //CustomUi.loader();
     ApiService.instance
         .rescheduleAppointment(
             userId: appointmentData?.userId,

@@ -38,15 +38,15 @@ class DropDownMenu extends StatelessWidget {
         iconEnabledColor: iconColor,
         iconSize: 30,
         items: items
-            .map<DropdownMenuItem<String>>((String value) =>
-                DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(
-                    value,
-                    style:
-                        MyTextStyle.montserratBold(size: 15, color: textColor),
-                  ),
-                ))
+            .map<DropdownMenuItem<String>>(
+                (String value) => DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(
+                        value,
+                        style: MyTextStyle.montserratRegular(
+                            size: 15, color: textColor),
+                      ),
+                    ))
             .toList(),
         underline: const SizedBox(),
       ),

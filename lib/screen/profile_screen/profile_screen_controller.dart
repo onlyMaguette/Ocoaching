@@ -25,11 +25,27 @@ class ProfileScreenController extends GetxController {
   }
 
   void onNotificationTap() {
-    CustomUi.loader();
-    ApiService.instance.updateUserDetails(isNotification: isNotification ? 0 : 1).then((value) {
-      isNotification = value.data?.isNotification == 1;
-      Get.back();
-      update([kNotificationUpdate]);
+    // Inverser la valeur de la notification
+    isNotification = !isNotification;
+
+    // Mettre à jour l'état pour refléter le changement
+    update([kNotificationUpdate]);
+
+    // Effectuer l'appel API pour mettre à jour les détails de l'utilisateur
+    ApiService.instance
+        .updateUserDetails(isNotification: isNotification ? 1 : 0)
+        .then((value) {
+      if (value.status == true) {
+        // Mise à jour réussie, aucune action supplémentaire requise
+      } else {
+        // Mise à jour échouée, inverser à nouveau la valeur de la notification
+        isNotification = !isNotification;
+        update([
+          kNotificationUpdate
+        ]); // Mettre à jour l'état pour refléter le changement
+        CustomUi.snackBar(
+            iconData: Icons.error_rounded, message: value.message);
+      }
     });
   }
 
@@ -53,10 +69,14 @@ class ProfileScreenController extends GetxController {
         await prefService.preferences?.clear();
         PrefService.userId = -1;
         PrefService.identity = '';
-        CustomUi.snackBar(iconData: Icons.logout_rounded, message: value.message, positive: true);
+        CustomUi.snackBar(
+            iconData: Icons.logout_rounded,
+            message: value.message,
+            positive: true);
         Get.offAll(() => const SplashScreen());
       } else {
-        CustomUi.snackBar(iconData: Icons.logout_rounded, message: value.message);
+        CustomUi.snackBar(
+            iconData: Icons.logout_rounded, message: value.message);
       }
     });
   }
@@ -66,7 +86,7 @@ class ProfileScreenController extends GetxController {
   }
 
   void onDeleteContinueTap() {
-    CustomUi.loader();
+    //CustomUi.loader();
     ApiService.instance.deleteUserAccount().then((value) async {
       if (value.status == true) {
         await deleteFirebaseUser();
@@ -74,11 +94,15 @@ class ProfileScreenController extends GetxController {
         PrefService.userId = -1;
         PrefService.identity = '';
         Get.back();
-        CustomUi.snackBar(message: value.message ?? '', iconData: Icons.delete_rounded, positive: true);
+        CustomUi.snackBar(
+            message: value.message ?? '',
+            iconData: Icons.delete_rounded,
+            positive: true);
         Get.offAll(() => const SplashScreen());
       } else {
         Get.back();
-        CustomUi.snackBar(message: value.message ?? '', iconData: Icons.delete_rounded);
+        CustomUi.snackBar(
+            message: value.message ?? '', iconData: Icons.delete_rounded);
       }
     });
   }

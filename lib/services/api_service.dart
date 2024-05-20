@@ -35,7 +35,11 @@ class ApiService {
   }
 
   Future<Registration> registration(
-      {String? name, String? identity, String? deviceToken, int? deviceType, int? loginType}) async {
+      {String? name,
+      String? identity,
+      String? deviceToken,
+      int? deviceType,
+      int? loginType}) async {
     Map<String, dynamic> map = {};
     if (name != null) {
       map[pFullName] = name;
@@ -64,6 +68,7 @@ class ApiService {
       File? image,
       String? dob,
       String? favouriteDoctors,
+      String? customService,
       int? isNotification,
       String? phoneNumber}) async {
     var request = http.MultipartRequest(
@@ -98,8 +103,14 @@ class ApiService {
       request.fields[pPhoneNumber] = phoneNumber.toString();
     }
 
+    if (customService != null) {
+      // Utiliser le paramètre customService s'il est fourni
+      request.fields['customService'] = customService;
+    }
+
     if (image != null) {
-      request.files.add(http.MultipartFile(pProfileImage, image.readAsBytes().asStream(), image.lengthSync(),
+      request.files.add(http.MultipartFile(
+          pProfileImage, image.readAsBytes().asStream(), image.lengthSync(),
           filename: image.path.split("/").last));
     }
 
@@ -109,7 +120,9 @@ class ApiService {
     Registration updateProfile = Registration.fromJson(responseJson);
     PrefService prefService = PrefService();
     await prefService.init();
-    await prefService.saveString(key: kRegistrationUser, value: jsonEncode(updateProfile.data?.toJson()));
+    await prefService.saveString(
+        key: kRegistrationUser,
+        value: jsonEncode(updateProfile.data?.toJson()));
     prefService.updateFirebaseProfile();
     return updateProfile;
   }
@@ -132,8 +145,8 @@ class ApiService {
     if (date != null) {
       map[pDate] = date;
     }
-    http.Response response =
-        await http.post(Uri.parse(Urls.fetchHomePageData), headers: {pApikeyName: ConstRes.apiKey}, body: map);
+    http.Response response = await http.post(Uri.parse(Urls.fetchHomePageData),
+        headers: {pApikeyName: ConstRes.apiKey}, body: map);
     return Home.fromJson(
       jsonDecode(response.body),
     );
@@ -162,8 +175,8 @@ class ApiService {
       map[pSortType] = sortType.toString();
     }
 
-    http.Response? response =
-        await http.post(Uri.parse(Urls.searchDoctor), headers: {pApikeyName: ConstRes.apiKey}, body: map);
+    http.Response? response = await http.post(Uri.parse(Urls.searchDoctor),
+        headers: {pApikeyName: ConstRes.apiKey}, body: map);
     return SearchDoctor.fromJson(jsonDecode(response.body));
   }
 
@@ -210,7 +223,8 @@ class ApiService {
     }
 
     if (image != null) {
-      request.files.add(http.MultipartFile(pImage, image.readAsBytes().asStream(), image.lengthSync(),
+      request.files.add(http.MultipartFile(
+          pImage, image.readAsBytes().asStream(), image.lengthSync(),
           filename: image.path.split("/").last));
     }
     var response = await request.send();
@@ -219,7 +233,12 @@ class ApiService {
   }
 
   Future<Message> editPatient(
-      {String? fullName, String? age, String? relation, int? gender, File? image, int? patientId}) async {
+      {String? fullName,
+      String? age,
+      String? relation,
+      int? gender,
+      File? image,
+      int? patientId}) async {
     var request = http.MultipartRequest(
       pPost,
       Uri.parse(Urls.editPatient),
@@ -243,7 +262,8 @@ class ApiService {
     }
 
     if (image != null) {
-      request.files.add(http.MultipartFile(pImage, image.readAsBytes().asStream(), image.lengthSync(),
+      request.files.add(http.MultipartFile(
+          pImage, image.readAsBytes().asStream(), image.lengthSync(),
           filename: image.path.split("/").last));
     }
     var response = await request.send();
@@ -269,7 +289,8 @@ class ApiService {
     return FetchDoctor.fromJson(jsonDecode(response.body));
   }
 
-  Future<DoctorReview> fetchDoctorReviews({int? doctorId, int start = 0}) async {
+  Future<DoctorReview> fetchDoctorReviews(
+      {int? doctorId, int start = 0}) async {
     http.Response response = await http.post(
       Uri.parse(Urls.fetchDoctorReviews),
       headers: {
@@ -323,7 +344,8 @@ class ApiService {
     Registration user = Registration.fromJson(jsonDecode(response.body));
     PrefService prefService = PrefService();
     await prefService.init();
-    await prefService.saveString(key: kRegistrationUser, value: jsonEncode(user.data?.toJson()));
+    await prefService.saveString(
+        key: kRegistrationUser, value: jsonEncode(user.data?.toJson()));
     return user;
   }
 
@@ -393,8 +415,8 @@ class ApiService {
     if (documents != null) {
       for (int i = 0; i < documents.length; i++) {
         File imageFile = documents[i];
-        var multipartFile = http.MultipartFile(
-            pDocuments, imageFile.readAsBytes().asStream(), imageFile.lengthSync(),
+        var multipartFile = http.MultipartFile(pDocuments,
+            imageFile.readAsBytes().asStream(), imageFile.lengthSync(),
             filename: imageFile.path.split('/').last);
         newList.add(multipartFile);
       }
@@ -406,7 +428,8 @@ class ApiService {
   }
 
   Future<WalletStatement> fetchWalletStatement({int? start}) async {
-    http.Response response = await http.post(Uri.parse(Urls.fetchWalletStatement), headers: {
+    http.Response response =
+        await http.post(Uri.parse(Urls.fetchWalletStatement), headers: {
       pApikeyName: ConstRes.apiKey
     }, body: {
       pUserId: PrefService.userId.toString(),
@@ -417,8 +440,12 @@ class ApiService {
   }
 
   Future<WalletStatement> submitUserWithdrawRequest(
-      {String? bankName, String? accountNumber, String? holderName, String? swiftCode}) async {
-    http.Response response = await http.post(Uri.parse(Urls.submitUserWithdrawRequest), headers: {
+      {String? bankName,
+      String? accountNumber,
+      String? holderName,
+      String? swiftCode}) async {
+    http.Response response =
+        await http.post(Uri.parse(Urls.submitUserWithdrawRequest), headers: {
       pApikeyName: ConstRes.apiKey
     }, body: {
       pUserId: PrefService.userId.toString(),
@@ -432,7 +459,8 @@ class ApiService {
   }
 
   Future<Appointment> fetchAppointmentDetails({int? appointmentId}) async {
-    http.Response response = await http.post(Uri.parse(Urls.fetchAppointmentDetails), headers: {
+    http.Response response =
+        await http.post(Uri.parse(Urls.fetchAppointmentDetails), headers: {
       pApikeyName: ConstRes.apiKey
     }, body: {
       pAppointmentId: appointmentId.toString(),
@@ -443,7 +471,8 @@ class ApiService {
   }
 
   Future<FetchPrescription> fetchMyPrescriptions() async {
-    http.Response response = await http.post(Uri.parse(Urls.fetchMyPrescriptions), headers: {
+    http.Response response =
+        await http.post(Uri.parse(Urls.fetchMyPrescriptions), headers: {
       pApikeyName: ConstRes.apiKey
     }, body: {
       pUserId: PrefService.userId.toString(),
@@ -452,7 +481,8 @@ class ApiService {
   }
 
   Future<FetchAppointment> fetchMyAppointments() async {
-    http.Response response = await http.post(Uri.parse(Urls.fetchMyAppointments), headers: {
+    http.Response response =
+        await http.post(Uri.parse(Urls.fetchMyAppointments), headers: {
       pApikeyName: ConstRes.apiKey
     }, body: {
       pUserId: PrefService.userId.toString(),
@@ -460,8 +490,10 @@ class ApiService {
     return FetchAppointment.fromJson(jsonDecode(response.body));
   }
 
-  Future<Appointment> addRating({int? appointmentId, int? userId, String? comment, int? rating}) async {
-    http.Response response = await http.post(Uri.parse(Urls.addRating), headers: {
+  Future<Appointment> addRating(
+      {int? appointmentId, int? userId, String? comment, int? rating}) async {
+    http.Response response =
+        await http.post(Uri.parse(Urls.addRating), headers: {
       pApikeyName: ConstRes.apiKey
     }, body: {
       pAppointmentId: appointmentId.toString(),
@@ -472,8 +504,10 @@ class ApiService {
     return Appointment.fromJson(jsonDecode(response.body));
   }
 
-  Future<Appointment> rescheduleAppointment({int? appointmentId, int? userId, String? date, String? time}) async {
-    http.Response response = await http.post(Uri.parse(Urls.rescheduleAppointment), headers: {
+  Future<Appointment> rescheduleAppointment(
+      {int? appointmentId, int? userId, String? date, String? time}) async {
+    http.Response response =
+        await http.post(Uri.parse(Urls.rescheduleAppointment), headers: {
       pApikeyName: ConstRes.apiKey
     }, body: {
       pAppointmentId: appointmentId.toString(),
@@ -488,7 +522,8 @@ class ApiService {
     int? appointmentId,
     int? userId,
   }) async {
-    http.Response response = await http.post(Uri.parse(Urls.cancelAppointment), headers: {
+    http.Response response =
+        await http.post(Uri.parse(Urls.cancelAppointment), headers: {
       pApikeyName: ConstRes.apiKey
     }, body: {
       pAppointmentId: appointmentId.toString(),
@@ -500,9 +535,14 @@ class ApiService {
   Future<WithdrawRequest> fetchUserWithdrawRequests({
     int? start,
   }) async {
-    http.Response response = await http.post(Uri.parse(Urls.fetchUserWithdrawRequests),
-        headers: {pApikeyName: ConstRes.apiKey},
-        body: {pUserId: PrefService.userId.toString(), pStart: start.toString(), pCount: pTen});
+    http.Response response = await http
+        .post(Uri.parse(Urls.fetchUserWithdrawRequests), headers: {
+      pApikeyName: ConstRes.apiKey
+    }, body: {
+      pUserId: PrefService.userId.toString(),
+      pStart: start.toString(),
+      pCount: pTen
+    });
     return WithdrawRequest.fromJson(jsonDecode(response.body));
   }
 
@@ -516,7 +556,8 @@ class ApiService {
   }
 
   Future<Message> deleteUserAccount() async {
-    http.Response response = await http.post(Uri.parse(Urls.deleteUserAccount), headers: {
+    http.Response response =
+        await http.post(Uri.parse(Urls.deleteUserAccount), headers: {
       pApikeyName: ConstRes.apiKey
     }, body: {
       pUserId: PrefService.userId.toString(),
@@ -525,23 +566,28 @@ class ApiService {
   }
 
   Future<GlobalSetting> fetchGlobalSettings() async {
-    http.Response response =
-        await http.post(Uri.parse(Urls.fetchGlobalSettings), headers: {pApikeyName: ConstRes.apiKey});
+    http.Response response = await http.post(
+        Uri.parse(Urls.fetchGlobalSettings),
+        headers: {pApikeyName: ConstRes.apiKey});
     GlobalSetting setting = GlobalSetting.fromJson(jsonDecode(response.body));
     PrefService prefService = PrefService();
     await prefService.init();
-    prefService.saveString(key: kGlobalSetting, value: jsonEncode(setting.data));
+    prefService.saveString(
+        key: kGlobalSetting, value: jsonEncode(setting.data));
     return setting;
   }
 
   Future<FetchFaqs> fetchFaqCats() async {
-    http.Response response =
-        await http.post(Uri.parse(Urls.fetchFaqCats), headers: {pApikeyName: ConstRes.apiKey});
+    http.Response response = await http.post(Uri.parse(Urls.fetchFaqCats),
+        headers: {pApikeyName: ConstRes.apiKey});
     FetchFaqs faqs = FetchFaqs.fromJson(jsonDecode(response.body));
     return faqs;
   }
 
-  createPaymentIntent({required String amount, required String currency, required String authKey}) async {
+  createPaymentIntent(
+      {required String amount,
+      required String currency,
+      required String authKey}) async {
     try {
       //Request body
       Map<String, dynamic> body = {
@@ -552,7 +598,10 @@ class ApiService {
       //Make post request to Stripe
       http.Response response = await http.post(
         Uri.parse('https://api.stripe.com/v1/payment_intents'),
-        headers: {'Authorization': 'Bearer $authKey', 'Content-Type': 'application/x-www-form-urlencoded'},
+        headers: {
+          'Authorization': 'Bearer $authKey',
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
         body: body,
       );
       return jsonDecode(response.body);
@@ -576,7 +625,8 @@ class ApiService {
     });
     if (image != null) {
       request.files.add(
-        http.MultipartFile(pFile, image.readAsBytes().asStream(), image.lengthSync(),
+        http.MultipartFile(
+            pFile, image.readAsBytes().asStream(), image.lengthSync(),
             filename: image.path.split("/").last),
       );
     }
@@ -588,15 +638,20 @@ class ApiService {
 
   Future<AgoraToken> getAgoraToken({required String channelName}) async {
     http.Response response = await http.post(Uri.parse(Urls.generateAgoraToken),
-        headers: {pApikeyName: ConstRes.apiKey}, body: {pChannelName: channelName});
+        headers: {pApikeyName: ConstRes.apiKey},
+        body: {pChannelName: channelName});
     return AgoraToken.fromJson(jsonDecode(response.body));
   }
 
-  Future pushNotification({required Map<String, dynamic> data, required String token}) async {
+  Future pushNotification(
+      {required Map<String, dynamic> data, required String token}) async {
     await http
         .post(
       Uri.parse(Urls.pushNotificationToSingleUser),
-      headers: {pApikeyName: ConstRes.apiKey, 'content-type': 'application/json'},
+      headers: {
+        pApikeyName: ConstRes.apiKey,
+        'content-type': 'application/json'
+      },
       body: json.encode({
         'message': {
           // 'notification': {
@@ -613,10 +668,13 @@ class ApiService {
     });
   }
 
-  Future<FetchAcceptPendingAppointments> fetchAcceptedPendingAppointmentsOfDoctorByDate(
-      {required int doctorId, required String date}) async {
-    http.Response response = await http.post(Uri.parse(Urls.fetchAcceptedPendingAppointmentsOfDoctorByDate),
-        headers: {pApikeyName: ConstRes.apiKey}, body: {pDoctorId: doctorId.toString(), pDate: date});
+  Future<FetchAcceptPendingAppointments>
+      fetchAcceptedPendingAppointmentsOfDoctorByDate(
+          {required int doctorId, required String date}) async {
+    http.Response response = await http.post(
+        Uri.parse(Urls.fetchAcceptedPendingAppointmentsOfDoctorByDate),
+        headers: {pApikeyName: ConstRes.apiKey},
+        body: {pDoctorId: doctorId.toString(), pDate: date});
     return FetchAcceptPendingAppointments.fromJson(jsonDecode(response.body));
   }
 }

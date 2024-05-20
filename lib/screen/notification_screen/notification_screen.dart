@@ -27,7 +27,7 @@ class NotificationScreen extends StatelessWidget {
                 return Expanded(
                   child: Center(
                     child: Text(
-                      'No notification',
+                      S.current.noNotification,
                       style: TextStyle(fontSize: 16, color: Colors.black54),
                     ),
                   ),
@@ -77,7 +77,9 @@ class NotificationScreen extends StatelessWidget {
                                             .confirmAppointment(notification!);
                                       }
                                     },
-                                    child: Text('Confirmer'),
+                                    child: Text(
+                                      S.current.confirm,
+                                    ),
                                   ),
                                 ],
                               ),

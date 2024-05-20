@@ -10,14 +10,21 @@ import 'package:patient_flutter/services/pref_service.dart';
 import 'package:patient_flutter/utils/const_res.dart';
 
 class EditProfileScreenController extends GetxController {
-
   // Déclarez les contrôleurs pour les réseaux sociaux et le tarif des séances
   TextEditingController socialMediaController = TextEditingController();
   TextEditingController sessionRateController = TextEditingController();
+  TextEditingController customServiceController =
+      TextEditingController(); // Ajout du contrôleur customServiceController
+
+  var isCoach = false.obs;
 
   // Définissez les méthodes pour récupérer et modifier les réseaux sociaux et le tarif des séances
   void setSocialMedia(String value) {
     socialMediaController.text = value;
+  }
+
+  void setCustomService(String value) {
+    customServiceController.text = value;
   }
 
   void setSessionRate(String value) {
@@ -28,6 +35,8 @@ class EditProfileScreenController extends GetxController {
   var isGroupCoachingSelected = false.obs;
   var isSeminarSelected = false.obs;
   var isConferenceSelected = false.obs;
+  var isCustomServiceSelected =
+      false.obs; // Ajout de la variable pour le service personnalisé
 
   // Définissez les méthodes pour modifier les services offerts
   void setGroupCoaching(bool value) {
@@ -46,7 +55,7 @@ class EditProfileScreenController extends GetxController {
   RegistrationData? userData;
   TextEditingController fullNameController = TextEditingController();
   TextEditingController specialitiesController =
-  TextEditingController(); // Ajout du contrôleur specialitiesController
+      TextEditingController(); // Ajout du contrôleur specialitiesController
   String? netWorkImage;
   File? imageFile;
 
@@ -61,6 +70,7 @@ class EditProfileScreenController extends GetxController {
     // Nettoyez les contrôleurs lorsqu'ils ne sont plus nécessaires
     socialMediaController.dispose();
     sessionRateController.dispose();
+    customServiceController.dispose();
     super.onClose();
   }
 
@@ -88,17 +98,43 @@ class EditProfileScreenController extends GetxController {
   }
 
   void onContinueTap() {
-    CustomUi.loader();
+    // Récupérer les données du contrôleur
+    String? name = fullNameController.text;
+    String? customService =
+        isCustomServiceSelected.value ? customServiceController.text : null;
+
+    // Appeler updateUserDetails avec les données récupérées
     ApiService.instance
-        .updateUserDetails(image: imageFile, name: fullNameController.text)
+        .updateUserDetails(
+      name: name,
+      customService: customService,
+      image: imageFile,
+    )
         .then((value) {
-      Get.back();
+      // Traiter la réponse
+      Get.back(); // Fermer l'écran après la mise à jour
       if (value.status == true) {
+        // Afficher un message de succès si la mise à jour est réussie
         CustomUi.snackBar(
-            iconData: Icons.person, positive: true, message: value.message);
+          iconData: Icons.person,
+          positive: true,
+          message: value.message,
+        );
       } else {
-        CustomUi.snackBar(iconData: Icons.person, message: value.message);
+        // Afficher un message d'erreur si la mise à jour a échoué
+        CustomUi.snackBar(
+          iconData: Icons.person,
+          message: value.message,
+        );
       }
+    }).catchError((error) {
+      // Gérer les erreurs éventuelles
+      print('Erreur lors de la mise à jour du profil: $error');
+      // Afficher un message d'erreur générique
+      CustomUi.snackBar(
+        iconData: Icons.error_outline,
+        message: 'Une erreur s\'est produite lors de la mise à jour du profil.',
+      );
     });
   }
 }

@@ -21,7 +21,7 @@ class PrescriptionScreen extends StatelessWidget {
       backgroundColor: ColorRes.white,
       body: Column(
         children: [
-          TopBarArea(title: S.current.prescriptions),
+          TopBarArea(title: S.current.coachingSessions),
           const SizedBox(
             height: 10,
           ),

@@ -11,6 +11,7 @@ class AssetRes {
   static const String profile3 = "${image}profile3.png";
   static const String profile4 = "${image}profile4.png";
   static const String profile5 = "${image}profile5.png";
+  static const String public_health = "${image}public_health.gif";
   static const String d2 = "${image}d2.png";
   static const String attachments1 = "${image}attachment1.png";
   static const String qrCode = "${image}qr_code.png";
@@ -18,7 +19,7 @@ class AssetRes {
   static const String waiting = "${image}Waiting.gif";
   static const String researching = "${image}Researching.gif";
   static const String videoCall = "${image}video_call.gif";
-  static const String noDoctorFound = "${image}public_health.gif";
+  static const String noDoctorFound = "${image}nocoachfound.png";
   static const String dMale = "${image}dMale.png";
   static const String dFemale = "${image}dFemale.png";
 

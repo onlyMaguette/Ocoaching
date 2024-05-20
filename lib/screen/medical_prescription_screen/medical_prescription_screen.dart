@@ -56,7 +56,7 @@ class MedicalPrescriptionScreen extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        data?.title ?? '',
+                                        data?.name ?? '',
                                         style: MyTextStyle.montserratSemiBold(
                                             size: 15,
                                             color: ColorRes.charcoalGrey),
@@ -65,7 +65,7 @@ class MedicalPrescriptionScreen extends StatelessWidget {
                                         height: 3,
                                       ),
                                       Text(
-                                        data?.mealTime == 0
+                                        data?.schedule == 0
                                             ? S.current.afterMeal
                                             : S.current.beforeMeal,
                                         style: MyTextStyle.montserratSemiBold(
@@ -76,23 +76,13 @@ class MedicalPrescriptionScreen extends StatelessWidget {
                                         height: 3,
                                       ),
                                       Text(
-                                        data?.dosage ?? '',
+                                        data?.description ?? '',
                                         style: MyTextStyle.montserratRegular(
                                             size: 13,
                                             color: ColorRes.battleshipGrey),
                                       ),
                                     ],
                                   ),
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      '${data?.quantity ?? 0}',
-                                      style: MyTextStyle.montserratBold(
-                                          size: 24,
-                                          color: ColorRes.charcoalGrey),
-                                    ),
-                                  ],
                                 ),
                               ],
                             ),

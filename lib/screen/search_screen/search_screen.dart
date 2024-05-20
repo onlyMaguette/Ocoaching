@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:patient_flutter/common/custom_ui.dart';
 import 'package:patient_flutter/common/top_bar_area.dart';
 import 'package:patient_flutter/generated/l10n.dart';
 import 'package:patient_flutter/screen/saved_doctor_screen/widget/doctor_card.dart';
@@ -9,7 +9,9 @@ import 'package:patient_flutter/utils/color_res.dart';
 import 'package:patient_flutter/utils/my_text_style.dart';
 
 class SearchScreen extends StatelessWidget {
-  const SearchScreen({Key? key}) : super(key: key);
+  final Position userLocation; // Déclarez userLocation ici
+
+  const SearchScreen({Key? key, required this.userLocation}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,18 +35,23 @@ class SearchScreen extends StatelessWidget {
               value: controller.selectedCoachingType.isNotEmpty
                   ? controller.selectedCoachingType
                   : null,
-              onChanged: controller.onCoachingTypeSelected,
+              onChanged: (String? selectedType) {
+                if (selectedType != null) {
+                  controller.onCoachingTypeSelected(selectedType);
+                }
+              },
               items: <String>[
-                'Group Coaching',
-                'Corporate Coaching',
-                'Seduction',
-                'Mental Preparation',
-                'Self-Confidence',
+                S.current.groupCoaching,
+                S.current.corporateCoaching,
+                S.current.seduction,
+                S.current.mentalPreparation,
+                S.current.selfConfidence,
+                S.current.wellness,
                 // Ajoutez d'autres types de coaching au besoin
-              ].map<DropdownMenuItem<String>>((String value) {
+              ].map<DropdownMenuItem<String>>((String items) {
                 return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
+                  value: items,
+                  child: Text(items),
                 );
               }).toList(),
             ),
@@ -127,7 +134,7 @@ class SearchScreen extends StatelessWidget {
             builder: (context) {
               return Expanded(
                 child: controller.isLoading
-                    ? CustomUi.loaderWidget()
+                    ? SizedBox() // Ne rien afficher lorsque le chargement est en cours
                     : ListView.builder(
                         controller: controller.scrollController,
                         padding: EdgeInsets.zero,

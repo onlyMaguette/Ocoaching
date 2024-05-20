@@ -55,7 +55,107 @@ class S {
   String get doctorIo {
     return Intl.message(
       'OCOACHING',
-      name: 'ocoaching',
+      name: 'doctorIo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Location Permission Request`
+  String get locationPermissionTitle {
+    return Intl.message(
+      'Location Permission Request',
+      name: 'locationPermissionTitle',
+      desc: 'Title of the dialog box for requesting location permission',
+      args: [],
+    );
+  }
+
+  /// `Please allow access to your location to use this feature.`
+  String get locationPermissionMessage {
+    return Intl.message(
+      'Please allow access to your location to use this feature.',
+      name: 'locationPermissionMessage',
+      desc: 'Message of the dialog box for requesting location permission',
+      args: [],
+    );
+  }
+
+  /// `OK`
+  String get ok {
+    return Intl.message(
+      'OK',
+      name: 'ok',
+      desc: 'Text of the button to confirm an action',
+      args: [],
+    );
+  }
+
+  /// `on`
+  String get on {
+    return Intl.message(
+      'on',
+      name: 'on',
+      desc: 'Text of the button to confirm an action',
+      args: [],
+    );
+  }
+
+  /// `at`
+  String get at {
+    return Intl.message(
+      'at',
+      name: 'at',
+      desc: 'Text of the button to confirm an action',
+      args: [],
+    );
+  }
+
+  /// `confirmationSent`
+  String get confirmationSent {
+    return Intl.message(
+      'Confirmation has been sent.',
+      name: 'confirmationSent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `selectCoach`
+  String get selectCoach {
+    return Intl.message(
+      'Select Coach',
+      name: 'selectCoach',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `appointmentDurationExceedsLimit`
+  String get appointmentDurationExceedsLimit {
+    return Intl.message(
+      'Appointment duration exceeds the limit.',
+      name: 'appointmentDurationExceedsLimit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `scheduleSession`
+  String get scheduleSession {
+    return Intl.message(
+      'Schedule Session',
+      name: 'scheduleSession',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `successfullyScheduled`
+  String get successfullyScheduled {
+    return Intl.message(
+      'You have successfully scheduled a 15-minute complimentary coaching session with',
+      name: 'successfullyScheduled',
       desc: '',
       args: [],
     );
@@ -64,8 +164,8 @@ class S {
   /// `Find doctors, book appointment\nhave digital consultation, get prescription\nand live healthy life.`
   String get findDoctorsBookAppointmentEtc {
     return Intl.message(
-      'Find coaches, book coaching sessions\nhave digital consultation, improve yourself\nand live your best life.',
-      name: 'findCoachesBookCoachingEtc',
+      'Explore a diverse range of coaches, book personalized coaching sessions, engage in virtual coaching conversations, empower your personal development journey, and unlock your inherent potential.',
+      name: 'findDoctorsBookAppointmentEtc',
       desc: '',
       args: [],
     );
@@ -151,6 +251,16 @@ class S {
     );
   }
 
+  /// `Complete Registration`
+  String get goToAuthentificationScrenn {
+    return Intl.message(
+      'Go to Authentication Screen',
+      name: 'goToAuthentificationScrenn',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Your phone number has been verified`
   String get yourPhoneNumberHasEtc {
     return Intl.message(
@@ -215,7 +325,27 @@ class S {
   String get specialists {
     return Intl.message(
       'Coaches',
-      name: 'coaches',
+      name: 'specialists',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `invalidEmailOrPassword`
+  String get invalidEmailOrPassword {
+    return Intl.message(
+      'Invalid email or password',
+      name: 'invalidEmailOrPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `allConditionsNotMet`
+  String get allConditionsNotMet {
+    return Intl.message(
+      'Coach-related conditions are not met. Please complete all mandatory steps for coaches before proceeding.',
+      name: 'allConditionsNotMet',
       desc: '',
       args: [],
     );
@@ -224,7 +354,7 @@ class S {
   /// `Appointments`
   String get appointments {
     return Intl.message(
-      'Appointments',
+      'Coaching Sessions',
       name: 'appointments',
       desc: '',
       args: [],
@@ -275,7 +405,7 @@ class S {
   String get searchForDoctorEtc {
     return Intl.message(
       'Search for coach or coaching service..',
-      name: 'searchForCoachEtc',
+      name: 'searchForDoctorEtc',
       desc: '',
       args: [],
     );
@@ -284,7 +414,7 @@ class S {
   /// `Appointments For Today`
   String get appointmentsForToday {
     return Intl.message(
-      'Appointments For Today',
+      'Today\'s Coaching Sessions',
       name: 'appointmentsForToday',
       desc: '',
       args: [],
@@ -295,7 +425,7 @@ class S {
   String get findBySpecialities {
     return Intl.message(
       'Find by Coaching Specialties',
-      name: 'findByCoachingSpecialties',
+      name: 'findBySpecialities',
       desc: '',
       args: [],
     );
@@ -455,7 +585,7 @@ class S {
   String get savedDoctors {
     return Intl.message(
       'Favorite Coaches',
-      name: 'favoriteCoaches',
+      name: 'savedDoctors',
       desc: '',
       args: [],
     );
@@ -474,7 +604,7 @@ class S {
   /// `Manage Patients`
   String get managePatients {
     return Intl.message(
-      'Manage Patients',
+      'Manage Clients',
       name: 'managePatients',
       desc: '',
       args: [],
@@ -484,7 +614,7 @@ class S {
   /// `Prescriptions`
   String get prescriptions {
     return Intl.message(
-      'Prescriptions',
+      'Coaching Plans',
       name: 'prescriptions',
       desc: '',
       args: [],
@@ -764,7 +894,7 @@ class S {
   /// `Show This QR at Clinic`
   String get showThisQRAtClinic {
     return Intl.message(
-      'Show This QR at Clinic',
+      'Present this QR Code during Coaching Session',
       name: 'showThisQRAtClinic',
       desc: '',
       args: [],
@@ -774,7 +904,7 @@ class S {
   /// `Offer this QR at clinic shop, they will\nscan it and will have all the details`
   String get offerThisQRAtClinicShop {
     return Intl.message(
-      'Offer this QR at clinic shop, they will\nscan it and will have all the details',
+      'Present this QR code to your coaching clients, they can scan it to access all the details.',
       name: 'offerThisQRAtClinicShop',
       desc: '',
       args: [],
@@ -831,11 +961,41 @@ class S {
     );
   }
 
+  /// `noNotification`
+  String get noNotification {
+    return Intl.message(
+      'No notification',
+      name: 'noNotification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `confirm`
+  String get confirm {
+    return Intl.message(
+      'Confirm',
+      name: 'confirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `noMessage`
+  String get noMessage {
+    return Intl.message(
+      'No message',
+      name: 'noMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Search Doctor`
   String get searchDoctor {
     return Intl.message(
       'Search Coach',
-      name: 'searchCoach',
+      name: 'searchDoctor',
       desc: '',
       args: [],
     );
@@ -854,7 +1014,7 @@ class S {
   /// `ABOUT DR.`
   String get aboutDr {
     return Intl.message(
-      'ABOUT DR.',
+      'ABOUT COACH.',
       name: 'aboutDr',
       desc: '',
       args: [],
@@ -924,7 +1084,7 @@ class S {
   /// `EXPERTISE`
   String get expertise {
     return Intl.message(
-      'EXPERTISE',
+      'SPECIALIZATIONS',
       name: 'expertise',
       desc: '',
       args: [],
@@ -954,7 +1114,7 @@ class S {
   /// `HAPPY PATIENTS`
   String get happyPatients {
     return Intl.message(
-      'HAPPY PATIENTS',
+      'HAPPY CLIENTS',
       name: 'happyPatients',
       desc: '',
       args: [],
@@ -984,7 +1144,7 @@ class S {
   /// `Appointment Type`
   String get appointmentType {
     return Intl.message(
-      'Appointment Type',
+      'Coaching Session Type',
       name: 'appointmentType',
       desc: '',
       args: [],
@@ -994,7 +1154,7 @@ class S {
   /// `Patient`
   String get patient {
     return Intl.message(
-      'Patient',
+      'Client',
       name: 'patient',
       desc: '',
       args: [],
@@ -1004,7 +1164,7 @@ class S {
   /// `Explain Your Problem Briefly`
   String get explainYourProblemBriefly {
     return Intl.message(
-      'Explain Your Problem Briefly',
+      'Briefly Describe Your Coaching Needs',
       name: 'explainYourProblemBriefly',
       desc: '',
       args: [],
@@ -1074,7 +1234,7 @@ class S {
   /// `Consultation Charge`
   String get consultationCharge {
     return Intl.message(
-      'Consultation Charge',
+      'Coaching Session Fee',
       name: 'consultationCharge',
       desc: '',
       args: [],
@@ -1124,7 +1284,7 @@ class S {
   /// `At Clinic`
   String get clinic {
     return Intl.message(
-      'At Clinic',
+      'At Coaching Session',
       name: 'clinic',
       desc: '',
       args: [],
@@ -1194,7 +1354,7 @@ class S {
   /// `Now you can book appointments\nwith single click to avoid disturbance.`
   String get nowYouCanBookAppointmentsEtc {
     return Intl.message(
-      'Now you can book appointments\nwith single click to avoid disturbance.',
+      'Easily book your coaching sessions\nwith a single click to ensure a smooth experience.',
       name: 'nowYouCanBookAppointmentsEtc',
       desc: '',
       args: [],
@@ -1204,7 +1364,7 @@ class S {
   /// `Appointment Booked`
   String get appointmentBooked {
     return Intl.message(
-      'Appointment Booked',
+      'Session Scheduled',
       name: 'appointmentBooked',
       desc: '',
       args: [],
@@ -1214,7 +1374,7 @@ class S {
   /// `Your appointment\nhas been booked successfully`
   String get yourAppointmentHasEtc {
     return Intl.message(
-      'Your appointment\nhas been booked successfully',
+      'Your coaching session\nhas been booked successfully',
       name: 'yourAppointmentHasEtc',
       desc: '',
       args: [],
@@ -1224,7 +1384,7 @@ class S {
   /// `My Appointments`
   String get myAppointments {
     return Intl.message(
-      'My Appointments',
+      'My Coaching Sessions',
       name: 'myAppointments',
       desc: '',
       args: [],
@@ -1254,7 +1414,7 @@ class S {
   /// `Appointment Details`
   String get appointmentDetails {
     return Intl.message(
-      'Appointment Details',
+      'Coaching Session Details',
       name: 'appointmentDetails',
       desc: '',
       args: [],
@@ -1274,7 +1434,7 @@ class S {
   /// `Medical Prescription`
   String get medicalPrescription {
     return Intl.message(
-      'Medical Prescription',
+      'Coaching Plan',
       name: 'medicalPrescription',
       desc: '',
       args: [],
@@ -1284,7 +1444,7 @@ class S {
   /// `Dr. Has sent you medication schedule`
   String get drHasSentYouEtc {
     return Intl.message(
-      'Dr. Has sent you medication schedule',
+      'Your coach has sent you a personalized session plan',
       name: 'drHasSentYouEtc',
       desc: '',
       args: [],
@@ -1364,7 +1524,7 @@ class S {
   /// `Download Prescription`
   String get downloadPrescription {
     return Intl.message(
-      'Download Prescription',
+      'Download Coaching Plan',
       name: 'downloadPrescription',
       desc: '',
       args: [],
@@ -1374,7 +1534,7 @@ class S {
   /// `Patients`
   String get patients {
     return Intl.message(
-      'Patients',
+      'Clients',
       name: 'patients',
       desc: '',
       args: [],
@@ -1384,7 +1544,7 @@ class S {
   /// `Add Patient`
   String get addPatient {
     return Intl.message(
-      'Add Patient',
+      'Add Client',
       name: 'addPatient',
       desc: '',
       args: [],
@@ -1424,7 +1584,7 @@ class S {
   /// `Check Appointments tab\nfor all your upcoming appointments`
   String get checkAppointmentsEtc {
     return Intl.message(
-      'Check Appointments tab\nfor all your upcoming appointments',
+      'Check the Sessions Schedule\nfor all your upcoming coaching sessions',
       name: 'checkAppointmentsEtc',
       desc: '',
       args: [],
@@ -1456,6 +1616,16 @@ class S {
     return Intl.message(
       'Mar',
       name: 'mar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Coaching Sessions`
+  String get coachingSessions {
+    return Intl.message(
+      'Coaching Plans',
+      name: 'coachingSessions',
       desc: '',
       args: [],
     );
@@ -1754,7 +1924,7 @@ class S {
   /// `Edit Patient`
   String get editPatient {
     return Intl.message(
-      'Edit Patient',
+      'Edit Client',
       name: 'editPatient',
       desc: '',
       args: [],
@@ -1804,9 +1974,9 @@ class S {
   /// `After Meal`
   String get afterMeal {
     return Intl.message(
-      'After Meal',
+      'After Session',
       name: 'afterMeal',
-      desc: '',
+      desc: 'Activities or tasks to be done after a coaching session',
       args: [],
     );
   }
@@ -1814,9 +1984,9 @@ class S {
   /// `Before Meal`
   String get beforeMeal {
     return Intl.message(
-      'Before Meal',
+      'Before Session',
       name: 'beforeMeal',
-      desc: '',
+      desc: 'Activities or tasks to be done before a coaching session',
       args: [],
     );
   }
@@ -2014,7 +2184,7 @@ class S {
   /// `No Medical Prescription Add`
   String get noMedicalPrescriptionAdd {
     return Intl.message(
-      'No Medical Prescription Add',
+      'No Coaching Plan Added',
       name: 'noMedicalPrescriptionAdd',
       desc: '',
       args: [],
@@ -2035,7 +2205,7 @@ class S {
   String get bookNow {
     return Intl.message(
       'Schedule Session',
-      name: 'scheduleSession',
+      name: 'bookNow',
       desc: 'Button text to schedule a coaching session',
       args: [],
     );
@@ -2044,7 +2214,7 @@ class S {
   /// `Appointment ID`
   String get appointmentID {
     return Intl.message(
-      'Appointment ID',
+      'Session ID',
       name: 'appointmentID',
       desc: '',
       args: [],
@@ -2064,7 +2234,7 @@ class S {
   /// `No Patient`
   String get noPatient {
     return Intl.message(
-      'No Patient',
+      'No Client',
       name: 'noPatient',
       desc: '',
       args: [],
@@ -2074,7 +2244,7 @@ class S {
   /// `Dr.`
   String get dr {
     return Intl.message(
-      'Dr.',
+      'Coach',
       name: 'dr',
       desc: '',
       args: [],
@@ -2104,7 +2274,7 @@ class S {
   /// `Please select Appointment Time`
   String get pleaseSelectAppointmentTime {
     return Intl.message(
-      'Please select Appointment Time',
+      'Please select your coaching session time',
       name: 'pleaseSelectAppointmentTime',
       desc: '',
       args: [],
@@ -2114,7 +2284,7 @@ class S {
   /// `Please select Appointment Type`
   String get pleaseSelectAppointmentType {
     return Intl.message(
-      'Please select Appointment Type',
+      'Please choose your Coaching Session Type',
       name: 'pleaseSelectAppointmentType',
       desc: '',
       args: [],
@@ -2275,7 +2445,7 @@ class S {
   String get doctorDetail {
     return Intl.message(
       'Coach Details',
-      name: 'coachDetail',
+      name: 'doctorDetail',
       desc: '',
       args: [],
     );
@@ -2285,7 +2455,7 @@ class S {
   String get patientDetail {
     return Intl.message(
       'Client Details',
-      name: 'clientDetail',
+      name: 'patientDetail',
       desc: '',
       args: [],
     );
@@ -2394,7 +2564,7 @@ class S {
   /// `CONSULTATION`
   String get consultation {
     return Intl.message(
-      'CONSULTATION',
+      'COACHING SESSION',
       name: 'consultation',
       desc: '',
       args: [],
@@ -2414,7 +2584,7 @@ class S {
   /// `is asking you to join the video consultation.`
   String get isAskingYouToJoinEtc {
     return Intl.message(
-      'is asking you to join the video consultation.',
+      'is inviting you to join the coaching session.',
       name: 'isAskingYouToJoinEtc',
       desc: '',
       args: [],
@@ -2684,7 +2854,7 @@ class S {
   /// `No Appointments Available`
   String get noAppointmentsAvailable {
     return Intl.message(
-      'No Appointments Available',
+      'No Coaching Sessions Available',
       name: 'noAppointmentsAvailable',
       desc: '',
       args: [],
@@ -2754,7 +2924,7 @@ class S {
   /// `Do you want to cancel this Appointment?`
   String get doYouWantToCancelThisAppointment {
     return Intl.message(
-      'Do you want to cancel this Appointment?',
+      'Are you sure you want to cancel this coaching session?',
       name: 'doYouWantToCancelThisAppointment',
       desc: '',
       args: [],
@@ -2781,6 +2951,26 @@ class S {
     );
   }
 
+  /// `noAvailableCoaches`
+  String get noAvailableCoaches {
+    return Intl.message(
+      'No Available Coaches',
+      name: 'noAvailableCoaches',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `noCoachesAvailableMessage`
+  String get noCoachesAvailableMessage {
+    return Intl.message(
+      'Sorry, there are currently no coaches available for booking. Please try again later.',
+      name: 'noCoachesAvailableMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `You have already booked this slot`
   String get youHaveAlreadyBookedThisSlot {
     return Intl.message(
@@ -2796,6 +2986,106 @@ class S {
     return Intl.message(
       'Not Available',
       name: 'notAvailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `scheduleFreeSessione`
+  String get scheduleFreeSession {
+    return Intl.message(
+      'Schedule a Free Session',
+      name: 'scheduleFreeSession',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `clientDossier`
+  String get clientDossier {
+    return Intl.message(
+      'Client Dossier',
+      name: 'clientDossier',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `clientDossierScreen`
+  String get clientDossierScreen {
+    return Intl.message(
+      'Client Dossier Screen',
+      name: 'clientDossierScreen',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `addNewEntry`
+  String get addNewEntry {
+    return Intl.message(
+      'Add a new entry',
+      name: 'addNewEntry',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `newEntryDetails`
+  String get newEntryDetails {
+    return Intl.message(
+      'New Entry Details',
+      name: 'newEntryDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `validEntryError`
+  String get validEntryError {
+    return Intl.message(
+      'Please enter a valid entry.',
+      name: 'validEntryError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `appointmentSlotNotAvailable`
+  String get appointmentSlotNotAvailable {
+    return Intl.message(
+      'Appointment Slot Not Available',
+      name: 'appointmentSlotNotAvailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `appointmentSlotNotAvailable`
+  String get authenticationError {
+    return Intl.message(
+      'Authentication Error',
+      name: 'authenticationError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `appointmentSlotNotAvailable`
+  String get iAmACoach {
+    return Intl.message(
+      'I am a coach',
+      name: 'iAmACoach',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `validEntryError`
+  String get error {
+    return Intl.message(
+      'Error ',
+      name: 'error',
       desc: '',
       args: [],
     );
@@ -2855,7 +3145,7 @@ class S {
   String get appointmentOnlineDiagnosticBookingManagementMultivendorApp {
     return Intl.message(
       'Coaching Sessions, Online Assessment, Booking, Management Multi-Vendor App',
-      name: 'coachingSessionsOnlineAssessmentBookingManagementMultivendorApp',
+      name: 'appointmentOnlineDiagnosticBookingManagementMultivendorApp',
       desc: '',
       args: [],
     );
@@ -2866,6 +3156,66 @@ class S {
     return Intl.message(
       'Register',
       name: 'register',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `please`
+  String get please {
+    return Intl.message(
+      'Please provide your details and complete the registration to start connecting with expert coaches, booking personalized coaching sessions, engaging in transformative digital conversations, enhancing your skills, and living your best life.',
+      name: 'please',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `corporateCoaching`
+  String get corporateCoaching {
+    return Intl.message(
+      'Corporate Coaching',
+      name: 'corporateCoaching',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `seduction`
+  String get seduction {
+    return Intl.message(
+      'Seduction',
+      name: 'seduction',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `mentalPreparation`
+  String get mentalPreparation {
+    return Intl.message(
+      'Mental Preparation',
+      name: 'mentalPreparation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `wellness`
+  String get wellness {
+    return Intl.message(
+      'wellness',
+      name: 'wellness',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `selfConfidence`
+  String get selfConfidence {
+    return Intl.message(
+      'Self-Confidence',
+      name: 'selfConfidence',
       desc: '',
       args: [],
     );
@@ -2994,7 +3344,7 @@ class S {
   /// `Please fill your details and complete registration to start finding coaches, booking coaching sessions, having digital consultations, improving yourself, and living your best life.`
   String get pleaseFillYourDetailsAndCompleteRegistrationToStartFind {
     return Intl.message(
-      'Please fill your details and complete registration to start finding coaches, booking coaching sessions, having digital consultations, improving yourself, and living your best life.',
+      'Please complete your profile to begin connecting with coaches, scheduling coaching sessions, engaging in digital consultations, enhancing your personal growth, and striving towards your full potential.',
       name: 'pleaseFillYourDetailsAndCompleteRegistrationToStartFind',
       desc: '',
       args: [],
@@ -3131,6 +3481,96 @@ class S {
     );
   }
 
+  /// `Upload RNCP Document`
+  String get downloadRNCPDiploma {
+    return Intl.message(
+      'Download RNCP Document',
+      name: 'downloadRNCPDiploma',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `selectFileToDownload`
+  String get selectFileToDownload {
+    return Intl.message(
+      'Please select the file to download:',
+      name: 'selectFileToDownload',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `selectFileToDownload`
+  String get selectFile {
+    return Intl.message(
+      'Select a file',
+      name: 'selectFile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `pleaseFillAllFields`
+  String get pleaseFillAllFields {
+    return Intl.message(
+      'Please fill all fields',
+      name: 'pleaseFillAllFields',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `mobileNumberError`
+  String get mobileNumberError {
+    return Intl.message(
+      'Please enter a valid mobile number.',
+      name: 'mobileNumberError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `countryError`
+  String get countryError {
+    return Intl.message(
+      'Please select a country.',
+      name: 'countryError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `genderError`
+  String get genderError {
+    return Intl.message(
+      'Please select a gender.',
+      name: 'genderError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `dobError`
+  String get dobError {
+    return Intl.message(
+      'Please select a date of birth.',
+      name: 'dobError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `noFileSelected`
+  String get noFileSelected {
+    return Intl.message(
+      '"No file selected',
+      name: 'noFileSelected',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// 'Specialities'
   String get specialities {
     return Intl.message(
@@ -3196,6 +3636,96 @@ class S {
     return Intl.message(
       'Mute the Audio',
       name: 'muteTheAudio',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `dossier`
+  String get dossier {
+    return Intl.message(
+      'Dossier',
+      name: 'dossier',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `clientObjectives`
+  String get clientObjectives {
+    return Intl.message(
+      'Client Objectives',
+      name: 'clientObjectives',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `recentProgress`
+  String get recentProgress {
+    return Intl.message(
+      'Recent Progress',
+      name: 'recentProgress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `clientDossierDetails`
+  String get clientDossierDetails {
+    return Intl.message(
+      'Client Dossier Details',
+      name: 'clientDossierDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `close`
+  String get close {
+    return Intl.message(
+      'Close',
+      name: 'close',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `groupCoaching`
+  String get groupCoaching {
+    return Intl.message(
+      'Group Coaching',
+      name: 'groupCoaching',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `seminar`
+  String get seminar {
+    return Intl.message(
+      'Seminar',
+      name: 'seminar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `conference`
+  String get conference {
+    return Intl.message(
+      'Conference',
+      name: 'conference',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `enterCustomService`
+  String get enterCustomService {
+    return Intl.message(
+      'Enter Custom Service',
+      name: 'enterCustomService',
       desc: '',
       args: [],
     );

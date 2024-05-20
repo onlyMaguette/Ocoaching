@@ -11,14 +11,25 @@ class DashboardTopBarTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(15),
-      color: ColorRes.whiteSmoke,
       width: double.infinity,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Colors.white, // Bleu clair
+            ColorRes.crystalBlue, // Bleu foncé
+          ],
+        ),
+      ),
       child: SafeArea(
         bottom: false,
         child: Text(
           title.toUpperCase(),
-          style: MyTextStyle.montserratRegular(
-              size: 17, color: ColorRes.charcoalGrey),
+          style: MyTextStyle.montserratBold(
+            size: 17,
+            color: ColorRes.charcoalGrey,
+          ),
         ),
       ),
     );

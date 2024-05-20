@@ -59,7 +59,7 @@ class RechargeWalletSheetController extends GetxController {
     amountFocusNode.unfocus();
 
     if (settings?.paymentGateway == 1) {
-      CustomUi.loader();
+      //CustomUi.loader();
       StripePayment().makePayment(
         amount: selectedAmount,
         currency: settings?.stripeCurrencyCode ?? '',
@@ -200,7 +200,7 @@ class RechargeWalletSheetController extends GetxController {
       {required int paymentGateway,
       required String transactionId,
       required String transactionSummary}) async {
-    CustomUi.loader();
+    //CustomUi.loader();
     await ApiService.instance
         .addMoneyToUserWallet(
             amount: num.parse(selectedAmount),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:patient_flutter/utils/color_res.dart';
 import 'package:patient_flutter/utils/font_res.dart';
-import 'package:patient_flutter/utils/my_text_style.dart';
 
 class CustomAnimatedBottomBar extends StatelessWidget {
   const CustomAnimatedBottomBar({
@@ -97,8 +96,18 @@ class _ItemWidget extends StatelessWidget {
         duration: animationDuration,
         curve: curve,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
-          gradient: isSelected ? MyTextStyle.linearTopGradient : null,
+          borderRadius: BorderRadius.circular(40),
+          gradient: isSelected
+              ? LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    ColorRes.greyShade300,
+                    ColorRes.crystalBlue,
+                    // Vous pouvez ajouter d'autres couleurs ici si nécessaire
+                  ],
+                )
+              : null,
         ),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,

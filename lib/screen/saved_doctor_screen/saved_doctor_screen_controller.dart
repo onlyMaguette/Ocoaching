@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:patient_flutter/common/custom_ui.dart';
 import 'package:patient_flutter/model/doctor/fetch_doctor.dart';
 import 'package:patient_flutter/model/user/registration.dart';
 import 'package:patient_flutter/screen/doctor_profile_screen/doctor_profile_screen.dart';
@@ -51,7 +50,7 @@ class SavedDoctorScreenController extends GetxController {
       }
       savedProfile = savedId.join(',');
     }
-    CustomUi.loader();
+    //CustomUi.loader();
     ApiService.instance
         .updateUserDetails(favouriteDoctors: savedProfile)
         .then((value) {

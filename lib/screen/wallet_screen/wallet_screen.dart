@@ -30,6 +30,7 @@ class WalletScreen extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
+                //color: ColorRes.crystalBlue,
                 borderRadius: BorderRadius.circular(15),
                 gradient: MyTextStyle.linearLeftGradient,
               ),

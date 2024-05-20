@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:patient_flutter/common/common_fun.dart';
-import 'package:patient_flutter/common/custom_ui.dart';
 import 'package:patient_flutter/common/fancy_button.dart';
 import 'package:patient_flutter/common/image_send_sheet.dart';
 import 'package:patient_flutter/common/video_upload_dialog.dart';
@@ -50,7 +49,8 @@ class MessageChatScreenController extends GetxController {
   Doctor? doctor;
   static String senderId = '';
 
-  MessageChatScreenController({required this.conversation, required this.userData});
+  MessageChatScreenController(
+      {required this.conversation, required this.userData});
 
   @override
   void onInit() {
@@ -62,7 +62,8 @@ class MessageChatScreenController extends GetxController {
   }
 
   void initFireBase() async {
-    firebaseDoctorIdentity = CommonFun.setDoctorId(doctorId: conversation?.user?.userid);
+    firebaseDoctorIdentity =
+        CommonFun.setDoctorId(doctorId: conversation?.user?.userid);
     firebaseUserIdentity = CommonFun.setPatientId(patientId: userData?.id);
 
     documentReceiver = db
@@ -87,8 +88,10 @@ class MessageChatScreenController extends GetxController {
         if (value.data() != null && value.data()?.conversationId != null) {
           conversation?.setConversationId(value.data()?.conversationId);
         }
-        drChatMessages =
-            db.collection(FirebaseRes.chat).doc(conversation?.conversationId).collection(FirebaseRes.chat);
+        drChatMessages = db
+            .collection(FirebaseRes.chat)
+            .doc(conversation?.conversationId)
+            .collection(FirebaseRes.chat);
         getChat();
       },
     );
@@ -118,7 +121,8 @@ class MessageChatScreenController extends GetxController {
 
   onScrollToFetchData() {
     scrollController.addListener(() {
-      if (scrollController.offset == scrollController.position.maxScrollExtent) {
+      if (scrollController.offset ==
+          scrollController.position.maxScrollExtent) {
         getChat();
       }
     });
@@ -138,8 +142,10 @@ class MessageChatScreenController extends GetxController {
     });
 
     chatStream = drChatMessages
-        .where(FirebaseRes.noDeleteIdentity, arrayContains: firebaseUserIdentity)
-        .where(FirebaseRes.id, isGreaterThan: deletedId.isEmpty ? '0' : deletedId)
+        .where(FirebaseRes.noDeleteIdentity,
+            arrayContains: firebaseUserIdentity)
+        .where(FirebaseRes.id,
+            isGreaterThan: deletedId.isEmpty ? '0' : deletedId)
         .orderBy(FirebaseRes.id, descending: true)
         .limit(startingNumber)
         .withConverter(
@@ -173,7 +179,11 @@ class MessageChatScreenController extends GetxController {
   }
 
   ///Firebase message update method
-  Future<void> chatMessage({required String msgType, String? msg, String? image, String? video}) async {
+  Future<void> chatMessage(
+      {required String msgType,
+      String? msg,
+      String? image,
+      String? video}) async {
     String time = DateTime.now().millisecondsSinceEpoch.toString();
     notDeletedIdentity = [];
     notDeletedIdentity.addAll([firebaseUserIdentity, firebaseDoctorIdentity]);
@@ -190,7 +200,8 @@ class MessageChatScreenController extends GetxController {
                 age: userData?.dob != null || userData!.dob!.isNotEmpty
                     ? CommonFun.calculateAge(userData?.dob).toString()
                     : null,
-                gender: userData?.gender == 0 ? S.current.female : S.current.male),
+                gender:
+                    userData?.gender == 0 ? S.current.female : S.current.male),
             msgType: msgType,
             msg: msg,
             image: image,
@@ -220,7 +231,8 @@ class MessageChatScreenController extends GetxController {
               age: userData?.dob != null || userData!.dob!.isNotEmpty
                   ? CommonFun.calculateAge(userData?.dob).toString()
                   : null,
-              gender: userData?.gender == 0 ? S.current.female : S.current.male),
+              gender:
+                  userData?.gender == 0 ? S.current.female : S.current.male),
         ).toJson(),
       );
     } else {
@@ -274,13 +286,16 @@ class MessageChatScreenController extends GetxController {
         maxWidth: ConstRes.maxWidth);
 
     if (galleryImage != null) {
-      ApiService.instance.uploadFileGivePath(File(galleryImage.path)).then((value) {
+      ApiService.instance
+          .uploadFileGivePath(File(galleryImage.path))
+          .then((value) {
         imageUrl = value.path;
       });
       Get.bottomSheet(
               ImageSendSheet(
                 image: galleryImage.path,
-                onSendMediaTap: (image) => onSendMediaTap(image: galleryImage.path, type: 0),
+                onSendMediaTap: (image) =>
+                    onSendMediaTap(image: galleryImage.path, type: 0),
                 sendMediaController: sendMediaController,
               ),
               isScrollControlled: true)
@@ -300,20 +315,22 @@ class MessageChatScreenController extends GetxController {
       int sizeInBytes = videoFile.lengthSync();
       double sizeInMb = sizeInBytes / (1024 * 1024);
       if (sizeInMb <= 15) {
-        CustomUi.loader();
+        //CustomUi.loader();
         ApiService.instance.uploadFileGivePath(File(video.path)).then((value) {
           videoUrl = value.path;
         });
         VideoThumbnail.thumbnailFile(video: video.path).then((value) {
-          ApiService.instance.uploadFileGivePath(File(value ?? '')).then((value) {
+          ApiService.instance
+              .uploadFileGivePath(File(value ?? ''))
+              .then((value) {
             imageUrl = value.path;
           });
           Get.back();
           Get.bottomSheet(
                   ImageSendSheet(
                     image: value ?? '',
-                    onSendMediaTap: (String image) =>
-                        onSendMediaTap(image: value ?? '', type: 1, video: videoFile.path),
+                    onSendMediaTap: (String image) => onSendMediaTap(
+                        image: value ?? '', type: 1, video: videoFile.path),
                     sendMediaController: sendMediaController,
                   ),
                   isScrollControlled: true)
@@ -335,7 +352,8 @@ class MessageChatScreenController extends GetxController {
     }
   }
 
-  void onSendMediaTap({required String image, required int type, String? video}) async {
+  void onSendMediaTap(
+      {required String image, required int type, String? video}) async {
     if (type == 0) {
       if (imageUrl == null) {
         await ApiService.instance.uploadFileGivePath(File(image)).then((value) {
@@ -343,10 +361,15 @@ class MessageChatScreenController extends GetxController {
         });
       }
       Get.back();
-      chatMessage(msgType: FirebaseRes.image, msg: sendMediaController.text.trim(), image: imageUrl);
+      chatMessage(
+          msgType: FirebaseRes.image,
+          msg: sendMediaController.text.trim(),
+          image: imageUrl);
     } else {
       if (videoUrl == null) {
-        await ApiService.instance.uploadFileGivePath(File(video ?? '')).then((value) {
+        await ApiService.instance
+            .uploadFileGivePath(File(video ?? ''))
+            .then((value) {
           videoUrl = value.path;
         });
       } else if (imageUrl == null) {
@@ -373,7 +396,8 @@ class MessageChatScreenController extends GetxController {
     for (int i = 0; i < timeStamp.length; i++) {
       drChatMessages.doc(timeStamp[i]).update(
         {
-          FirebaseRes.noDeleteIdentity: FieldValue.arrayRemove([firebaseUserIdentity])
+          FirebaseRes.noDeleteIdentity:
+              FieldValue.arrayRemove([firebaseUserIdentity])
         },
       );
       chatData.removeWhere(
@@ -386,7 +410,9 @@ class MessageChatScreenController extends GetxController {
   }
 
   void fetchDoctorProfile() async {
-    ApiService.instance.fetchDoctorProfile(doctorId: conversation?.user?.userid).then((value) {
+    ApiService.instance
+        .fetchDoctorProfile(doctorId: conversation?.user?.userid)
+        .then((value) {
       doctor = value.data;
       update();
     });

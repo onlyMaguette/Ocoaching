@@ -30,6 +30,41 @@ class CompleteRegistrationScreenController extends GetxController {
   PhoneNumber phoneNumber = PhoneNumber();
 
   int screenType;
+  bool _isSubmitted = false;
+
+  // Variables pour suivre l'état de validité de chaque champ
+  var isPhoneNumberValid = false.obs;
+  var isCountryValid = false.obs;
+  var isGenderValid = false.obs;
+  var isDateOfBirthValid = false.obs;
+
+  bool isMobileNumberValid() {
+    return phoneNumber.phoneNumber != null &&
+        phoneNumber.phoneNumber!.isNotEmpty;
+  }
+
+  // Méthode pour vérifier si un pays est sélectionné
+  bool isCountrySelected() {
+    return selectCountry != null;
+  }
+
+  // Méthode pour vérifier si un genre est sélectionné
+  bool isGenderSelected() {
+    return selectGender.isNotEmpty;
+  }
+
+  // Méthode pour vérifier si la date de naissance est sélectionnée
+  bool isDOBSelected() {
+    return selectedDate != null;
+  }
+
+  bool isAllFieldsFilled() {
+    return phoneNumber.phoneNumber != null &&
+        phoneNumber.phoneNumber!.isNotEmpty &&
+        selectCountry != null &&
+        selectGender.isNotEmpty &&
+        selectedDate != null;
+  }
 
   CompleteRegistrationScreenController(this.screenType);
 
@@ -75,21 +110,21 @@ class CompleteRegistrationScreenController extends GetxController {
     update();
   }
 
-  Future<bool> onSubmitBtnClick() async {
-    if (phoneNumber.phoneNumber == null || phoneNumber.phoneNumber!.isEmpty) {
+  Future<void> onSubmitBtnClick() async {
+    // Vérification de tous les champs obligatoires
+    if (!isAllFieldsFilled()) {
+      // Affichez les messages d'erreur sous les champs
       CustomUi.snackBar(
-          message: S.current.pleaseEnterMobileNumber,
-          iconData: Icons.phone_enabled_rounded);
-      return false;
-    }
-    if (selectCountry == null) {
-      CustomUi.snackBar(
-          message: S.current.pleaseSelectYourCountry, iconData: Icons.flag);
-      return false;
+        message: S.current.pleaseFillAllFields,
+        iconData: Icons.error,
+      );
+      return;
     }
 
-    //CustomUi.loader();
-    return ApiService.instance
+    //CustomUi.loader(); // Loader personnalisé (s'il est nécessaire)
+
+    // Soumission des données
+    ApiService.instance
         .updateUserDetails(
       phoneNumber:
           '${phoneNumber.phoneNumber?.replaceAll(phoneNumber.dialCode.toString(), '')} ${phoneNumber.isoCode}',
@@ -102,21 +137,23 @@ class CompleteRegistrationScreenController extends GetxController {
         if (value.status == true) {
           Get.back();
           CustomUi.snackBar(
-              iconData: Icons.app_registration,
-              positive: true,
-              message:
-                  S.current.registrationSuccessfullyDonePleaseLoginToContinue);
+            iconData: Icons.app_registration,
+            positive: true,
+            message:
+                S.current.registrationSuccessfullyDonePleaseLoginToContinue,
+          );
+          // Redirigez vers le tableau de bord
           if (screenType == 0) {
             Get.offAll(() => const LoginScreen());
           } else {
             Get.offAll(() => const DashboardScreen());
           }
-          return true; // Soumission réussie
         } else {
           Get.back();
           CustomUi.snackBar(
-              message: value.message ?? '', iconData: Icons.person);
-          return false; // Soumission échouée
+            message: value.message ?? '',
+            iconData: Icons.person,
+          );
         }
       },
     );

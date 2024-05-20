@@ -105,4 +105,9 @@ class AppointmentScreenController extends GetxController {
     // For now, returning the current time
     return TimeOfDay.now();
   }
+
+  // Méthode pour obtenir la durée du rendez-vous, fixe à 15 minutes
+  Duration getAppointmentDuration() {
+    return Duration(minutes: 15); // Durée fixe de 15 minutes
+  }
 }

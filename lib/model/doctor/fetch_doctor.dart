@@ -382,7 +382,7 @@ class Doctor {
 
   String? get clinicName => _clinicName;
 
-  String? get clinicAddress => _clinicAddress;
+  String? get coachLocation => _clinicAddress;
 
   String? get clinicLat => _clinicLat;
 
@@ -797,19 +797,19 @@ class ServiceLocations {
   ServiceLocations({
     int? id,
     int? doctorId,
-    String? hospitalTitle,
-    String? hospitalAddress,
-    String? hospitalLat,
-    String? hospitalLong,
+    String? locationTitle,
+    String? locationAddress,
+    String? locationLat,
+    String? locationLong,
     String? createdAt,
     String? updatedAt,
   }) {
     _id = id;
     _doctorId = doctorId;
-    _hospitalTitle = hospitalTitle;
-    _hospitalAddress = hospitalAddress;
-    _hospitalLat = hospitalLat;
-    _hospitalLong = hospitalLong;
+    _locationTitle = locationTitle;
+    _locationAddress = locationAddress;
+    _locationLat = locationLat;
+    _locationLong = locationLong;
     _createdAt = createdAt;
     _updatedAt = updatedAt;
   }
@@ -817,40 +817,40 @@ class ServiceLocations {
   ServiceLocations.fromJson(dynamic json) {
     _id = json['id'];
     _doctorId = json['doctor_id'];
-    _hospitalTitle = json['hospital_title'];
-    _hospitalAddress = json['hospital_address'];
-    _hospitalLat = json['hospital_lat'];
-    _hospitalLong = json['hospital_long'];
+    _locationTitle = json['hospital_title'];
+    _locationAddress = json['hospital_address'];
+    _locationLat = json['hospital_lat'];
+    _locationLong = json['hospital_long'];
     _createdAt = json['created_at'];
     _updatedAt = json['updated_at'];
   }
 
   int? _id;
   int? _doctorId;
-  String? _hospitalTitle;
-  String? _hospitalAddress;
-  String? _hospitalLat;
-  String? _hospitalLong;
+  String? _locationTitle;
+  String? _locationAddress;
+  String? _locationLat;
+  String? _locationLong;
   String? _createdAt;
   String? _updatedAt;
 
   ServiceLocations copyWith({
     int? id,
     int? doctorId,
-    String? hospitalTitle,
-    String? hospitalAddress,
-    String? hospitalLat,
-    String? hospitalLong,
+    String? locationTitle,
+    String? locationAddress,
+    String? locationLat,
+    String? locationLong,
     String? createdAt,
     String? updatedAt,
   }) =>
       ServiceLocations(
         id: id ?? _id,
         doctorId: doctorId ?? _doctorId,
-        hospitalTitle: hospitalTitle ?? _hospitalTitle,
-        hospitalAddress: hospitalAddress ?? _hospitalAddress,
-        hospitalLat: hospitalLat ?? _hospitalLat,
-        hospitalLong: hospitalLong ?? _hospitalLong,
+        locationTitle: locationTitle ?? _locationTitle,
+        locationAddress: locationAddress ?? _locationAddress,
+        locationLat: locationLat ?? _locationLat,
+        locationLong: locationLong ?? _locationLong,
         createdAt: createdAt ?? _createdAt,
         updatedAt: updatedAt ?? _updatedAt,
       );
@@ -859,13 +859,13 @@ class ServiceLocations {
 
   int? get doctorId => _doctorId;
 
-  String? get hospitalTitle => _hospitalTitle;
+  String? get locationTitle => _locationTitle;
 
-  String? get hospitalAddress => _hospitalAddress;
+  String? get locationAddress => _locationAddress;
 
-  String? get hospitalLat => _hospitalLat;
+  String? get locationLat => _locationLat;
 
-  String? get hospitalLong => _hospitalLong;
+  String? get locationLong => _locationLong;
 
   String? get createdAt => _createdAt;
 
@@ -875,10 +875,10 @@ class ServiceLocations {
     final map = <String, dynamic>{};
     map['id'] = _id;
     map['doctor_id'] = _doctorId;
-    map['hospital_title'] = _hospitalTitle;
-    map['hospital_address'] = _hospitalAddress;
-    map['hospital_lat'] = _hospitalLat;
-    map['hospital_long'] = _hospitalLong;
+    map['hospital_title'] = _locationTitle;
+    map['hospital_address'] = _locationAddress;
+    map['hospital_lat'] = _locationLat;
+    map['hospital_long'] = _locationLong;
     map['created_at'] = _createdAt;
     map['updated_at'] = _updatedAt;
     return map;

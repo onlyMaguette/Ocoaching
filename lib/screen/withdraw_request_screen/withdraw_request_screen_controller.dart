@@ -30,7 +30,7 @@ class WithdrawRequestScreenController extends GetxController {
 
   void onSubmitTap() {
     if (isValid()) {
-      CustomUi.loader();
+      //CustomUi.loader();
       ApiService.instance
           .submitUserWithdrawRequest(
               bankName: bankNameController.text,

@@ -60,7 +60,11 @@ class AppointmentChatScreenController extends GetxController {
     }
   }
 
-  void chatMessage({String? msg, required String msgType, String? image, String? video}) async {
+  void chatMessage(
+      {String? msg,
+      required String msgType,
+      String? image,
+      String? video}) async {
     String time = DateTime.now().millisecondsSinceEpoch.toString();
     collection?.doc(time).set(
           AppointmentChat(
@@ -92,13 +96,15 @@ class AppointmentChatScreenController extends GetxController {
       map[nNotificationType] = '1';
       map[nAppointmentId] = appointmentData?.appointmentNumber;
 
-      ApiService().pushNotification(token: appointmentData?.doctor?.deviceToken ?? '', data: map);
+      ApiService().pushNotification(
+          token: appointmentData?.doctor?.deviceToken ?? '', data: map);
     }
   }
 
   void scrollToFetchData() {
     scrollController.addListener(() {
-      if (scrollController.offset == scrollController.position.maxScrollExtent) {
+      if (scrollController.offset ==
+          scrollController.position.maxScrollExtent) {
         getChat();
       }
     });
@@ -133,13 +139,16 @@ class AppointmentChatScreenController extends GetxController {
         maxHeight: ConstRes.maxHeight,
         maxWidth: ConstRes.maxWidth);
     if (galleryImage != null) {
-      ApiService.instance.uploadFileGivePath(File(galleryImage.path)).then((value) {
+      ApiService.instance
+          .uploadFileGivePath(File(galleryImage.path))
+          .then((value) {
         imageUrl = value.path;
       });
       Get.bottomSheet(
               ImageSendSheet(
                 image: galleryImage.path,
-                onSendMediaTap: (image) => onSendMediaTap(image: galleryImage.path, type: 0),
+                onSendMediaTap: (image) =>
+                    onSendMediaTap(image: galleryImage.path, type: 0),
                 sendMediaController: sendMediaController,
               ),
               isScrollControlled: true)
@@ -158,20 +167,22 @@ class AppointmentChatScreenController extends GetxController {
       int sizeInBytes = videoFile.lengthSync();
       double sizeInMb = sizeInBytes / (1024 * 1024);
       if (sizeInMb <= 15) {
-        CustomUi.loader();
+        //CustomUi.loader();
         ApiService.instance.uploadFileGivePath(File(video.path)).then((value) {
           videoUrl = value.path;
         });
         VideoThumbnail.thumbnailFile(video: video.path).then((value) {
-          ApiService.instance.uploadFileGivePath(File(value ?? '')).then((value) {
+          ApiService.instance
+              .uploadFileGivePath(File(value ?? ''))
+              .then((value) {
             imageUrl = value.path;
           });
           Get.back();
           Get.bottomSheet(
                   ImageSendSheet(
                     image: value ?? '',
-                    onSendMediaTap: (String image) =>
-                        onSendMediaTap(image: value ?? '', type: 1, video: videoFile.path),
+                    onSendMediaTap: (String image) => onSendMediaTap(
+                        image: value ?? '', type: 1, video: videoFile.path),
                     sendMediaController: sendMediaController,
                   ),
                   isScrollControlled: true)
@@ -193,7 +204,8 @@ class AppointmentChatScreenController extends GetxController {
     }
   }
 
-  void onSendMediaTap({required String image, required int type, String? video}) async {
+  void onSendMediaTap(
+      {required String image, required int type, String? video}) async {
     if (type == 0) {
       if (imageUrl == null) {
         await ApiService.instance.uploadFileGivePath(File(image)).then((value) {
@@ -201,10 +213,15 @@ class AppointmentChatScreenController extends GetxController {
         });
       }
       Get.back();
-      chatMessage(msgType: FirebaseRes.image, msg: sendMediaController.text.trim(), image: imageUrl);
+      chatMessage(
+          msgType: FirebaseRes.image,
+          msg: sendMediaController.text.trim(),
+          image: imageUrl);
     } else {
       if (videoUrl == null) {
-        await ApiService.instance.uploadFileGivePath(File(video ?? '')).then((value) {
+        await ApiService.instance
+            .uploadFileGivePath(File(video ?? ''))
+            .then((value) {
           videoUrl = value.path;
         });
       } else if (imageUrl == null) {
@@ -237,16 +254,21 @@ class AppointmentChatScreenController extends GetxController {
 
   onJoinMeeting(AppointmentChat data) {
     if (data.videoCall?.isStarted == true) {
-      DateTime date1 = DateTime.fromMillisecondsSinceEpoch(int.parse(data.videoCall?.time ?? ''));
+      DateTime date1 = DateTime.fromMillisecondsSinceEpoch(
+          int.parse(data.videoCall?.time ?? ''));
       DateTime now = DateTime.now();
-      DateTime date2 = DateTime(now.year, now.month, now.day, now.hour, now.minute);
+      DateTime date2 =
+          DateTime(now.year, now.month, now.day, now.hour, now.minute);
       if (date1.isBefore(date2)) {
         VideoCall? call = data.videoCall;
         if (data.videoCall?.token == null || data.videoCall!.token!.isEmpty) {
-          ApiService.instance.getAgoraToken(channelName: data.videoCall?.channelId ?? '').then((t) {
+          ApiService.instance
+              .getAgoraToken(channelName: data.videoCall?.channelId ?? '')
+              .then((t) {
             if (t.status == true) {
               call?.token = t.token;
-              collection?.doc(data.id).update({FirebaseRes.videoCall: call?.toJson()}).then((value) {
+              collection?.doc(data.id).update(
+                  {FirebaseRes.videoCall: call?.toJson()}).then((value) {
                 Get.to(() => VideoCallScreen(
                       appointmentChat: data,
                     ))?.then((value) {
@@ -276,7 +298,8 @@ class AppointmentChatScreenController extends GetxController {
     }
   }
 
-  endVideoStatusUpdate({VideoCall? call, required bool value, required AppointmentChat data}) {
+  endVideoStatusUpdate(
+      {VideoCall? call, required bool value, required AppointmentChat data}) {
     if (value == false) {
       call?.token = '';
       collection?.doc(data.id).update({FirebaseRes.videoCall: call?.toJson()});

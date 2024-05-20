@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:get/get.dart';
 import 'package:patient_flutter/common/confirmation_dialog.dart';
-import 'package:patient_flutter/common/custom_ui.dart';
 import 'package:patient_flutter/generated/l10n.dart';
 import 'package:patient_flutter/model/chat/appointment_chat.dart';
 import 'package:patient_flutter/utils/color_res.dart';
@@ -32,7 +31,7 @@ class VideoCallScreenController extends GetxController {
 
   Future<void> setupVideoSDKEngine() async {
     await [Permission.microphone, Permission.camera].request();
-    CustomUi.loader();
+    //CustomUi.loader();
     agoraEngine = createAgoraRtcEngine();
     await agoraEngine
         .initialize(const RtcEngineContext(appId: ConstRes.agoraAppId));

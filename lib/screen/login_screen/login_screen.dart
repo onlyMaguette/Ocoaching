@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:patient_flutter/common/splash_top_bar.dart';
 import 'package:patient_flutter/common/text_button_custom.dart';
 import 'package:patient_flutter/generated/l10n.dart';
 import 'package:patient_flutter/screen/login_screen/login_screen_controller.dart';
 import 'package:patient_flutter/screen/registration_screen/registration_screen.dart';
+import 'package:patient_flutter/utils/asset_res.dart';
 import 'package:patient_flutter/utils/color_res.dart';
 import 'package:patient_flutter/utils/my_text_style.dart';
 
@@ -20,7 +20,11 @@ class LoginScreen extends StatelessWidget {
           SingleChildScrollView(
             child: Column(
               children: [
-                const SplashTopBar(),
+                Image(
+                  image: const AssetImage(AssetRes.public_health),
+                  height: Get.height / 2.2,
+                  fit: BoxFit.contain,
+                ),
                 const SizedBox(
                   height: 10,
                 ),
@@ -32,33 +36,46 @@ class LoginScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             TextWithTextField(
-                                title: S.of(context).email,
-                                controller: controller.emailController,
-                                keyboardType: TextInputType.emailAddress),
+                              title: S.of(context).email,
+                              controller: controller.emailController,
+                              keyboardType: TextInputType.emailAddress,
+                            ),
                             TextWithTextField(
-                                title: S.of(context).password,
-                                controller: controller.passwordController,
-                                keyboardType: TextInputType.visiblePassword,
-                                onChangedPasswordVisibility:
-                                    controller.onChangePassword,
-                                isSuffixVisible: true,
-                                obSecure: controller.isPasswordVisible,
-                                passwordVisible: controller.isPasswordVisible),
+                              title: S.of(context).password,
+                              controller: controller.passwordController,
+                              keyboardType: TextInputType.visiblePassword,
+                              onChangedPasswordVisibility:
+                                  controller.onChangePassword,
+                              isSuffixVisible: true,
+                              obSecure: controller.isPasswordVisible,
+                              passwordVisible: controller.isPasswordVisible,
+                              titleStyle: TextStyle(
+                                  fontWeight: FontWeight
+                                      .bold), // Spécifier le style uniquement ici
+                            ),
                             TextButtonCustom(
                               onPressed: () {
-                                controller
-                                    .onLoginClick(); // Appeler la fonction de connexion existante
-                                controller
-                                    .redirectToredirectCompleteRegistrationScreen(); // Redirection après la connexion
+                                if (controller.emailController.text
+                                        .trim()
+                                        .isEmpty ||
+                                    controller.passwordController.text
+                                        .trim()
+                                        .isEmpty) {
+                                  // Redirection vers la page CompleteRegistrationScreen si les champs sont vides
+                                  controller
+                                      .redirectToredirectCompleteRegistrationScreen();
+                                } else {
+                                  // Sinon, appeler la fonction de connexion
+                                  controller.onLoginClick();
+                                }
                               },
                               title: S.of(context).login,
-                              titleColor: ColorRes.darkSkyBlue,
-                              backgroundColor:
-                                  ColorRes.darkSkyBlue.withOpacity(0.2),
+                              titleColor: ColorRes.white,
+                              backgroundColor: ColorRes.crystalBlue,
                               bottomSafeArea: false,
                             ),
                             const SizedBox(
-                              height: 10,
+                              height: 50,
                             ),
                             Align(
                               alignment: Alignment.centerRight,
@@ -70,7 +87,7 @@ class LoginScreen extends StatelessWidget {
                                       size: 16, color: ColorRes.charcoalGrey),
                                 ),
                               ),
-                            )
+                            ),
                           ],
                         ),
                       );
@@ -95,7 +112,7 @@ class LoginScreen extends StatelessWidget {
                 width: 50,
                 child: Icon(
                   Icons.arrow_back,
-                  color: ColorRes.white,
+                  color: ColorRes.crystalBlue,
                 ),
               ),
             ),

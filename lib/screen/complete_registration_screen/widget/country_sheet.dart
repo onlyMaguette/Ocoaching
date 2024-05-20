@@ -50,13 +50,12 @@ class CountrySheet extends StatelessWidget {
                 controller: controller,
                 textCapitalization: TextCapitalization.sentences,
                 decoration: InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                    ),
-                    hintText: 'Search country name',
-                    hintStyle: MyTextStyle.montserratSemiBold(
-                        size: 14, color: ColorRes.nobel)),
+                  border: InputBorder.none,
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+                  hintText: S.current.selectCountry,
+                  hintStyle: MyTextStyle.montserratSemiBold(
+                      size: 14, color: ColorRes.nobel),
+                ),
                 style: MyTextStyle.montserratMedium(
                     size: 14, color: ColorRes.charcoalGrey),
                 onChanged: onCountryChange,

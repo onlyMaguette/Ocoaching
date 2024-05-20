@@ -31,14 +31,29 @@ class RegistrationScreenController extends GetxController {
   String deviceToken = '';
   PrefService prefService = PrefService();
 
+  // Déclarez une variable pour stocker le choix du rôle de coach
+  var isCoach = false.obs;
+
   bool isCertified = false; // Variable pour l'attestation de certification RNCP
   bool isCodeApproved =
       false; // Variable pour la signature du code de déontologie Ocoaching
+  bool isDocumentUploaded = false;
+
+  // Méthode pour activer ou désactiver le chargement du document
+  void toggleDocumentUploaded(bool value) {
+    isDocumentUploaded = value;
+    update();
+  }
 
   // Méthode pour activer ou désactiver l'attestation de certification RNCP
   void toggleCertification(bool value) {
     isCertified = value;
     update();
+  }
+
+  // Méthode pour basculer le choix du rôle de coach
+  void toggleCoach(bool value) {
+    isCoach.value = value;
   }
 
   // Méthode pour activer ou désactiver la signature du code de déontologie Ocoaching
@@ -47,15 +62,27 @@ class RegistrationScreenController extends GetxController {
     update();
   }
 
+  // Définir une méthode pour afficher les options "I certify" et "I have read and agree"
+  void showCertifyAndAgreeOptions() {
+    // Mettre à jour les états des autres options ici
+    update();
+  }
+
+  // Définir une méthode pour masquer les options "I certify" et "I have read and agree"
+  void hideCertifyAndAgreeOptions() {
+    // Mettre à jour les états des autres options ici
+    update();
+  }
+
   // Méthode pour gérer le téléchargement du diplôme RNCP
   void uploadRNCPDocument() {
     Get.defaultDialog(
-      title: "Download the RNCP diploma",
+      title: S.current.downloadRNCPDiploma,
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text("Please select the file to download :"),
+          Text(S.current.selectFileToDownload),
           ElevatedButton(
             onPressed: () async {
               // Sélectionner un fichier
@@ -70,10 +97,10 @@ class RegistrationScreenController extends GetxController {
                 print('Chemin du fichier : ${file.path}');
               } else {
                 // Aucun fichier sélectionné
-                print('Aucun fichier sélectionné.');
+                print(S.current.noFileSelected);
               }
             },
-            child: Text("Select a file"),
+            child: Text(S.current.selectFile),
           ),
         ],
       ),
@@ -82,7 +109,7 @@ class RegistrationScreenController extends GetxController {
           onPressed: () {
             Get.back();
           },
-          child: Text("Cancel"),
+          child: Text(S.current.cancel),
         ),
       ],
     );
@@ -98,7 +125,19 @@ class RegistrationScreenController extends GetxController {
     super.onInit();
   }
 
-  void onRegisterClick() {
+  void onRegisterClick() async {
+    // Vérifier si l'utilisateur a coché "Je suis un coach"
+    if (isCoach.value) {
+      // Vérifier si toutes les cases associées à "Je suis un coach" sont cochées
+      if (!isCertified || !isCodeApproved || !isDocumentUploaded) {
+        CustomUi.snackBar(
+            iconData: Icons.error,
+            positive: false,
+            message: S.current.allConditionsNotMet);
+        return;
+      }
+    }
+
     fullnameError = false;
     emailError = false;
     passwordError = false;
@@ -120,7 +159,6 @@ class RegistrationScreenController extends GetxController {
     if (fullnameError || emailError || passwordError || reTypePasswordError) {
       return;
     }
-    log('message');
     if (!GetUtils.isEmail(emailController.text.trim())) {
       CustomUi.snackBar(
           iconData: Icons.email,
@@ -136,7 +174,7 @@ class RegistrationScreenController extends GetxController {
           message: S.current.passwordDosentMatchEnterSamePassword);
       return;
     }
-    CustomUi.loader();
+
     createUserWithEmailAndPassword();
   }
 
@@ -149,11 +187,24 @@ class RegistrationScreenController extends GetxController {
       );
 
       if (credential.user != null) {
-        credential.user?.sendEmailVerification();
+        // Envoyer un e-mail de vérification
+        await credential.user?.sendEmailVerification();
+
+        // Vérifier si l'e-mail est vérifié avant de continuer
+        if (!credential.user!.emailVerified) {
+          Get.back();
+          // Si l'e-mail n'est pas vérifié, afficher un message à l'utilisateur
+          CustomUi.snackBar(
+              iconData: Icons.email,
+              positive: false,
+              message: S.current.pleaseVerifiedYourEmail);
+        }
+        print('Nom de l\'utilisateur: ${fullNameController.text.trim()}');
+        // Si l'e-mail est vérifié, continuer avec le processus d'enregistrement
         registrationApi();
       }
     } on FirebaseAuthException catch (e) {
-      Get.back();
+      //Get.back();
       if (e.code == 'weak-password') {
         CustomUi.snackBar(
             iconData: Icons.error,
@@ -166,7 +217,7 @@ class RegistrationScreenController extends GetxController {
             positive: false);
       }
     } catch (e) {
-      Get.back();
+      // Gérer d'autres exceptions
     }
   }
 
@@ -179,6 +230,7 @@ class RegistrationScreenController extends GetxController {
             deviceType: Platform.isAndroid ? 1 : 2,
             loginType: 1)
         .then((value) async {
+      print('Réponse de l\'API : $value');
       if (value.status == true) {
         PrefService.userId = value.data?.id ?? -1;
         PrefService.identity = value.data?.identity ?? '';
