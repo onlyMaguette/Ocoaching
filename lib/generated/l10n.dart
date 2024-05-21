@@ -341,6 +341,56 @@ class S {
     );
   }
 
+  /// `bookAppointment`
+  String get bookAppointment {
+    return Intl.message(
+      'Book Appointment',
+      name: 'bookAppointment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `bookAppointments`
+  String get bookAppointments {
+    return Intl.message(
+      'Book Appointments',
+      name: 'bookAppointments',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `selectAppointmentsAndCoach`
+  String get selectAppointmentsAndCoach {
+    return Intl.message(
+      'Select appointments and coach',
+      name: 'selectAppointmentsAndCoach',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `selectAppointmentsAndCoach`
+  String get pleaseSelectAppointmentsAndCoach {
+    return Intl.message(
+      'Please select appointments and a coach',
+      name: 'pleaseSelectAppointmentsAndCoach',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `successfulAppointment`
+  String get successfulAppointment {
+    return Intl.message(
+      'You have successfully booked a 15-minute free appointment with ',
+      name: 'successfulAppointment',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `allConditionsNotMet`
   String get allConditionsNotMet {
     return Intl.message(
@@ -2966,6 +3016,16 @@ class S {
     return Intl.message(
       'Sorry, there are currently no coaches available for booking. Please try again later.',
       name: 'noCoachesAvailableMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `noAppointmentsMessage`
+  String get noAppointmentsMessage {
+    return Intl.message(
+      'Sorry, there are currently no appointments available. Please try again later.',
+      name: 'noAppointmentsMessage',
       desc: '',
       args: [],
     );

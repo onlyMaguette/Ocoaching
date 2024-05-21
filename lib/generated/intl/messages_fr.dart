@@ -442,6 +442,19 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Inscription effectuée avec succès. Merci de vous connecter pour continuer"),
         "rejected": MessageLookupByLibrary.simpleMessage("Rejeté"),
         "relation": MessageLookupByLibrary.simpleMessage("Relation"),
+        "pleaseSelectAppointmentsAndCoach":
+            MessageLookupByLibrary.simpleMessage(
+                "Veuillez sélectionner des rendez-vous et un coach"),
+        "selectAppointmentsAndCoach": MessageLookupByLibrary.simpleMessage(
+            "Sélectionner des rendez-vous et un coach"),
+        "bookAppointments":
+            MessageLookupByLibrary.simpleMessage("Réserver des rendez-vous"),
+        "noAppointmentsMessage": MessageLookupByLibrary.simpleMessage(
+            "Désolé, il n\'y a actuellement aucun rendez-vous disponible. Veuillez réessayer plus tard."),
+        "successfulAppointment": MessageLookupByLibrary.simpleMessage(
+            "Vous avez pris un rendez-vous gratuit de 15 minutes avec "),
+        "bookAppointment":
+            MessageLookupByLibrary.simpleMessage("Prendre rendez-vous"),
         "reschedule": MessageLookupByLibrary.simpleMessage("Reprogrammer"),
         "retypePassword":
             MessageLookupByLibrary.simpleMessage("Retaper le mot de passe"),

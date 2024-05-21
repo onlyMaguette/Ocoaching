@@ -6,15 +6,37 @@ import 'package:patient_flutter/generated/l10n.dart';
 import 'package:patient_flutter/screen/appointment_screen/appointment_screen_controller.dart';
 import 'package:patient_flutter/screen/appointment_screen/widget/appointments.dart';
 import 'package:patient_flutter/utils/color_res.dart';
+import 'package:twilio_flutter/twilio_flutter.dart';
 
 import 'coach.dart';
-/*
-* import 'email_service.dart'; // Import the email service
-  import 'sms_service.dart'; // Import the SMS service
-* */
+import 'email_service.dart'; // Import the email service
+import 'sms_service.dart'; // Import the SMS service
 
 class AppointmentScreen extends StatelessWidget {
   const AppointmentScreen({Key? key}) : super(key: key);
+
+  // Convertir TimeOfDay en DateTime
+  DateTime convertTimeOfDayToDateTime(TimeOfDay timeOfDay, DateTime date) {
+    return DateTime(
+        date.year, date.month, date.day, timeOfDay.hour, timeOfDay.minute);
+  }
+
+  Future<void> scheduleAppointmentReminder(String clientPhone,
+      DateTime appointmentDate, DateTime appointmentTime) async {
+    try {
+      // Ajouter un document de rappel à la collection "reminders"
+      await FirebaseFirestore.instance.collection('reminders').add({
+        'clientPhone': clientPhone,
+        'reminderDateTime': appointmentDate.subtract(Duration(days: 1)).toUtc(),
+        // Rappel 24 heures avant le rendez-vous
+        'appointmentDateTime': appointmentDate.toUtc(),
+        // Date et heure du rendez-vous
+      });
+      print('Appointment reminder scheduled successfully');
+    } catch (e) {
+      print('Error scheduling appointment reminder: $e');
+    }
+  }
 
   // Définir la méthode isAuthenticatedAsCoach dans la classe AppointmentScreen
   Future<bool> isAuthenticatedAsCoach() async {
@@ -133,20 +155,26 @@ class AppointmentScreen extends StatelessWidget {
       }
     }
 
+    // Configuration des services
+    final emailService = EmailService(
+        'your-sendgrid-api-key'); // Replace with your SendGrid API key
+    final smsService = SMSService(TwilioFlutter(
+      accountSid: 'your-account-sid', // Replace with your Twilio Account SID
+      authToken: 'your-auth-token', // Replace with your Twilio Auth Token
+      twilioNumber:
+          'your-twilio-number', // Replace with your Twilio phone number
+    ));
+
     // Function to send confirmation email
-    void _sendConfirmationEmail(String email, String date, String time) {
-      // Implement code to send email confirmation
-      // This could involve using a third-party email service or your own server
-      // For demonstration purposes, we'll just print the email content
-      print('Email confirmation sent to $email for $date at $time');
+    Future<void> _sendConfirmationEmail(
+        String email, String date, String time) async {
+      await emailService.sendConfirmationEmail(email, date, time);
     }
 
     // Function to send confirmation SMS
-    void _sendConfirmationSMS(String phone, String date, String time) {
-      // Implement code to send SMS confirmation
-      // This could involve using a third-party SMS service or your own server
-      // For demonstration purposes, we'll just print the SMS content
-      print('SMS confirmation sent to $phone for $date at $time');
+    Future<void> _sendConfirmationSMS(
+        String phone, String date, String time) async {
+      await smsService.sendConfirmationSMS(phone, date, time);
     }
 
     Future<bool> checkAppointmentConflict(
@@ -227,13 +255,29 @@ class AppointmentScreen extends StatelessWidget {
           return;
         }
 
+        // Enregistrer le rendez-vous dans Firestore
+        await FirebaseFirestore.instance.collection('appointments').add({
+          'coachId': selectedCoach.id,
+          'clientId': FirebaseAuth.instance.currentUser!.uid,
+          'date': formattedDate,
+          'time': formattedTime,
+          'createdAt': Timestamp.now(),
+        });
+
         // Send confirmation email
-        _sendConfirmationEmail(selectedCoach.email, appointmentDate.toString(),
-            appointmentTime.toString());
+        _sendConfirmationEmail(
+            selectedCoach.email, formattedDate, formattedTime);
 
         // Send confirmation SMS
-        _sendConfirmationSMS(selectedCoach.phone, appointmentDate.toString(),
-            appointmentTime.toString());
+        _sendConfirmationSMS(selectedCoach.phone, formattedDate, formattedTime);
+
+        // Convertir TimeOfDay en DateTime
+        DateTime appointmentDateTime =
+            convertTimeOfDayToDateTime(appointmentTime, appointmentDate);
+
+        // Schedule appointment reminder by adding a document to "reminders" collection
+        await scheduleAppointmentReminder(
+            selectedCoach.phone, appointmentDateTime, appointmentDate);
 
         // Show confirmation dialog
         showDialog(
@@ -252,7 +296,7 @@ class AppointmentScreen extends StatelessWidget {
                   child: Text(S.current.ok),
                 ),
                 IconButton(
-                  icon: Icon(Icons.folder),
+                  icon: const Icon(Icons.folder),
                   onPressed: () {
                     _showClientDossierModal(context);
                   },

@@ -4,11 +4,14 @@ import 'package:patient_flutter/model/appointment/fetch_appointment.dart';
 import 'package:patient_flutter/screen/appointment_detail_screen/appointment_detail_screen.dart';
 import 'package:patient_flutter/services/api_service.dart';
 
+import '../../generated/l10n.dart';
 import 'coach.dart';
 
 class AppointmentScreenController extends GetxController {
   List<AppointmentData>? appointmentData;
   bool isLoading = false;
+  List<AppointmentData> selectedAppointments = [];
+  Coach? selectedCoach;
 
   @override
   void onInit() {
@@ -17,7 +20,8 @@ class AppointmentScreenController extends GetxController {
   }
 
   void fetchAppointmentData() {
-    isLoading = false;
+    isLoading = true;
+    update();
     ApiService.instance.fetchMyAppointments().then((value) {
       appointmentData = value.data;
       isLoading = false;
@@ -25,58 +29,58 @@ class AppointmentScreenController extends GetxController {
     });
   }
 
-  onAppointmentCardTap(AppointmentData? data) {
+  void onAppointmentCardTap(AppointmentData? data) {
     Get.to(() => const AppointmentDetailScreen(), arguments: data?.id)
         ?.then((value) {
       fetchAppointmentData();
     });
   }
 
-  // Function to handle booking a free appointment
-  void bookFreeAppointment(BuildContext context) {
-    // Here you would implement the logic to book a free appointment
-    // Let's assume we have a list of available coaches in the appointmentData
-    // and we can choose one from the list for the appointment.
-    if (appointmentData != null && appointmentData!.isNotEmpty) {
-      final selectedCoach = appointmentData![0].doctor?.name;
-      // Choosing the first coach for now
+  void toggleAppointmentSelection(AppointmentData data) {
+    if (selectedAppointments.contains(data)) {
+      selectedAppointments.remove(data);
+    } else {
+      selectedAppointments.add(data);
+    }
+    update();
+  }
 
-      // Now you can implement the code to actually book the appointment,
-      // which could involve making API calls or updating database records.
-      // For demonstration purposes, let's just display an alert dialog.
+  void bookAppointmentsWithCoach(BuildContext context) {
+    if (selectedAppointments.isNotEmpty && selectedCoach != null) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Book Appointment'),
+            title: Text(S.current.bookAppointments),
             content: Text(
-                'You have successfully booked a 15-minute free appointment with ${selectedCoach}!'),
+              '${S.current.successfulAppointment} ${selectedCoach!.name}!',
+            ),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
+                  selectedAppointments.clear();
+                  update();
                 },
-                child: Text('OK'),
+                child: Text(S.current.ok),
               ),
             ],
           );
         },
       );
     } else {
-      // If no appointment data is available, display a message
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('No Appointments Available'),
-            content: Text(
-                'Sorry, there are currently no appointments available. Please try again later.'),
+            title: Text(S.current.selectAppointmentsAndCoach),
+            content: Text(S.current.pleaseSelectAppointmentsAndCoach),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('OK'),
+                child: Text(S.current.ok),
               ),
             ],
           );

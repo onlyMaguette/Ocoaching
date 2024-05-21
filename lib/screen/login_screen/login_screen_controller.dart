@@ -61,6 +61,7 @@ class LoginScreenController extends GetxController {
       );
       return;
     }
+    CustomUi.loader();
 
     UserCredential? user = await signIn(
       email: emailController.text.trim(),
