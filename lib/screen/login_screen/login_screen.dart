@@ -21,7 +21,7 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               children: [
                 Image(
-                  image: const AssetImage(AssetRes.public_health),
+                  image: const AssetImage(AssetRes.doctor5),
                   height: Get.height / 2.2,
                   fit: BoxFit.fill,
                 ),

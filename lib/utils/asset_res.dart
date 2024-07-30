@@ -6,6 +6,9 @@ class AssetRes {
   ///------------------------------- Image -----------------------///
   static const String doctor1 = "${image}doctor1.png";
   static const String doctor2 = "${image}doctor2.png";
+  static const String doctor3 = "${image}doctor3.jpg";
+  static const String doctor4 = "${image}doctor4.jpg";
+  static const String doctor5 = "${image}doctor5.jpg";
   static const String profile1 = "${image}profile1.png";
   static const String profile2 = "${image}profile2.png";
   static const String profile3 = "${image}profile3.png";

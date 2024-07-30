@@ -29,7 +29,7 @@ class SplashTopBar extends StatelessWidget {
             ),
           ),
           Image(
-              image: const AssetImage(AssetRes.doctor1),
+              image: const AssetImage(AssetRes.doctor3),
               height: Get.height / 2.2,
               fit: BoxFit.fitHeight),
           Visibility(

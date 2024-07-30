@@ -18,9 +18,9 @@ class AuthScreen extends StatelessWidget {
       body: Column(
         children: [
           Image(
-            image: const AssetImage(AssetRes.doctor2),
+            image: const AssetImage(AssetRes.doctor4),
             height: Get.height / 2.2,
-            fit: BoxFit.cover,
+            fit: BoxFit.fitHeight,
           ),
           const Spacer(),
           Text(
