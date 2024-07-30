@@ -156,13 +156,16 @@ class AppointmentScreen extends StatelessWidget {
     }
 
     // Configuration des services
+    // Configuration des services
     final emailService = EmailService(
-        'your-sendgrid-api-key'); // Replace with your SendGrid API key
+        '9d13cbc8255b4e0ff77b35374cf6f56c-55df32f1-9d99-47e0-9e76-4aa9b49bfc3a',
+        'https://2v551m.api.infobip.com'); // Replace with your Infobip API key and base URL
     final smsService = SMSService(TwilioFlutter(
-      accountSid: 'your-account-sid', // Replace with your Twilio Account SID
-      authToken: 'your-auth-token', // Replace with your Twilio Auth Token
-      twilioNumber:
-          'your-twilio-number', // Replace with your Twilio phone number
+      accountSid: 'AC12580efaae9541b160fc0c9d00e14516',
+      // Replace with your Twilio Account SID
+      authToken: '2b37e9c62f08e415036c139e58ea0f5e',
+      // Replace with your Twilio Auth Token
+      twilioNumber: '+13365027839', // Replace with your Twilio phone number
     ));
 
     // Function to send confirmation email

@@ -20,7 +20,7 @@ class AppointmentScreenController extends GetxController {
   }
 
   void fetchAppointmentData() {
-    isLoading = true;
+    isLoading = false;
     update();
     ApiService.instance.fetchMyAppointments().then((value) {
       appointmentData = value.data;

@@ -1,29 +1,37 @@
-import 'package:sendgrid_mailer/sendgrid_mailer.dart';
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
 
 class EmailService {
   final String apiKey;
+  final String baseUrl;
 
-  EmailService(this.apiKey);
+  EmailService(this.apiKey, this.baseUrl);
 
   Future<void> sendConfirmationEmail(
       String to, String date, String time) async {
-    final mailer = Mailer(apiKey);
-    final fromAddress = Address('your-email@example.com');
-    final personalization = Personalization([Address(to)]);
-    final content = Content(
-        'text/plain', 'Votre rendez-vous est confirmé pour le $date à $time.');
-    final subject = 'Confirmation de rendez-vous';
-
-    final email = Email(
-      [personalization],
-      fromAddress,
-      subject,
-      content: [content],
-    );
+    final url = Uri.parse('$baseUrl/email/2/send');
+    final headers = {
+      'Authorization': 'App $apiKey',
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    };
+    final body = jsonEncode({
+      'from': {'email': 'your-email@example.com'},
+      'to': [
+        {'email': to}
+      ],
+      'subject': 'Confirmation de rendez-vous',
+      'text': 'Votre rendez-vous est confirmé pour le $date à $time.',
+    });
 
     try {
-      await mailer.send(email);
-      print('Email confirmation sent to $to for $date at $time');
+      final response = await http.post(url, headers: headers, body: body);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        print('Email confirmation sent to $to for $date at $time');
+      } else {
+        print('Failed to send email: ${response.body}');
+      }
     } catch (e) {
       print('Error sending confirmation email: $e');
     }

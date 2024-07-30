@@ -23,7 +23,7 @@ class LoginScreen extends StatelessWidget {
                 Image(
                   image: const AssetImage(AssetRes.public_health),
                   height: Get.height / 2.2,
-                  fit: BoxFit.contain,
+                  fit: BoxFit.fill,
                 ),
                 const SizedBox(
                   height: 10,

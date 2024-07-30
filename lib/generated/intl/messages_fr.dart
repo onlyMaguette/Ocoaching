@@ -65,6 +65,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "attachPhoto":
             MessageLookupByLibrary.simpleMessage("Joindre une photo"),
         "attachments": MessageLookupByLibrary.simpleMessage("Pièces jointes"),
+        "noNotification":
+            MessageLookupByLibrary.simpleMessage("Pas de notification"),
         "aug": MessageLookupByLibrary.simpleMessage("Août"),
         "awards": MessageLookupByLibrary.simpleMessage("Prix"),
         "back": MessageLookupByLibrary.simpleMessage("Dos"),

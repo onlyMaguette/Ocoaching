@@ -1,6 +1,6 @@
 class ConstRes {
   ///------------------------ Backend urls and key ------------------------///
-  static const String base = 'http://10.0.2.2:8000/';
+  static const String base = 'http://141.94.251.34/';
   static const String itemBaseURL = '${base}public/storage/';
   static const String privacyPolicy = '${base}privacypolicy';
   static const String termsOfUse = '${base}termsOfUse';
