@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+//Utilisation d'infobip pour l'envoi des mails
 class EmailService {
   final String apiKey;
   final String baseUrl;
