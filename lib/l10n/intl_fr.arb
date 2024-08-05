@@ -301,7 +301,10 @@
   "passwordDosentMatchEnterSamePassword": "Le mot de passe ne correspond pas ! Entrez le même mot de passe.",
   "thePasswordProvidedIsTooWeak": "Le mot de passe fourni est trop faible.",
   "theAccountAlreadyExistsForThatEmail": "Le compte existe déjà pour cet e-mail.",
-  "mobileNumber": "Mobile number",
-  "leftTheMeeting": "Left the meeting",
-  "muteTheAudio": "Mute the Audio"
+  "mobileNumber": "Numéro de téléphone",
+  "leftTheMeeting": "a quitté la réunion",
+  "muteTheAudio": "Couper le son"
+  "iAmAMentalCoach": "Je suis préparateur mental"
+  "iAmAHypnotherapist": "Je suis hypnothérapeute"
+  "iAmACoach": "Je suis coach"
 }

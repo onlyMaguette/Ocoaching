@@ -13,11 +13,13 @@ import 'package:patient_flutter/utils/const_res.dart';
 import 'package:patient_flutter/utils/my_text_style.dart';
 
 class RegistrationScreen extends StatelessWidget {
-  const RegistrationScreen({Key? key});
+  const RegistrationScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final controller = RegistrationScreenController();
+    final controller =
+        Get.put(RegistrationScreenController()); // Use Get.put instead of new
+
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,151 +30,147 @@ class RegistrationScreen extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 15),
-                  child: GetBuilder(
-                      init: controller,
+                  child: GetBuilder<RegistrationScreenController>(
                       builder: (controller) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            // Ajouter le champ pour attester la certification RNCP
-                            CheckboxListTile(
-                              title: Text(
-                                S.of(context).iAmACoach, // Texte pour l'option
-                                style: MyTextStyle.montserratRegular(
-                                  color: ColorRes.black,
-                                ),
-                              ),
-                              value: controller.isCoach.value,
-                              onChanged: (newValue) {
-                                controller.toggleCoach(newValue ?? false);
-                                // Mettre à jour la visibilité des autres options en fonction de la valeur de la case à cocher "I'm a coach"
-                                if (newValue != null) {
-                                  controller.showCertifyAndAgreeOptions();
-                                  // Mettre à jour le statut de coach de l'utilisateur dans Firestore
-                                  updateUserIsCoach(newValue);
-                                } else {
-                                  controller.hideCertifyAndAgreeOptions();
-                                }
-                              },
-                            ),
-                            Visibility(
-                              visible: controller.isCoach.value,
-                              child: CheckboxListTile(
-                                title: Text(
-                                  S.of(context).iCertifyThatIHoldACertification,
-                                  style: MyTextStyle.montserratRegular(
-                                    color: ColorRes.black,
-                                  ),
-                                ),
-                                value: controller.isCertified ?? false,
-                                onChanged: (newValue) {
-                                  controller
-                                      .toggleCertification(newValue ?? false);
-                                },
-                              ),
-                            ),
-                            Visibility(
-                              visible: controller.isCoach.value,
-                              child: CheckboxListTile(
-                                title: Text(
-                                  S
-                                      .of(context)
-                                      .iHaveReadAndAgreeToTheOcoachingCode,
-                                  style: MyTextStyle.montserratRegular(
-                                    color: ColorRes.black,
-                                  ),
-                                ),
-                                value: controller.isCodeApproved ?? false,
-                                onChanged: (newValue) {
-                                  controller
-                                      .toggleCodeApproval(newValue ?? false);
-                                },
-                              ),
-                            ),
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 20),
 
-                            // Ajouter le champ pour télécharger et scanner le diplôme RNCP
-                            Visibility(
-                              visible: controller.isCoach.value,
-                              child: TextButtonCustom(
-                                onPressed: () {
-                                  // Ajouter la logique pour télécharger et scanner le diplôme RNCP
-                                  controller.uploadRNCPDocument();
-                                },
-                                title: S.of(context).uploadRNCPDocument,
-                                titleColor: ColorRes.darkSkyBlue,
-                                backgroundColor:
-                                    ColorRes.darkSkyBlue.withOpacity(0.2),
-                              ),
-                            ),
+                        // Coach Category
+                        CheckboxListTile(
+                          title: Text(
+                            S.of(context).iAmACoach, // Text for the option
+                            style: MyTextStyle.montserratRegular(
+                                color: ColorRes.black),
+                          ),
+                          value: controller.isCoach.value,
+                          onChanged: (newValue) {
+                            controller.toggleCoach(newValue ?? false);
+                            if (newValue != null) {
+                              controller.showCertifyAndAgreeOptions();
+                              updateUserIsCoach(newValue);
+                            } else {
+                              controller.hideCertifyAndAgreeOptions();
+                            }
+                          },
+                        ),
 
-                            const SizedBox(
-                              height: 40,
-                            ),
-                            Text(
-                              S.of(context).please,
-                              style: MyTextStyle.montserratRegular(
-                                  color: ColorRes.battleshipGrey),
-                              textAlign: TextAlign.center,
-                            ),
+                        // Mental Coach Category
+                        CheckboxListTile(
+                          title: Text(
+                            S.of(context).iAmAMentalCoach,
+                            style: MyTextStyle.montserratRegular(
+                                color: ColorRes.black),
+                          ),
+                          value: controller.isMentalCoach.value ?? false,
+                          onChanged: (newValue) {
+                            controller.toggleMentalCoach(newValue ?? false);
+                            if (newValue != null) {
+                              controller.showCertifyAndAgreeOptions();
+                            } else {
+                              controller.hideCertifyAndAgreeOptions();
+                            }
+                          },
+                        ),
 
-                            const SizedBox(
-                              height: 40,
-                            ),
-                            TextWithTextField(
-                              title: S.of(context).fullname,
-                              controller: controller.fullNameController,
-                              isError: controller.fullnameError,
-                              textCapitalization: TextCapitalization.sentences,
-                            ),
-                            TextWithTextField(
-                              title: S.of(context).email,
-                              controller: controller.emailController,
-                              isError: controller.emailError,
-                              keyboardType: TextInputType.emailAddress,
-                            ),
-                            TextWithTextField(
-                                title: S.of(context).password,
-                                controller: controller.passwordController,
-                                isError: controller.passwordError,
-                                keyboardType: TextInputType.visiblePassword,
-                                onChangedPasswordVisibility:
-                                    controller.onChangePassword,
-                                isSuffixVisible: true,
-                                obSecure: controller.isPasswordVisible,
-                                passwordVisible: controller.isPasswordVisible),
-                            TextWithTextField(
-                              title: S.of(context).retypePassword,
-                              controller: controller.reTypePasswordController,
-                              isError: controller.reTypePasswordError,
-                              keyboardType: TextInputType.visiblePassword,
-                              onChangedPasswordVisibility:
-                                  controller.onChangedReTypePassword,
-                              isSuffixVisible: true,
-                              obSecure: controller.isReTypePasswordVisible,
-                              passwordVisible:
-                                  controller.isReTypePasswordVisible,
-                            ),
-                            const SizedBox(
-                              height: 40,
-                            ),
-                            TextButtonCustom(
-                                onPressed: controller.onRegisterClick,
-                                title: S.of(context).register,
-                                titleColor: ColorRes.white,
-                                backgroundColor: ColorRes.crystalBlue),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            const PolicyText(),
-                            SizedBox(
-                              height: AppBar().preferredSize.height / 3,
-                            )
-                          ],
-                        );
-                      }),
+                        // Hypnotherapist Category
+                        CheckboxListTile(
+                          title: Text(
+                            S.of(context).iAmAHypnotherapist,
+                            style: MyTextStyle.montserratRegular(
+                                color: ColorRes.black),
+                          ),
+                          value: controller.isHypnotherapist.value ?? false,
+                          onChanged: (newValue) {
+                            controller.toggleHypnotherapist(newValue ?? false);
+                            if (newValue != null) {
+                              controller.showCertifyAndAgreeOptions();
+                            } else {
+                              controller.hideCertifyAndAgreeOptions();
+                            }
+                          },
+                        ),
+
+                        // Conditional options for Coach
+                        Visibility(
+                          visible: controller.isCoach.value,
+                          child:
+                              _buildCertifyAndAgreeOptions(context, controller),
+                        ),
+
+                        // Conditional options for Mental Coach
+                        Visibility(
+                          visible: controller.isMentalCoach.value,
+                          child:
+                              _buildCertifyAndAgreeOptions(context, controller),
+                        ),
+
+                        // Conditional options for Hypnotherapist
+                        Visibility(
+                          visible: controller.isHypnotherapist.value,
+                          child:
+                              _buildCertifyAndAgreeOptions(context, controller),
+                        ),
+
+                        const SizedBox(height: 40),
+
+                        Text(
+                          S.of(context).please,
+                          style: MyTextStyle.montserratRegular(
+                              color: ColorRes.battleshipGrey),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 40),
+
+                        TextWithTextField(
+                          title: S.of(context).fullname,
+                          controller: controller.fullNameController,
+                          isError: controller.fullnameError,
+                          textCapitalization: TextCapitalization.sentences,
+                        ),
+                        TextWithTextField(
+                          title: S.of(context).email,
+                          controller: controller.emailController,
+                          isError: controller.emailError,
+                          keyboardType: TextInputType.emailAddress,
+                        ),
+                        TextWithTextField(
+                          title: S.of(context).password,
+                          controller: controller.passwordController,
+                          isError: controller.passwordError,
+                          keyboardType: TextInputType.visiblePassword,
+                          onChangedPasswordVisibility:
+                              controller.onChangePassword,
+                          isSuffixVisible: true,
+                          obSecure: controller.isPasswordVisible,
+                          passwordVisible: controller.isPasswordVisible,
+                        ),
+                        TextWithTextField(
+                          title: S.of(context).retypePassword,
+                          controller: controller.reTypePasswordController,
+                          isError: controller.reTypePasswordError,
+                          keyboardType: TextInputType.visiblePassword,
+                          onChangedPasswordVisibility:
+                              controller.onChangedReTypePassword,
+                          isSuffixVisible: true,
+                          obSecure: controller.isReTypePasswordVisible,
+                          passwordVisible: controller.isReTypePasswordVisible,
+                        ),
+                        const SizedBox(height: 40),
+
+                        TextButtonCustom(
+                          onPressed: controller.onRegisterClick,
+                          title: S.of(context).register,
+                          titleColor: ColorRes.white,
+                          backgroundColor: ColorRes.crystalBlue,
+                        ),
+                        const SizedBox(height: 20),
+                        const PolicyText(),
+                        SizedBox(height: AppBar().preferredSize.height / 3),
+                      ],
+                    );
+                  }),
                 ),
               ),
             ),
@@ -181,9 +179,46 @@ class RegistrationScreen extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildCertifyAndAgreeOptions(
+      BuildContext context, RegistrationScreenController controller) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CheckboxListTile(
+          title: Text(
+            S.of(context).iCertifyThatIHoldACertification,
+            style: MyTextStyle.montserratRegular(color: ColorRes.black),
+          ),
+          value: controller.isCertified ?? false,
+          onChanged: (newValue) {
+            controller.toggleCertification(newValue ?? false);
+          },
+        ),
+        CheckboxListTile(
+          title: Text(
+            S.of(context).iHaveReadAndAgreeToTheOcoachingCode,
+            style: MyTextStyle.montserratRegular(color: ColorRes.black),
+          ),
+          value: controller.isCodeApproved ?? false,
+          onChanged: (newValue) {
+            controller.toggleCodeApproval(newValue ?? false);
+          },
+        ),
+        TextButtonCustom(
+          onPressed: () {
+            controller.uploadRNCPDocument();
+          },
+          title: S.of(context).uploadRNCPDocument,
+          titleColor: ColorRes.darkSkyBlue,
+          backgroundColor: ColorRes.darkSkyBlue.withOpacity(0.2),
+        ),
+      ],
+    );
+  }
 }
 
-void updateUserIsCoach(bool isCoach) async {
+void updateUserStatus(String field, bool value) async {
   try {
     // Récupérer l'utilisateur actuellement authentifié
     User? user = FirebaseAuth.instance.currentUser;
@@ -197,21 +232,34 @@ void updateUserIsCoach(bool isCoach) async {
       var docSnapshot = await userDoc.get();
 
       if (docSnapshot.exists) {
-        // Le document existe, mettre à jour le champ "isCoach"
-        await userDoc.update({'isCoach': isCoach});
+        // Le document existe, mettre à jour le champ spécifié
+        await userDoc.update({field: value});
       } else {
         // Le document n'existe pas, le créer avec l'ID utilisateur et les données initiales
-        await userDoc.set({'isCoach': isCoach});
+        await userDoc.set({field: value});
       }
 
-      print('User coach status updated successfully!');
+      print('User status updated successfully!');
     } else {
       print('No user authenticated');
     }
   } catch (e) {
-    print('Error updating user coach status: $e');
+    print('Error updating user status: $e');
     // Gérer l'erreur
   }
+}
+
+// Utilisation des fonctions
+void updateUserIsCoach(bool isCoach) {
+  updateUserStatus('isCoach', isCoach);
+}
+
+void updateUserIsMentalCoach(bool isMentalCoach) {
+  updateUserStatus('isMentalCoach', isMentalCoach);
+}
+
+void updateUserIsHypnotherapist(bool isHypnotherapist) {
+  updateUserStatus('isHypnotherapist', isHypnotherapist);
 }
 
 class TextWithTextField extends StatelessWidget {

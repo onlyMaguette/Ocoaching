@@ -21,6 +21,7 @@ class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
+
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "aboutDr": MessageLookupByLibrary.simpleMessage("ABOUT DR."),
         "accepted": MessageLookupByLibrary.simpleMessage("Accepted"),
@@ -164,7 +165,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "findBySpecialities":
             MessageLookupByLibrary.simpleMessage("Find by Specialities"),
         "findDoctorsBookAppointmentEtc": MessageLookupByLibrary.simpleMessage(
-            "Find doctors, book appointment\nhave digital consultation, get prescription\nand live healthy life."),
+            "Explore a wide range of coaches, hypnotherapists, and mental coaches, engage in virtual conversations, and achieve your goals."),
         "forgetPassword":
             MessageLookupByLibrary.simpleMessage("Forget Password?"),
         "forgotPassword":
@@ -353,11 +354,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "retypePassword":
             MessageLookupByLibrary.simpleMessage("Re-type Password"),
         "reviews": MessageLookupByLibrary.simpleMessage("Reviews"),
-        "savedDoctors": MessageLookupByLibrary.simpleMessage("Saved Doctors"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "searchDoctor": MessageLookupByLibrary.simpleMessage("Search Doctor"),
         "searchForDoctorEtc": MessageLookupByLibrary.simpleMessage(
-            "Search for doctor or clinic.."),
+            "Search for a mental wellness professional..."),
+        "savedDoctors": MessageLookupByLibrary.simpleMessage(
+            "Favorite Coach, Mental Coach, Hypnotherapist"),
         "selectAmount": MessageLookupByLibrary.simpleMessage("Select Amount"),
         "selectAnother": MessageLookupByLibrary.simpleMessage("Select another"),
         "selectCountry": MessageLookupByLibrary.simpleMessage("Select Country"),
@@ -447,6 +449,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "yourPhoneNumberHasEtc": MessageLookupByLibrary.simpleMessage(
             "Your phone number has been verified"),
         "yourProblem": MessageLookupByLibrary.simpleMessage("Your Problem"),
+        "iAmAMentalCoach":
+            MessageLookupByLibrary.simpleMessage("I am a mental coach"),
+        "iAmAHypnotherapist":
+            MessageLookupByLibrary.simpleMessage("I am a hypnotherapist"),
+        "please": MessageLookupByLibrary.simpleMessage(
+            "Please provide your details and complete the registration to start connecting with coaches, hypnotherapists, and mental preparation specialists, as well as engaging in digital conversations, this is aimed at helping you achieve your goals and enhance your mental well-being."),
+        "uploadRNCPDocument":
+            MessageLookupByLibrary.simpleMessage("Upload the diploma(s)"),
         "yourReview": MessageLookupByLibrary.simpleMessage("Your Review")
       };
 }

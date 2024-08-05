@@ -52,7 +52,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ID de rendez-vous"),
         "appointmentOnlineDiagnosticBookingManagementMultivendorApp":
             MessageLookupByLibrary.simpleMessage(
-                "Sessions de coaching, évaluations en ligne, réservation et application de gestion multi-coachs"),
+                "Séance de coaching, d’hypnose et de préparation mentale, réservation et gestion multi-professionnels "),
         "appointmentType":
             MessageLookupByLibrary.simpleMessage("Type de rendez-vous"),
         "appointments": MessageLookupByLibrary.simpleMessage("Rendez-vous"),
@@ -181,7 +181,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "findBySpecialities":
             MessageLookupByLibrary.simpleMessage("Rechercher par spécialités"),
         "findDoctorsBookAppointmentEtc": MessageLookupByLibrary.simpleMessage(
-            "Explorez un large éventail de coachs, réservez des séances de coaching personnalisées, participez à des conversations de coaching virtuelles, renforcez votre parcours de développement personnel et libérez votre potentiel inhérent."),
+            " Explorez un large éventail de coach, hypnotherapeute et préparateur mental, participez à des conversations virtuelles et atteignez vos objectifs."),
         "forgetPassword":
             MessageLookupByLibrary.simpleMessage("Mot de passe oublié?"),
         "forgotPassword":
@@ -197,7 +197,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "helpAndFAQ": MessageLookupByLibrary.simpleMessage("Aide et FAQ"),
         "holdersName":
             MessageLookupByLibrary.simpleMessage("Nom du propriétaire"),
-        "home": MessageLookupByLibrary.simpleMessage("Maison"),
+        "home": MessageLookupByLibrary.simpleMessage("Acceuil"),
         "hour": MessageLookupByLibrary.simpleMessage("Heure"),
         "hours": MessageLookupByLibrary.simpleMessage("Heures"),
         "howAreYouEtc": MessageLookupByLibrary.simpleMessage(
@@ -238,7 +238,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "meetingEnd": MessageLookupByLibrary.simpleMessage("Fin de réunion"),
         "messageWillOnlyBeRemovedEtc": MessageLookupByLibrary.simpleMessage(
             "Le message ne sera supprimé que de cet appareil\nÊtes-vous sûr ?"),
-        "messages": MessageLookupByLibrary.simpleMessage("messages"),
+        "messages": MessageLookupByLibrary.simpleMessage("Messages"),
         "minimumAmountAddEtc": MessageLookupByLibrary.simpleMessage(
             "Montant minimum 50 ajouter à votre portefeuille"),
         "minute": MessageLookupByLibrary.simpleMessage("Minute"),
@@ -304,7 +304,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "successfullyScheduled": MessageLookupByLibrary.simpleMessage(
             "Vous avez programmé avec succès une séance de coaching gratuite de 15 minutes avec"),
         "month": MessageLookupByLibrary.simpleMessage("Mois"),
-        "iAmACoach": MessageLookupByLibrary.simpleMessage("Je suis un coach"),
+        "iAmACoach": MessageLookupByLibrary.simpleMessage("Je suis coach"),
         "authenticationError":
             MessageLookupByLibrary.simpleMessage("Erreur d'authentification"),
         "appointmentSlotNotAvailable": MessageLookupByLibrary.simpleMessage(
@@ -417,9 +417,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseWaitYourMeetingEtc": MessageLookupByLibrary.simpleMessage(
             "Veuillez patienter, votre réunion ne démarre pas"),
         "prescriptions":
-            MessageLookupByLibrary.simpleMessage("Plans de coaching"),
+            MessageLookupByLibrary.simpleMessage("Plans de séances"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage(
-            "politique de confidentialité"),
+            "Politique de confidentialité"),
         "profile": MessageLookupByLibrary.simpleMessage("Profil"),
         "purchase": MessageLookupByLibrary.simpleMessage("Achat"),
         "pushNotification":
@@ -437,7 +437,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "refund": MessageLookupByLibrary.simpleMessage("Remboursement"),
         "register": MessageLookupByLibrary.simpleMessage("Inscription"),
         "please": MessageLookupByLibrary.simpleMessage(
-            "Veuillez fournir vos coordonnées et compléter l’inscription pour commencer à vous connecter avec des coachs experts, à réserver des séances de coaching personnalisées, à engager des conversations numériques transformatrices, à améliorer vos compétences et à vivre votre meilleure vie."),
+            "Veuillez fournir vos coordonnées et compléter l’inscription pour commencer à vous connecter aux coachs, hypnothérapeutes et préparateurs mentaux, ainsi qu’à engager des conversations numériques dans le but d’atteindre vos objectifs et d’augmenter votre bien-être mental."),
         "registration": MessageLookupByLibrary.simpleMessage("Inscription"),
         "registrationSuccessfullyDonePleaseLoginToContinue":
             MessageLookupByLibrary.simpleMessage(
@@ -461,12 +461,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "retypePassword":
             MessageLookupByLibrary.simpleMessage("Retaper le mot de passe"),
         "reviews": MessageLookupByLibrary.simpleMessage("Commentaires"),
-        "savedDoctors": MessageLookupByLibrary.simpleMessage("Coach Favoris"),
+        "savedDoctors": MessageLookupByLibrary.simpleMessage(
+            "Coach, Préparateur mental, Hypnothérapeute favoris"),
         "iHaveReadAndAgreeToTheOcoachingCode":
             MessageLookupByLibrary.simpleMessage(
                 "J’ai lu et j’accepte le code de conduite d’Ocoaching"),
         "uploadRNCPDocument": MessageLookupByLibrary.simpleMessage(
-            "Télécharger le document RNCP"),
+            "Télécharger le(s) diplôme(s)"),
         "iCertifyThatIHoldACertification": MessageLookupByLibrary.simpleMessage(
             "Je certifie que je suis titulaire d’une certification"),
         "search": MessageLookupByLibrary.simpleMessage("Recherche"),
@@ -495,7 +496,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "searchDoctor":
             MessageLookupByLibrary.simpleMessage("Rechercher un coach"),
         "searchForDoctorEtc": MessageLookupByLibrary.simpleMessage(
-            "Recherche d’un coach ou d’un service de coaching.."),
+            "Recherche d’un professionnel du bien être mental..."),
         "coachingSessions":
             MessageLookupByLibrary.simpleMessage("Séance de coaching"),
         "selectAmount":
@@ -600,6 +601,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "goToAuthentificationScrenn": MessageLookupByLibrary.simpleMessage(
             "Aller à l’écran d’authentification"),
         "yourProblem": MessageLookupByLibrary.simpleMessage("Ton problème"),
+        "iAmAMentalCoach":
+            MessageLookupByLibrary.simpleMessage("Je suis préparateur mental"),
+        "iAmAHypnotherapist":
+            MessageLookupByLibrary.simpleMessage("Je suis hypnothérapeute"),
         "yourReview": MessageLookupByLibrary.simpleMessage("Votre avis")
       };
 }

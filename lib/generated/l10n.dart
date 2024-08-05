@@ -634,7 +634,7 @@ class S {
   /// `Saved Doctors`
   String get savedDoctors {
     return Intl.message(
-      'Favorite Coaches',
+      'Favorite Coach, Mental Coach, Hypnotherapist',
       name: 'savedDoctors',
       desc: '',
       args: [],
@@ -1674,7 +1674,7 @@ class S {
   /// `Coaching Sessions`
   String get coachingSessions {
     return Intl.message(
-      'Coaching Plans',
+      'Session Plans',
       name: 'coachingSessions',
       desc: '',
       args: [],
@@ -3776,6 +3776,26 @@ class S {
     return Intl.message(
       'Conference',
       name: 'conference',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I am a mental coach`
+  String get iAmAMentalCoach {
+    return Intl.message(
+      'I am a mental coach',
+      name: 'iAmAMentalCoach',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I am a hypnotherapist`
+  String get iAmAHypnotherapist {
+    return Intl.message(
+      'I am a hypnotherapist',
+      name: 'iAmAHypnotherapist',
       desc: '',
       args: [],
     );

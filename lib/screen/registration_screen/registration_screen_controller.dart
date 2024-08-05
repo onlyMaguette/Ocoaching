@@ -31,6 +31,10 @@ class RegistrationScreenController extends GetxController {
   String deviceToken = '';
   PrefService prefService = PrefService();
 
+  // Déclarez les variables pour les nouveaux rôles
+  var isMentalCoach = false.obs;
+  var isHypnotherapist = false.obs;
+
   // Déclarez une variable pour stocker le choix du rôle de coach
   var isCoach = false.obs;
 
@@ -38,6 +42,15 @@ class RegistrationScreenController extends GetxController {
   bool isCodeApproved =
       false; // Variable pour la signature du code de déontologie Ocoaching
   bool isDocumentUploaded = false;
+
+  // Méthodes pour les nouveaux rôles
+  void toggleMentalCoach(bool value) {
+    isMentalCoach.value = value;
+  }
+
+  void toggleHypnotherapist(bool value) {
+    isHypnotherapist.value = value;
+  }
 
   // Méthode pour activer ou désactiver le chargement du document
   void toggleDocumentUploaded(bool value) {
@@ -128,6 +141,24 @@ class RegistrationScreenController extends GetxController {
   void onRegisterClick() async {
     // Vérifier si l'utilisateur a coché "Je suis un coach"
     if (isCoach.value) {
+      // Vérifier si toutes les cases associées à "Je suis un coach" sont cochées
+      if (!isCertified || !isCodeApproved || !isDocumentUploaded) {
+        CustomUi.snackBar(
+            iconData: Icons.error,
+            positive: false,
+            message: S.current.allConditionsNotMet);
+        return;
+      }
+    } else if (isMentalCoach.value) {
+      // Vérifier si toutes les cases associées à "Je suis un coach" sont cochées
+      if (!isCertified || !isCodeApproved || !isDocumentUploaded) {
+        CustomUi.snackBar(
+            iconData: Icons.error,
+            positive: false,
+            message: S.current.allConditionsNotMet);
+        return;
+      }
+    } else if (isHypnotherapist.value) {
       // Vérifier si toutes les cases associées à "Je suis un coach" sont cochées
       if (!isCertified || !isCodeApproved || !isDocumentUploaded) {
         CustomUi.snackBar(

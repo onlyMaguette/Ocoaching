@@ -24,7 +24,7 @@
 
     <application
         android:name="${applicationName}"
-        android:icon="@mipmap/monlogo"
+        android:icon="@mipmap/monlogo1"
         android:label="Ocoaching"
         android:requestLegacyExternalStorage="true">
 
