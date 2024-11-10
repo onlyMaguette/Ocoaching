@@ -219,7 +219,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Gardez-le activé, si vous souhaitez recevoir des notifications"),
         "languages": MessageLookupByLibrary.simpleMessage("LANGUES"),
         "leftTheMeeting":
-            MessageLookupByLibrary.simpleMessage("A quitté la réunion"),
+            MessageLookupByLibrary.simpleMessage("a quitté la réunion"),
         "less": MessageLookupByLibrary.simpleMessage("Moins"),
         "logIn": MessageLookupByLibrary.simpleMessage("Se connecter"),
         "login": MessageLookupByLibrary.simpleMessage("Se connecter"),

@@ -23,16 +23,16 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
 
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "aboutDr": MessageLookupByLibrary.simpleMessage("ABOUT DR."),
+        "aboutDr": MessageLookupByLibrary.simpleMessage("ABOUT THE COACH"),
         "accepted": MessageLookupByLibrary.simpleMessage("Accepted"),
         "account": MessageLookupByLibrary.simpleMessage("Account"),
         "accountNumber": MessageLookupByLibrary.simpleMessage("Account Number"),
         "add": MessageLookupByLibrary.simpleMessage("Add"),
         "addMoneyToYourWallet":
             MessageLookupByLibrary.simpleMessage("Add money to your wallet"),
-        "addPatient": MessageLookupByLibrary.simpleMessage("Add Patient"),
-        "addRatings": MessageLookupByLibrary.simpleMessage("Add Ratings"),
-        "afterMeal": MessageLookupByLibrary.simpleMessage("After Meal"),
+        "addPatient": MessageLookupByLibrary.simpleMessage("Add a client"),
+        "addRatings": MessageLookupByLibrary.simpleMessage("Add ratings"),
+        "afterMeal": MessageLookupByLibrary.simpleMessage("After the session"),
         "age": MessageLookupByLibrary.simpleMessage("Age"),
         "all": MessageLookupByLibrary.simpleMessage("All"),
         "alreadyHaveAnAccount":
@@ -41,245 +41,292 @@ class MessageLookup extends MessageLookupByLibrary {
         "and": MessageLookupByLibrary.simpleMessage("and"),
         "applyCoupon": MessageLookupByLibrary.simpleMessage("Apply Coupon"),
         "applySearchFilters":
-            MessageLookupByLibrary.simpleMessage("Apply Search Filters"),
+            MessageLookupByLibrary.simpleMessage("Apply search filters"),
         "appointmentBooked":
-            MessageLookupByLibrary.simpleMessage("Appointment Booked"),
+            MessageLookupByLibrary.simpleMessage("Appointment booked"),
         "appointmentDetails":
-            MessageLookupByLibrary.simpleMessage("Appointment Details"),
+            MessageLookupByLibrary.simpleMessage("Appointment details"),
         "appointmentID": MessageLookupByLibrary.simpleMessage("Appointment ID"),
         "appointmentOnlineDiagnosticBookingManagementMultivendorApp":
             MessageLookupByLibrary.simpleMessage(
-                "Appointment, Online Diagnostic, Booking, Management Multi-Vendor App"),
+                "Coaching, hypnosis, and mental preparation session, multi-professional booking and management"),
         "appointmentType":
-            MessageLookupByLibrary.simpleMessage("Appointment Type"),
+            MessageLookupByLibrary.simpleMessage("Appointment type"),
         "appointments": MessageLookupByLibrary.simpleMessage("Appointments"),
         "appointmentsForToday":
-            MessageLookupByLibrary.simpleMessage("Appointments For Today"),
+            MessageLookupByLibrary.simpleMessage("Appointments for today"),
         "apr": MessageLookupByLibrary.simpleMessage("Apr"),
-        "areYouSure": MessageLookupByLibrary.simpleMessage("Are you Sure?"),
+        "areYouSure": MessageLookupByLibrary.simpleMessage("Are you sure?"),
         "areYouSureLogout": MessageLookupByLibrary.simpleMessage(
-            "Are you sure?\n do want to logout?"),
-        "attachPhoto": MessageLookupByLibrary.simpleMessage("Attach Photo"),
+            "Do you really want to log out?"),
+        "attachPhoto": MessageLookupByLibrary.simpleMessage("Attach a photo"),
         "attachments": MessageLookupByLibrary.simpleMessage("Attachments"),
+        "noNotification":
+            MessageLookupByLibrary.simpleMessage("No notification"),
         "aug": MessageLookupByLibrary.simpleMessage("Aug"),
         "awards": MessageLookupByLibrary.simpleMessage("Awards"),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "bankName": MessageLookupByLibrary.simpleMessage("Bank Name"),
-        "beforeMeal": MessageLookupByLibrary.simpleMessage("Before Meal"),
+        "beforeMeal":
+            MessageLookupByLibrary.simpleMessage("Before the session"),
         "bestDermatologists":
-            MessageLookupByLibrary.simpleMessage("Best Dermatologists"),
-        "bod": MessageLookupByLibrary.simpleMessage("DOB"),
-        "bookNow": MessageLookupByLibrary.simpleMessage("Book Now"),
+            MessageLookupByLibrary.simpleMessage("Best dermatologists"),
+        "bod": MessageLookupByLibrary.simpleMessage("BOD"),
+        "bookNow": MessageLookupByLibrary.simpleMessage("Book now"),
         "both": MessageLookupByLibrary.simpleMessage("Both"),
         "byProceedingForwardYouAgreeToThen":
-            MessageLookupByLibrary.simpleMessage(
-                "By proceeding forward, You agree to the\n"),
+            MessageLookupByLibrary.simpleMessage("By proceeding, you agree to"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cancelled": MessageLookupByLibrary.simpleMessage("Cancelled"),
         "cardiologist": MessageLookupByLibrary.simpleMessage("CARDIOLOGIST"),
         "category": MessageLookupByLibrary.simpleMessage("Category"),
         "checkAppointmentsEtc": MessageLookupByLibrary.simpleMessage(
-            "Check Appointments tab\nfor all your upcoming appointments"),
-        "clearAll": MessageLookupByLibrary.simpleMessage("Clear All"),
-        "clinic": MessageLookupByLibrary.simpleMessage("At Clinic"),
+            "Check the Appointments tab for all your upcoming appointments"),
+        "clearAll": MessageLookupByLibrary.simpleMessage("Clear all"),
+        "clinic": MessageLookupByLibrary.simpleMessage("Coaching session"),
         "completeRegistration":
-            MessageLookupByLibrary.simpleMessage("Complete Registration"),
+            MessageLookupByLibrary.simpleMessage("Complete registration"),
         "completed": MessageLookupByLibrary.simpleMessage("Completed"),
         "completionOTP": MessageLookupByLibrary.simpleMessage("Completion OTP"),
         "confirmBooking":
-            MessageLookupByLibrary.simpleMessage("Confirm Booking"),
-        "consultation": MessageLookupByLibrary.simpleMessage("CONSULTATION"),
+            MessageLookupByLibrary.simpleMessage("Confirm booking"),
+        "consultation":
+            MessageLookupByLibrary.simpleMessage("TRAINING SESSION"),
         "consultationCharge":
-            MessageLookupByLibrary.simpleMessage("Consultation Charge"),
+            MessageLookupByLibrary.simpleMessage("Coaching session fee"),
         "continueText": MessageLookupByLibrary.simpleMessage("Continue"),
         "correctSwiftCode":
             MessageLookupByLibrary.simpleMessage("Correct Swift Code"),
         "couponDiscount":
             MessageLookupByLibrary.simpleMessage("Coupon Discount"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
-        "dateOfBirth": MessageLookupByLibrary.simpleMessage("Date Of Birth"),
+        "dateOfBirth": MessageLookupByLibrary.simpleMessage("Date of Birth"),
         "days": MessageLookupByLibrary.simpleMessage("Days"),
         "dec": MessageLookupByLibrary.simpleMessage("Dec"),
         "declined": MessageLookupByLibrary.simpleMessage("Declined"),
-        "degrees": MessageLookupByLibrary.simpleMessage("degrees"),
+        "degrees": MessageLookupByLibrary.simpleMessage("Qualifications"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
-        "deleteChat": MessageLookupByLibrary.simpleMessage("Delete Chat"),
+        "deleteChat": MessageLookupByLibrary.simpleMessage("Delete chat"),
         "deleteForMe": MessageLookupByLibrary.simpleMessage("Delete for me"),
         "deleteMessage": MessageLookupByLibrary.simpleMessage("Delete message"),
         "deleteMyAccount":
-            MessageLookupByLibrary.simpleMessage("Delete My Account"),
+            MessageLookupByLibrary.simpleMessage("Delete my account"),
         "dentist": MessageLookupByLibrary.simpleMessage("DENTIST"),
         "deposit": MessageLookupByLibrary.simpleMessage("Deposit"),
         "dermatologist": MessageLookupByLibrary.simpleMessage("DERMATOLOGIST"),
         "designation": MessageLookupByLibrary.simpleMessage("Designation"),
         "details": MessageLookupByLibrary.simpleMessage("Details"),
-        "diagnosedWith": MessageLookupByLibrary.simpleMessage("Diagnosed With"),
+        "diagnosedWith": MessageLookupByLibrary.simpleMessage("Diagnosed with"),
         "doYouReallyWantToEtc": MessageLookupByLibrary.simpleMessage(
-            "Do you really want to delete your account? all of your data will deleted and you won’t be able to recover it again !\n\nDo you really want to proceed?"),
+            "Do you really want to delete your account? All your data will be deleted and you will not be able to recover it! Do you really want to proceed?"),
         "doYouReallyWantToLogoutEtc": MessageLookupByLibrary.simpleMessage(
-            "Do you really want to logout your account?\n\nAre you sure?"),
+            "Do you really want to log out of your account? Are you sure?"),
         "doYouWantToCancelThisAppointment":
             MessageLookupByLibrary.simpleMessage(
-                "Do you want to cancel this Appointment?"),
-        "doctorDetail": MessageLookupByLibrary.simpleMessage("Doctor Details"),
-        "doctorIo": MessageLookupByLibrary.simpleMessage("DOCTOR.IO"),
+                "Do you want to cancel this appointment?"),
+        "doctorDetail": MessageLookupByLibrary.simpleMessage("Coach details"),
+        "doctorIo": MessageLookupByLibrary.simpleMessage("OCAOCHING"),
         "done": MessageLookupByLibrary.simpleMessage("Done"),
-        "doseTime": MessageLookupByLibrary.simpleMessage("Dose Time"),
+        "doseTime": MessageLookupByLibrary.simpleMessage("Dose time"),
         "doses": MessageLookupByLibrary.simpleMessage("Doses"),
         "downloadPrescription":
-            MessageLookupByLibrary.simpleMessage("Download Prescription"),
-        "dr": MessageLookupByLibrary.simpleMessage("Dr."),
+            MessageLookupByLibrary.simpleMessage("Download Coaching Plan"),
+        "dr": MessageLookupByLibrary.simpleMessage("Coach"),
         "drHasSentYouEtc": MessageLookupByLibrary.simpleMessage(
-            "Dr. Has sent you medication schedule"),
+            "Your coach has sent you a personalized session plan"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
-        "editDetails": MessageLookupByLibrary.simpleMessage("Edit Details"),
-        "editPatient": MessageLookupByLibrary.simpleMessage("Edit Patient"),
-        "editProfile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
+        "editDetails": MessageLookupByLibrary.simpleMessage("Edit details"),
+        "editPatient": MessageLookupByLibrary.simpleMessage("Edit client"),
+        "editProfile": MessageLookupByLibrary.simpleMessage("Edit profile"),
         "education": MessageLookupByLibrary.simpleMessage("Education"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailSentSuccessfullySentYourMail":
             MessageLookupByLibrary.simpleMessage(
-                "Email sent successfully sent your mail"),
+                "Email has been sent successfully"),
         "end": MessageLookupByLibrary.simpleMessage("End"),
-        "endMeeting": MessageLookupByLibrary.simpleMessage("Meeting Ended"),
-        "enterAmountOfYourChoice":
-            MessageLookupByLibrary.simpleMessage("Enter Amount Of Your Choice"),
+        "endMeeting": MessageLookupByLibrary.simpleMessage("End meeting"),
+        "enterAmountOfYourChoice": MessageLookupByLibrary.simpleMessage(
+            "Enter the amount of your choice"),
         "enterHere": MessageLookupByLibrary.simpleMessage("Enter here..."),
         "enterMobileNumber":
-            MessageLookupByLibrary.simpleMessage("Enter Mobile Number"),
-        "enterYourOTP": MessageLookupByLibrary.simpleMessage("Enter Your OTP"),
+            MessageLookupByLibrary.simpleMessage("Enter mobile number"),
+        "enterYourOTP": MessageLookupByLibrary.simpleMessage("Enter your OTP"),
         "enterYourPhoneNumberEtc": MessageLookupByLibrary.simpleMessage(
-            "Enter your phone number to continue.\nWe will send an OTP for verification"),
-        "exit": MessageLookupByLibrary.simpleMessage("Exit"),
+            "Enter your phone number to continue. We will send you an OTP for verification"),
         "exp": MessageLookupByLibrary.simpleMessage("Exp"),
-        "expShort": MessageLookupByLibrary.simpleMessage("Exp"),
+        "expShort": MessageLookupByLibrary.simpleMessage("Exp."),
         "experience": MessageLookupByLibrary.simpleMessage("Experience"),
         "expertise": MessageLookupByLibrary.simpleMessage("EXPERTISE"),
         "explainYourProblemBriefly": MessageLookupByLibrary.simpleMessage(
-            "Explain Your Problem Briefly"),
+            "Briefly explain your problem"),
         "feb": MessageLookupByLibrary.simpleMessage("Feb"),
         "fees": MessageLookupByLibrary.simpleMessage("Fees"),
-        "feesHigh": MessageLookupByLibrary.simpleMessage("Fees : High"),
-        "feesLow": MessageLookupByLibrary.simpleMessage("Fees : Low"),
+        "feesHigh": MessageLookupByLibrary.simpleMessage("Fees: High"),
+        "feesLow": MessageLookupByLibrary.simpleMessage("Fees: Low"),
         "female": MessageLookupByLibrary.simpleMessage("Female"),
         "findBySpecialities":
-            MessageLookupByLibrary.simpleMessage("Find by Specialities"),
+            MessageLookupByLibrary.simpleMessage("Find by specialities"),
         "findDoctorsBookAppointmentEtc": MessageLookupByLibrary.simpleMessage(
-            "Explore a wide range of coaches, hypnotherapists, and mental coaches, engage in virtual conversations, and achieve your goals."),
+            "Explore a wide range of coaches, hypnotherapists, and mental preparation experts, participate in virtual sessions, and achieve your goals."),
         "forgetPassword":
-            MessageLookupByLibrary.simpleMessage("Forget Password?"),
+            MessageLookupByLibrary.simpleMessage("Forgot password?"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot password"),
         "fullName": MessageLookupByLibrary.simpleMessage("Full Name"),
-        "fullname": MessageLookupByLibrary.simpleMessage("Fullname"),
+        "fullname": MessageLookupByLibrary.simpleMessage("Full Name"),
         "fundsHaveBeenAddedEtc": MessageLookupByLibrary.simpleMessage(
-            "Funds have been added\nto your account successfully!"),
+            "Funds have been successfully added to your account!"),
         "gender": MessageLookupByLibrary.simpleMessage("Gender"),
-        "happyPatients": MessageLookupByLibrary.simpleMessage("HAPPY PATIENTS"),
+        "happyPatients": MessageLookupByLibrary.simpleMessage("HAPPY CLIENTS"),
         "hello": MessageLookupByLibrary.simpleMessage("Hello"),
-        "helpAndFAQ": MessageLookupByLibrary.simpleMessage("Help & FAQ"),
-        "holdersName": MessageLookupByLibrary.simpleMessage("Holders Name"),
+        "helpAndFAQ": MessageLookupByLibrary.simpleMessage("Help and FAQ"),
+        "holdersName": MessageLookupByLibrary.simpleMessage("Holder's Name"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "hour": MessageLookupByLibrary.simpleMessage("Hour"),
         "hours": MessageLookupByLibrary.simpleMessage("Hours"),
         "howAreYouEtc":
             MessageLookupByLibrary.simpleMessage("How are you feeling today?"),
-        "id": MessageLookupByLibrary.simpleMessage("Id"),
+        "id": MessageLookupByLibrary.simpleMessage("ID"),
         "insufficientBalance":
-            MessageLookupByLibrary.simpleMessage("Insufficient Balance"),
+            MessageLookupByLibrary.simpleMessage("Insufficient balance"),
         "isAskingYouToJoinEtc": MessageLookupByLibrary.simpleMessage(
-            "is asking you to join the video consultation."),
+            "is asking you to join the video coaching session."),
         "jan": MessageLookupByLibrary.simpleMessage("Jan"),
         "joinAChannel": MessageLookupByLibrary.simpleMessage("Join a channel"),
-        "joinMeeting": MessageLookupByLibrary.simpleMessage("Join Meeting"),
+        "joinMeeting": MessageLookupByLibrary.simpleMessage("Join meeting"),
         "jul": MessageLookupByLibrary.simpleMessage("Jul"),
         "jun": MessageLookupByLibrary.simpleMessage("Jun"),
-        "justNow": MessageLookupByLibrary.simpleMessage("Just now"),
-        "keepItOnIfYou": MessageLookupByLibrary.simpleMessage(
-            "Keep it On, if you want to receive notifications"),
-        "languages": MessageLookupByLibrary.simpleMessage("LANGUAGES"),
-        "leftTheMeeting":
-            MessageLookupByLibrary.simpleMessage("Left the meeting"),
-        "less": MessageLookupByLibrary.simpleMessage("Less"),
-        "logIn": MessageLookupByLibrary.simpleMessage("Log in"),
+        "label": MessageLookupByLibrary.simpleMessage("Label"),
+        "lastName": MessageLookupByLibrary.simpleMessage("Last Name"),
+        "leaveAReview": MessageLookupByLibrary.simpleMessage("Leave a review"),
+        "leaveMessage": MessageLookupByLibrary.simpleMessage("Leave a message"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
-        "makePayment": MessageLookupByLibrary.simpleMessage("Make Payment"),
         "male": MessageLookupByLibrary.simpleMessage("Male"),
-        "managePatients":
-            MessageLookupByLibrary.simpleMessage("Manage Patients"),
-        "mar": MessageLookupByLibrary.simpleMessage("Mar"),
-        "max": MessageLookupByLibrary.simpleMessage("MAX"),
-        "may": MessageLookupByLibrary.simpleMessage("May"),
-        "medicalName": MessageLookupByLibrary.simpleMessage("Medicine Name"),
-        "medicalPrescription":
-            MessageLookupByLibrary.simpleMessage("Medical Prescription"),
-        "meetingEnd": MessageLookupByLibrary.simpleMessage("Meeting end"),
-        "messageWillOnlyBeRemovedEtc": MessageLookupByLibrary.simpleMessage(
-            "Message will only be removed from this device\nAre you sure?"),
+        "management": MessageLookupByLibrary.simpleMessage("Management"),
+        "manageMyAccount":
+            MessageLookupByLibrary.simpleMessage("Manage my account"),
+        "message": MessageLookupByLibrary.simpleMessage("Message"),
         "messages": MessageLookupByLibrary.simpleMessage("Messages"),
-        "minimumAmountAddEtc": MessageLookupByLibrary.simpleMessage(
-            "Minimum amount 50 add to your wallet"),
-        "minute": MessageLookupByLibrary.simpleMessage("Minute"),
         "minutes": MessageLookupByLibrary.simpleMessage("Minutes"),
-        "mobileNumber": MessageLookupByLibrary.simpleMessage("Mobile number"),
         "month": MessageLookupByLibrary.simpleMessage("Month"),
-        "months": MessageLookupByLibrary.simpleMessage("Months"),
         "more": MessageLookupByLibrary.simpleMessage("More"),
-        "muteAudio": MessageLookupByLibrary.simpleMessage("Mute Audio"),
-        "muteTheAudio": MessageLookupByLibrary.simpleMessage("Mute the Audio"),
+        "myAccount": MessageLookupByLibrary.simpleMessage("My account"),
         "myAppointments":
-            MessageLookupByLibrary.simpleMessage("My Appointments"),
+            MessageLookupByLibrary.simpleMessage("My appointments"),
+        "myConsultations":
+            MessageLookupByLibrary.simpleMessage("My consultations"),
+        "myProfile": MessageLookupByLibrary.simpleMessage("My profile"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
-        "neurologist": MessageLookupByLibrary.simpleMessage("NEUROLOGIST"),
-        "noAppointmentsAvailable":
-            MessageLookupByLibrary.simpleMessage("No Appointments Available"),
-        "noData": MessageLookupByLibrary.simpleMessage("No Data"),
-        "noDataAvailable":
-            MessageLookupByLibrary.simpleMessage("No Data Available"),
+        "no": MessageLookupByLibrary.simpleMessage("No"),
+        "notification": MessageLookupByLibrary.simpleMessage("Notification"),
+        "notifications": MessageLookupByLibrary.simpleMessage("Notifications"),
+        "now": MessageLookupByLibrary.simpleMessage("Now"),
+        "of": MessageLookupByLibrary.simpleMessage("of"),
+        "online": MessageLookupByLibrary.simpleMessage("Online"),
+        "open": MessageLookupByLibrary.simpleMessage("Open"),
+        "or": MessageLookupByLibrary.simpleMessage("Or"),
+        "otp": MessageLookupByLibrary.simpleMessage("OTP"),
+        "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "payment": MessageLookupByLibrary.simpleMessage("Payment"),
+        "paymentStatus": MessageLookupByLibrary.simpleMessage("Payment status"),
+        "phone": MessageLookupByLibrary.simpleMessage("Phone"),
+        "pleaseEnterYourEmail":
+            MessageLookupByLibrary.simpleMessage("Please enter your email"),
+        "pleaseEnterYourFullName":
+            MessageLookupByLibrary.simpleMessage("Please enter your full name"),
+        "pleaseEnterYourMobileNumber": MessageLookupByLibrary.simpleMessage(
+            "Please enter your mobile number"),
+        "pleaseEnterYourPassword":
+            MessageLookupByLibrary.simpleMessage("Please enter your password"),
+        "pleaseEnterYourPhoneNumber": MessageLookupByLibrary.simpleMessage(
+            "Please enter your phone number"),
+        "pleaseEnterYourSpeciality": MessageLookupByLibrary.simpleMessage(
+            "Please enter your speciality"),
+        "pleaseEnterYourUsername":
+            MessageLookupByLibrary.simpleMessage("Please enter your username"),
+        "prescription": MessageLookupByLibrary.simpleMessage("Coaching Plan"),
+        "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+        "provider": MessageLookupByLibrary.simpleMessage("Provider"),
+        "ratings": MessageLookupByLibrary.simpleMessage("Ratings"),
+        "remove": MessageLookupByLibrary.simpleMessage("Remove"),
+        "reschedule": MessageLookupByLibrary.simpleMessage("Reschedule"),
+        "save": MessageLookupByLibrary.simpleMessage("Save"),
+        "search": MessageLookupByLibrary.simpleMessage("Search"),
+        "selectCategory":
+            MessageLookupByLibrary.simpleMessage("Select category"),
+        "send": MessageLookupByLibrary.simpleMessage("Send"),
+        "session": MessageLookupByLibrary.simpleMessage("Session"),
+        "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
+        "signOut": MessageLookupByLibrary.simpleMessage("Sign Out"),
+        "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
+        "speciality": MessageLookupByLibrary.simpleMessage("Speciality"),
+        "specialities": MessageLookupByLibrary.simpleMessage("Specialities"),
+        "submit": MessageLookupByLibrary.simpleMessage("Submit"),
+        "success": MessageLookupByLibrary.simpleMessage("Success"),
+        "termsAndConditions":
+            MessageLookupByLibrary.simpleMessage("Terms and Conditions"),
+        "total": MessageLookupByLibrary.simpleMessage("Total"),
+        "unavailable": MessageLookupByLibrary.simpleMessage("Unavailable"),
+        "update": MessageLookupByLibrary.simpleMessage("Update"),
+        "username": MessageLookupByLibrary.simpleMessage("Username"),
+        "verify": MessageLookupByLibrary.simpleMessage("Verify"),
+        "viewProfile": MessageLookupByLibrary.simpleMessage("View Profile"),
+        "visitWebsite": MessageLookupByLibrary.simpleMessage("Visit Website"),
+        "wallet": MessageLookupByLibrary.simpleMessage("Wallet"),
+        "yourAppointmentHasBeenCancelled": MessageLookupByLibrary.simpleMessage(
+            "Your appointment has been cancelled"),
+        "yourAppointmentHasBeenRescheduled":
+            MessageLookupByLibrary.simpleMessage(
+                "Your appointment has been rescheduled"),
+        "yourAppointmentIsBooked":
+            MessageLookupByLibrary.simpleMessage("Your appointment is booked"),
+        "yourWalletIsEmpty":
+            MessageLookupByLibrary.simpleMessage("Your wallet is empty"),
+        "yourWalletIsNowLoaded": MessageLookupByLibrary.simpleMessage(
+            "Your wallet is now loaded with funds"),
         "noExpertiseAvailable":
-            MessageLookupByLibrary.simpleMessage("No Expertise Available"),
+            MessageLookupByLibrary.simpleMessage("No expertise available"),
         "noMedicalPrescriptionAdd":
-            MessageLookupByLibrary.simpleMessage("No Medical Prescription Add"),
-        "noPatient": MessageLookupByLibrary.simpleMessage("No Patient"),
+            MessageLookupByLibrary.simpleMessage("No coaching plan added"),
+        "noPatient": MessageLookupByLibrary.simpleMessage("No client"),
         "noServiceAvailable":
-            MessageLookupByLibrary.simpleMessage("No Service Available"),
+            MessageLookupByLibrary.simpleMessage("No service available"),
         "noServiceLocation":
-            MessageLookupByLibrary.simpleMessage("No Service Location"),
+            MessageLookupByLibrary.simpleMessage("No service location"),
         "noSlotAvailable":
-            MessageLookupByLibrary.simpleMessage("No Slot Available"),
+            MessageLookupByLibrary.simpleMessage("No slot available"),
         "noUserFoundForThisEmail": MessageLookupByLibrary.simpleMessage(
             "No user found for this email"),
         "noWithdrawRequestAvailable": MessageLookupByLibrary.simpleMessage(
-            "No Withdraw Request Available"),
-        "notAvailable": MessageLookupByLibrary.simpleMessage("Not Available"),
+            "No withdraw request available"),
+        "notAvailable": MessageLookupByLibrary.simpleMessage("Not available"),
         "notEnoughBalanceToWithdraw": MessageLookupByLibrary.simpleMessage(
             "Not enough balance to withdraw!"),
         "noteOnlyIfYouEtc": MessageLookupByLibrary.simpleMessage(
-            "Note: Only if you feel fever and headace"),
+            "Note: Only if you experience fever and headaches"),
         "notes": MessageLookupByLibrary.simpleMessage("Notes"),
         "notifications": MessageLookupByLibrary.simpleMessage("Notifications"),
         "nov": MessageLookupByLibrary.simpleMessage("Nov"),
         "nowYouCanBookAppointmentsEtc": MessageLookupByLibrary.simpleMessage(
-            "Now you can book appointments\nwith single click to avoid disturbance."),
+            "You can now book appointments with a single click to avoid disruptions."),
         "oct": MessageLookupByLibrary.simpleMessage("Oct"),
         "offerThisQRAtClinicShop": MessageLookupByLibrary.simpleMessage(
-            "Offer this QR at clinic shop, they will\nscan it and will have all the details"),
+            "Offer this QR code at the clinic's shop, they will scan it and get all the details"),
         "online": MessageLookupByLibrary.simpleMessage("Online"),
         "ophthalmologist":
             MessageLookupByLibrary.simpleMessage("OPHTHALMOLOGIST"),
         "orthopedist": MessageLookupByLibrary.simpleMessage("ORTHOPEDIST"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordDoesntMatch":
-            MessageLookupByLibrary.simpleMessage("password doesn\'t match"),
+            MessageLookupByLibrary.simpleMessage("The password does not match"),
         "passwordDosentMatchEnterSamePassword":
             MessageLookupByLibrary.simpleMessage(
-                "Password dosen\'t match! Enter same password."),
+                "The passwords do not match! Please enter the same password."),
         "pathologist": MessageLookupByLibrary.simpleMessage("PATHOLOGIST"),
-        "patient": MessageLookupByLibrary.simpleMessage("Patient"),
-        "patientDetail":
-            MessageLookupByLibrary.simpleMessage("Patient Details"),
-        "patients": MessageLookupByLibrary.simpleMessage("Patients"),
+        "patient": MessageLookupByLibrary.simpleMessage("Client"),
+        "patientDetail": MessageLookupByLibrary.simpleMessage("Client details"),
+        "patients": MessageLookupByLibrary.simpleMessage("Clients"),
         "payNow": MessageLookupByLibrary.simpleMessage("Pay Now"),
         "payableAmount": MessageLookupByLibrary.simpleMessage("Payable Amount"),
         "paymentCancelled":
@@ -289,44 +336,44 @@ class MessageLookup extends MessageLookupByLibrary {
         "pending": MessageLookupByLibrary.simpleMessage("Pending"),
         "phoneVerification":
             MessageLookupByLibrary.simpleMessage("Phone Verification"),
-        "pleaseAccountNumberSame":
-            MessageLookupByLibrary.simpleMessage("Please Account Number same"),
+        "pleaseAccountNumberSame": MessageLookupByLibrary.simpleMessage(
+            "Please use the same account number"),
         "pleaseAddComment":
-            MessageLookupByLibrary.simpleMessage("Please Add comment"),
+            MessageLookupByLibrary.simpleMessage("Please add a comment"),
         "pleaseAddYourPhoto":
-            MessageLookupByLibrary.simpleMessage("Please Add your Photo"),
-        "pleaseAtLeastRatingAdd":
-            MessageLookupByLibrary.simpleMessage("Please at least rating add."),
+            MessageLookupByLibrary.simpleMessage("Please add your photo"),
+        "pleaseAtLeastRatingAdd": MessageLookupByLibrary.simpleMessage(
+            "Please add at least a rating."),
         "pleaseEnterFullName":
-            MessageLookupByLibrary.simpleMessage("Please Enter Full Name"),
+            MessageLookupByLibrary.simpleMessage("Please enter your full name"),
         "pleaseEnterMail":
-            MessageLookupByLibrary.simpleMessage("Please enter mail"),
-        "pleaseEnterMobileNumber":
-            MessageLookupByLibrary.simpleMessage("Please Enter Mobile Number"),
-        "pleaseEnterValidEmail":
-            MessageLookupByLibrary.simpleMessage("Please enter valid email"),
+            MessageLookupByLibrary.simpleMessage("Please enter your email"),
+        "pleaseEnterMobileNumber": MessageLookupByLibrary.simpleMessage(
+            "Please enter your mobile number"),
+        "pleaseEnterValidEmail": MessageLookupByLibrary.simpleMessage(
+            "Please enter a valid email address"),
         "pleaseEnterYourOtp":
-            MessageLookupByLibrary.simpleMessage("Please enter your otp."),
+            MessageLookupByLibrary.simpleMessage("Please enter your OTP."),
         "pleaseExplainYourProblem":
-            MessageLookupByLibrary.simpleMessage("Please Explain your Problem"),
+            MessageLookupByLibrary.simpleMessage("Please explain your problem"),
         "pleaseFillYourDetailsAndCompleteRegistrationToStartFind":
             MessageLookupByLibrary.simpleMessage(
-                "Please fill your details and complete registration to start find doctors, book appointments have digital consultation, get prescription and live healthy life."),
+                "Please provide your contact details and complete registration to start connecting with coaches, scheduling sessions, receiving online advice, getting personalized programs, and embarking on your journey towards a healthier life."),
         "pleaseProvideThisOTPEtc": MessageLookupByLibrary.simpleMessage(
-            "Please, provide this OTP to doctor when asked, only after you get your services as per the order."),
+            "Please provide this OTP to the coach when asked, but only after you have received their services as per the order."),
         "pleaseRechargeEtc": MessageLookupByLibrary.simpleMessage(
-            "Please recharge\nyour wallet to continue booking"),
+            "Please recharge your wallet to continue booking"),
         "pleaseSelectAppointmentTime": MessageLookupByLibrary.simpleMessage(
-            "Please select Appointment Time"),
+            "Please select the appointment time"),
         "pleaseSelectAppointmentType": MessageLookupByLibrary.simpleMessage(
-            "Please select Appointment Type"),
+            "Please select the appointment type"),
         "pleaseSelectYourCountry":
             MessageLookupByLibrary.simpleMessage("Please select your country"),
         "pleaseVerifiedYourEmail":
-            MessageLookupByLibrary.simpleMessage("Please verified your email"),
+            MessageLookupByLibrary.simpleMessage("Please verify your email"),
         "pleaseWaitYourMeetingEtc": MessageLookupByLibrary.simpleMessage(
-            "Please wait Your meeting not Start"),
-        "prescriptions": MessageLookupByLibrary.simpleMessage("Prescriptions"),
+            "Please wait, your meeting is not starting"),
+        "prescriptions": MessageLookupByLibrary.simpleMessage("Coaching Plans"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "purchase": MessageLookupByLibrary.simpleMessage("Purchase"),
@@ -335,128 +382,127 @@ class MessageLookup extends MessageLookupByLibrary {
         "quantity": MessageLookupByLibrary.simpleMessage("Quantity"),
         "rateYourExperience":
             MessageLookupByLibrary.simpleMessage("Rate Your Experience"),
-        "rating": MessageLookupByLibrary.simpleMessage("Ratings"),
+        "rating": MessageLookupByLibrary.simpleMessage("Rating"),
         "ratings": MessageLookupByLibrary.simpleMessage("Ratings"),
-        "reEnterAccountNumber":
-            MessageLookupByLibrary.simpleMessage("Re-Enter Account Number"),
-        "reSend": MessageLookupByLibrary.simpleMessage("ReSend"),
+        "reEnterAccountNumber": MessageLookupByLibrary.simpleMessage(
+            "Re-enter your account number"),
+        "reSend": MessageLookupByLibrary.simpleMessage("Resend"),
         "rechargeWallet":
-            MessageLookupByLibrary.simpleMessage("Recharge wallet"),
+            MessageLookupByLibrary.simpleMessage("Recharge Wallet"),
         "refund": MessageLookupByLibrary.simpleMessage("Refund"),
         "register": MessageLookupByLibrary.simpleMessage("Register"),
+        "please": MessageLookupByLibrary.simpleMessage(
+            "Please provide your contact details and complete registration to start connecting with coaches, hypnotherapists, and mental coaches, as well as engaging in digital conversations to achieve your goals and enhance your mental well-being."),
         "registration": MessageLookupByLibrary.simpleMessage("Registration"),
         "registrationSuccessfullyDonePleaseLoginToContinue":
             MessageLookupByLibrary.simpleMessage(
-                "Registration successfully done. Please login to continue"),
+                "Registration successful. Please log in to continue"),
         "rejected": MessageLookupByLibrary.simpleMessage("Rejected"),
         "relation": MessageLookupByLibrary.simpleMessage("Relation"),
+        "pleaseSelectAppointmentsAndCoach":
+            MessageLookupByLibrary.simpleMessage(
+                "Please select appointments and a coach"),
+        "selectAppointmentsAndCoach": MessageLookupByLibrary.simpleMessage(
+            "Select appointments and coach"),
+        "bookAppointments":
+            MessageLookupByLibrary.simpleMessage("Book Appointments"),
+        "noAppointmentsMessage": MessageLookupByLibrary.simpleMessage(
+            "Sorry, no appointments are currently available. Please try again later."),
+        "successfulAppointment": MessageLookupByLibrary.simpleMessage(
+            "You have successfully booked a free 15-minute appointment with "),
+        "bookAppointment":
+            MessageLookupByLibrary.simpleMessage("Book Appointment"),
         "reschedule": MessageLookupByLibrary.simpleMessage("Reschedule"),
         "retypePassword":
-            MessageLookupByLibrary.simpleMessage("Re-type Password"),
+            MessageLookupByLibrary.simpleMessage("Retype Password"),
         "reviews": MessageLookupByLibrary.simpleMessage("Reviews"),
-        "search": MessageLookupByLibrary.simpleMessage("Search"),
-        "searchDoctor": MessageLookupByLibrary.simpleMessage("Search Doctor"),
-        "searchForDoctorEtc": MessageLookupByLibrary.simpleMessage(
-            "Search for a mental wellness professional..."),
         "savedDoctors": MessageLookupByLibrary.simpleMessage(
             "Favorite Coach, Mental Coach, Hypnotherapist"),
+        "iHaveReadAndAgreeToTheOcoachingCode":
+            MessageLookupByLibrary.simpleMessage(
+                "I have read and agree to the Ocoaching Code of Conduct"),
+        "uploadRNCPDocument":
+            MessageLookupByLibrary.simpleMessage("Upload Certification(s)"),
+        "iCertifyThatIHoldACertification": MessageLookupByLibrary.simpleMessage(
+            "I certify that I hold a certification"),
+        "search": MessageLookupByLibrary.simpleMessage("Search"),
+        "allConditionsNotMet": MessageLookupByLibrary.simpleMessage(
+            "Conditions related to the coach are not met. Please complete all mandatory steps for coaches before proceeding."),
+        "invalidEmailOrPassword":
+            MessageLookupByLibrary.simpleMessage("Invalid email or password"),
+        "dobError": MessageLookupByLibrary.simpleMessage(
+            "Please select a date of birth."),
+        "genderError":
+            MessageLookupByLibrary.simpleMessage("Please select a gender."),
+        "countryError":
+            MessageLookupByLibrary.simpleMessage("Please select a country."),
+        "mobileNumberError": MessageLookupByLibrary.simpleMessage(
+            "Please enter a valid mobile number."),
+        "pleaseFillAllFields":
+            MessageLookupByLibrary.simpleMessage("Please fill in all fields"),
+        "noFileSelected":
+            MessageLookupByLibrary.simpleMessage("No file selected"),
+        "selectFile": MessageLookupByLibrary.simpleMessage("Select File"),
+        "selectFileToDownload": MessageLookupByLibrary.simpleMessage(
+            "Please select the file to download:"),
+        "downloadRNCPDiploma":
+            MessageLookupByLibrary.simpleMessage("Download RNCP Diploma"),
+        "searchDoctor": MessageLookupByLibrary.simpleMessage("Search Coach"),
+        "searchForDoctorEtc": MessageLookupByLibrary.simpleMessage(
+            "Searching for a mental health professional..."),
+        "coachingSessions":
+            MessageLookupByLibrary.simpleMessage("Coaching Sessions"),
         "selectAmount": MessageLookupByLibrary.simpleMessage("Select Amount"),
-        "selectAnother": MessageLookupByLibrary.simpleMessage("Select another"),
+        "selectAnother": MessageLookupByLibrary.simpleMessage("Select Another"),
         "selectCountry": MessageLookupByLibrary.simpleMessage("Select Country"),
         "selectDate": MessageLookupByLibrary.simpleMessage("Select Date"),
         "selectDateAndTime":
-            MessageLookupByLibrary.simpleMessage("Select Date & Time"),
+            MessageLookupByLibrary.simpleMessage("Select Date and Time"),
         "selectGender": MessageLookupByLibrary.simpleMessage("Select Gender"),
         "selectMonth": MessageLookupByLibrary.simpleMessage("Select Month"),
         "selectMsg": MessageLookupByLibrary.simpleMessage("Select Message"),
-        "selectTime": MessageLookupByLibrary.simpleMessage("Select Time"),
+        "selectPaymentMethod":
+            MessageLookupByLibrary.simpleMessage("Select Payment Method"),
+        "selectYourLanguage":
+            MessageLookupByLibrary.simpleMessage("Select Your Language"),
+        "selectYourPaymentMethod":
+            MessageLookupByLibrary.simpleMessage("Select Your Payment Method"),
+        "setLanguage": MessageLookupByLibrary.simpleMessage("Set Language"),
         "send": MessageLookupByLibrary.simpleMessage("Send"),
-        "sendMedia": MessageLookupByLibrary.simpleMessage("Send Media"),
-        "sep": MessageLookupByLibrary.simpleMessage("Sep"),
-        "services": MessageLookupByLibrary.simpleMessage("SERVICES"),
-        "servicesLocation":
-            MessageLookupByLibrary.simpleMessage("SERVICES LOCATIONS"),
-        "shareYourExperienceEtc": MessageLookupByLibrary.simpleMessage(
-            "Share your experience in few words"),
-        "showThisQRAtClinic":
-            MessageLookupByLibrary.simpleMessage("Show This QR at Clinic"),
-        "slotNotAvailable":
-            MessageLookupByLibrary.simpleMessage("Slot not available"),
-        "slotsAvailable":
-            MessageLookupByLibrary.simpleMessage("Slots Available"),
-        "smsVerificationCodeEtc": MessageLookupByLibrary.simpleMessage(
-            "SMS verification code used to create the phone auth credential is invalid"),
-        "somethingWentWrong":
-            MessageLookupByLibrary.simpleMessage("Something  went wrong"),
-        "sortBy": MessageLookupByLibrary.simpleMessage("Sort by"),
-        "specialists": MessageLookupByLibrary.simpleMessage("Specialists"),
-        "statement": MessageLookupByLibrary.simpleMessage("Statement"),
-        "subTotal": MessageLookupByLibrary.simpleMessage("Sub Total"),
-        "submit": MessageLookupByLibrary.simpleMessage("Submit"),
-        "swiftCode": MessageLookupByLibrary.simpleMessage("Swift Code"),
-        "tapOnACouponEtc":
-            MessageLookupByLibrary.simpleMessage("Tap on a coupon to apply it"),
-        "termsAndConditions":
-            MessageLookupByLibrary.simpleMessage("Terms & Conditions"),
-        "termsConditions":
-            MessageLookupByLibrary.simpleMessage("Terms & Conditions"),
-        "termsOfUse": MessageLookupByLibrary.simpleMessage("Terms Of Use"),
-        "theAccountAlreadyExistsForThatEmail":
+        "setProfile": MessageLookupByLibrary.simpleMessage("Set Profile"),
+        "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
+        "signInHere": MessageLookupByLibrary.simpleMessage("Sign In Here"),
+        "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
+        "updateProfile": MessageLookupByLibrary.simpleMessage("Update Profile"),
+        "updateYourDetails":
+            MessageLookupByLibrary.simpleMessage("Update Your Details"),
+        "uploadDocument":
+            MessageLookupByLibrary.simpleMessage("Upload Document"),
+        "verify": MessageLookupByLibrary.simpleMessage("Verify"),
+        "visitWebsite": MessageLookupByLibrary.simpleMessage("Visit Website"),
+        "yourRequestIsPending":
+            MessageLookupByLibrary.simpleMessage("Your request is pending"),
+        "yourWalletBalance":
+            MessageLookupByLibrary.simpleMessage("Your wallet balance"),
+        "yourWalletHasBeenUpdated": MessageLookupByLibrary.simpleMessage(
+            "Your wallet has been updated"),
+        "yourWithdrawRequestHasBeenApproved":
             MessageLookupByLibrary.simpleMessage(
-                "The account already exists for that email."),
-        "thePasswordProvidedIsTooWeak": MessageLookupByLibrary.simpleMessage(
-            "The password provided is too weak."),
-        "theProvidedPhoneEtc": MessageLookupByLibrary.simpleMessage(
-            "The provided phone number is not valid."),
-        "thereIsNotEnoughEtc": MessageLookupByLibrary.simpleMessage(
-            "There is not enough funds in wallet"),
-        "thisMonthNowAllow":
-            MessageLookupByLibrary.simpleMessage("This Month Now Allow"),
-        "thisVideoIsGreaterThan15MbEtc": MessageLookupByLibrary.simpleMessage(
-            "This video is greater than 15 mb\nPlease select another..."),
-        "time": MessageLookupByLibrary.simpleMessage("Time"),
-        "tooLarge": MessageLookupByLibrary.simpleMessage("Too Large"),
-        "totalAmount": MessageLookupByLibrary.simpleMessage("Total Amount"),
-        "transactionSuccessful":
-            MessageLookupByLibrary.simpleMessage("Transaction Successful"),
-        "type": MessageLookupByLibrary.simpleMessage("Type"),
-        "unKnown": MessageLookupByLibrary.simpleMessage("UnKnown"),
-        "upcoming": MessageLookupByLibrary.simpleMessage("Upcoming"),
-        "video": MessageLookupByLibrary.simpleMessage("VIDEO"),
-        "viewAll": MessageLookupByLibrary.simpleMessage("View all"),
-        "waitingFor": MessageLookupByLibrary.simpleMessage("Waiting for"),
-        "waitingForConfirmation":
-            MessageLookupByLibrary.simpleMessage("Waiting for confirmation"),
-        "wallet": MessageLookupByLibrary.simpleMessage("Wallet"),
-        "weHaveSentOTPEtc": MessageLookupByLibrary.simpleMessage(
-            "We have sent OTP verification code\non phone number you entered."),
-        "week": MessageLookupByLibrary.simpleMessage("Week"),
-        "weeks": MessageLookupByLibrary.simpleMessage("Weeks"),
-        "withdraw": MessageLookupByLibrary.simpleMessage("Withdraw"),
-        "withdrawRequest":
-            MessageLookupByLibrary.simpleMessage("Withdraw Request"),
-        "withdrawRequests":
-            MessageLookupByLibrary.simpleMessage("Withdraw Requests"),
-        "writeHere": MessageLookupByLibrary.simpleMessage("Write Here"),
-        "year": MessageLookupByLibrary.simpleMessage("Year"),
-        "years": MessageLookupByLibrary.simpleMessage("years"),
-        "yesterday": MessageLookupByLibrary.simpleMessage("Yesterday"),
-        "youHaveAlreadyBookedThisSlot": MessageLookupByLibrary.simpleMessage(
-            "You have already booked this slot"),
-        "yourAppointmentHasEtc": MessageLookupByLibrary.simpleMessage(
-            "Your appointment\nhas been booked successfully"),
-        "yourFullname": MessageLookupByLibrary.simpleMessage("Your Fullname"),
-        "yourPhoneNumberHasEtc": MessageLookupByLibrary.simpleMessage(
-            "Your phone number has been verified"),
-        "yourProblem": MessageLookupByLibrary.simpleMessage("Your Problem"),
-        "iAmAMentalCoach":
-            MessageLookupByLibrary.simpleMessage("I am a mental coach"),
-        "iAmAHypnotherapist":
-            MessageLookupByLibrary.simpleMessage("I am a hypnotherapist"),
-        "please": MessageLookupByLibrary.simpleMessage(
-            "Please provide your details and complete the registration to start connecting with coaches, hypnotherapists, and mental preparation specialists, as well as engaging in digital conversations, this is aimed at helping you achieve your goals and enhance your mental well-being."),
-        "uploadRNCPDocument":
-            MessageLookupByLibrary.simpleMessage("Upload the diploma(s)"),
-        "yourReview": MessageLookupByLibrary.simpleMessage("Your Review")
+                "Your withdrawal request has been approved"),
+        "youHaveNotYetCompletedEtc": MessageLookupByLibrary.simpleMessage(
+            "You have not yet completed all mandatory steps. Please complete them to continue."),
+        "youHaveNotYetCompletedVerification":
+            MessageLookupByLibrary.simpleMessage(
+                "You have not yet completed verification."),
+        "youNeedToAddMoreFundsToContinue": MessageLookupByLibrary.simpleMessage(
+            "You need to add more funds to continue"),
+        "youNeedToCompleteTheForm": MessageLookupByLibrary.simpleMessage(
+            "You need to complete the form"),
+        "youNeedToSignIn":
+            MessageLookupByLibrary.simpleMessage("You need to sign in"),
+        "yourEmailHasBeenSent":
+            MessageLookupByLibrary.simpleMessage("Your email has been sent"),
+        "yourRequestHasBeenSent":
+            MessageLookupByLibrary.simpleMessage("Your request has been sent")
       };
 }
