@@ -5,7 +5,7 @@ class ConstRes {
 
   //static const String privacyPolicy = '${base}privacypolicy';
   static const String privacyPolicy =
-      'https://www.privacypolicies.com/live/4274561e-aef7-44b3-a0ce-236dd3b66fd6';
+      'https://www.privacypolicies.com/live/6c93174d-f11b-4c2d-8957-9f0f032175d1';
   static const String termsOfUse = '${base}termsOfUse';
   static const String baseUrl = '${base}api/user/';
   static const String apiKey = '123';
