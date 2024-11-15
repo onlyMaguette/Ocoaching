@@ -2,7 +2,10 @@ class ConstRes {
   ///------------------------ Backend urls and key ------------------------///
   static const String base = 'http://141.94.251.34/';
   static const String itemBaseURL = '${base}public/storage/';
-  static const String privacyPolicy = '${base}privacypolicy';
+
+  //static const String privacyPolicy = '${base}privacypolicy';
+  static const String privacyPolicy =
+      'https://www.privacypolicies.com/live/4274561e-aef7-44b3-a0ce-236dd3b66fd6';
   static const String termsOfUse = '${base}termsOfUse';
   static const String baseUrl = '${base}api/user/';
   static const String apiKey = '123';
